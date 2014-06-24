@@ -11,3 +11,5 @@ Tintle1.Rproj
 
 # vim work files
 *~
+*.swp
+*.swo
