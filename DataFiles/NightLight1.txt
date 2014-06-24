@@ -1,0 +1,3 @@
+	Darkness	NightLight	RoomLight
+Near	18	78	41
+Not	154	154	34
