@@ -1,0 +1,16 @@
+Package: Tintle1
+Type: Package
+Title: Datasets for "Introduction to Statistical Investigations"
+Version: 0.1-0
+Date: 2014-06-24
+Author: Randall Pruim
+Maintainer: Randall Pruim <rpruim@calvin.edu>
+Description: Datasets for "Introduction to Statistical Investigations" by
+    Tintle et al
+License: GPL-2
+Suggests:
+    lattice,
+    lubridate,
+    mosaic
+LazyLoad: yes
+LazyData: yes
