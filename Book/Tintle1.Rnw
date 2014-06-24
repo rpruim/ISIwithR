@@ -1,0 +1,261 @@
+
+\documentclass[twoside]{book}
+
+\usepackage[margin=.9in]{geometry}
+\usepackage{kpfonts}
+\usepackage{amsmath}
+\usepackage{probstat}
+\usepackage{xstring}
+\usepackage{makeidx}
+
+\def\Prob{\operatorname{Pr}}
+\def\tnot{\operatorname{not}}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage[hidenotes]{authNote}
+\usepackage[answerdelayed,exercisedelayed,lastexercise]{problems}
+
+%\def\myindex#1{\relax}
+%\def\Rindex#1{\relax}
+\def\myindex#1{\index{#1}}
+
+%\usepackage{tikz}
+
+\usepackage{multicol}
+\usepackage{longtable}
+\renewcommand{\arraystretch}{1.4}
+
+
+\usepackage[Bjornstrup]{fncychap}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+%% Now begin customising things. See the fancyhdr docs for more info.
+
+\renewcommand{\chaptermark}[1]{\thispagestyle{fancy}\markboth{{#1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{{#1}}{}}
+%\renewcommand{\headrulewidth}{0pt}
+
+\newcommand{\exampleidx}[1]{{\it #1}}
+\newcommand{\defidx}[1]{{\bf #1}}
+\newcommand{\mainidx}[1]{{\bf #1}}
+\newcommand{\probidx}[1]{{{\underline{#1}}}}
+
+\newcommand{\variable}[1]{{\color{green!50!black}\texttt{#1}}}
+%\newcommand{\dataframe}[1]{{\color{blue!80!black}\texttt{#1}}}
+%\newcommand{\Rindex}[2][black]{\index{{\color{#1}\texttt{#2}}}}
+\newcommand{\Rindex}[1]{\index{\texttt{#1}}}
+\newcommand{\dataframe}[1]{{\color{blue!80!black}\texttt{#1}}\Rindex{#1}}
+\newcommand{\function}[1]{{\color{purple!75!blue}\texttt{\StrSubstitute{#1}{()}{}()}}\Rindex{#1}}
+\newcommand{\option}[1]{{\color{brown!80!black}\texttt{#1}}}
+\newcommand{\argument}[1]{{\color{brown!80!black}\texttt{#1}}}
+%\newcommand{\pkg}[1]{{\color{red!80!black}\texttt{#1}}}
+\newcommand{\pkg}[1]{{\color{red!80!black}\texttt{#1}}\Rindex{#1}}
+\renewcommand{\code}[1]{{\color{blue!80!black}\texttt{#1}}}
+% and for models
+\newcommand{\model}[2]{{$\,$\hbox{#1}\ \ensuremath{\sim}\ \hbox{#2}}}
+
+
+
+\chead{}
+\lhead[\sf \thepage]{\sf \leftmark}
+\rhead[\sf \leftmark]{\sf \thepage}
+\cfoot{}
+\lfoot[\sf Last Modified: \today]{\sf \copyright 2014}
+\rfoot[\sf \copyright 2014]{\sf Last Modified: \today}
+
+\pagestyle{fancy}
+
+\usepackage{sfsect}
+\usepackage{relsize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% macros %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\Chapter#1{%
+\chapter{#1}
+%\setcounter{page}{1}%
+}
+\def\R{{\sf R}}
+\def\Rstudio{{\sf RStudio}}
+\def\term#1{\textbf{#1}}
+\def\tab#1{{\sf #1}}
+
+\def\myRuleColor{\color{black!50!white}}
+
+\DefineVerbatimEnvironment{Sinput}{Verbatim} {fontsize=\small} 
+\DefineVerbatimEnvironment{Soutput}{Verbatim} {fontsize=\small} 
+\fvset{listparameters={\setlength{\topsep}{0pt}}} 
+
+\newlength{\tempfmlength}
+\newsavebox{\fmbox}
+\newenvironment{fmpage}[1]
+     {
+	 \medskip
+	 \setlength{\tempfmlength}{#1}
+	 \begin{lrbox}{\fmbox}
+	   \begin{minipage}{#1}
+		 \vspace*{.02\tempfmlength}
+		 \hfill
+	   \begin{minipage}{.95 \tempfmlength}}
+		 {\end{minipage}\hfill
+		 \vspace*{.015\tempfmlength}
+		 \end{minipage}\end{lrbox}\fbox{\usebox{\fmbox}}
+	 \medskip
+	 }
+
+
+\newenvironment{boxedText}[1][.98\textwidth]%
+{%
+\begin{center}
+\begin{fmpage}{#1}
+}%
+{%
+\end{fmpage}
+\end{center}
+}
+
+\newenvironment{boxedTable}[2][tbp]%
+{%
+\begin{table}[#1]
+  \refstepcounter{table}
+  \begin{center}
+\begin{fmpage}{.98\textwidth}
+  \begin{center}
+	\sf \large Box~\expandafter\thetable. #2
+\end{center}
+\medskip
+}%
+{%
+\end{fmpage}
+\end{center}
+\end{table}		% need to do something about exercises that follow boxedTable
+}
+
+\def\question{{\sf Q. }}
+\def\answer{{\sf A. }}
+
+\newenvironment{example}%
+{\textbf{Example. }}%
+{}
+
+
+%%%%%%%%%%%%%%%%%%%%%% title page info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{An R Companion to Introduction to Statistical Investigations}
+
+\author{Randall Pruim and Lana Park}
+
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeindex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+<<setup,echo=FALSE,message=FALSE>>=
+require(grDevices)
+require(datasets)
+require(stats)
+require(lattice)
+require(grid)
+require(mosaic)
+require(vcd)
+require(fastR)
+require(Tintle1)
+trellis.par.set(theme=col.mosaic())
+trellis.par.set(fontsize=list(text=9))
+options(keep.blank.line=FALSE)
+options(width=90)
+require(knitr)
+opts_chunk$set(
+tidy=TRUE,
+boxedLabel=TRUE,
+size='small',
+dev='pdf',
+fig.width=3, fig.height=2,
+out.width=".47\\textwidth",
+fig.align='center',
+fig.show='hold',
+keep.source=TRUE,
+comment=NA
+)
+opts_template$set(fig4 = list(fig.height = 4, fig.width = 6, out.width=".65\\textwidth"))
+opts_template$set(fig3 = list(fig.height = 5*.35, fig.width = 8*.35, out.width=".31\\textwidth"))
+opts_template$set(fig2 = list(fig.height = 2, fig.width = 3, out.width=".47\\textwidth"))
+opts_template$set(fig1 = list(fig.height = 3, fig.width = 8, out.width=".95\\textwidth"))
+opts_template$set(figbig = list(fig.height = 9, fig.width = 12, out.width=".95\\textwidth"))
+knit_hooks$set(seed = function(before, options, envir) {
+    if (before) set.seed(options$seed) 
+})
+
+knit_hooks$set(chunk = function (x, options) {
+  if ( !is.null(options$boxedLabel) && options$boxedLabel && 
+         ! grepl("unnamed-chunk", options$label) &&
+		(is.null(options$echo) || options$echo) ) {
+		labeling <- paste0( 
+			"\\endgraf\\nobreak\\null\\endgraf\\penalty-2\\kern-.5\\baselineskip",
+			"\n\n",
+			"\\hfill \\makebox[0pt][r]{\\fbox{\\tiny ",
+			options$label,
+			"}}", 
+			"\\endgraf",
+			"\\kern-4.5ex\n\n")
+	}  else {
+		labeling <- ""
+	}
+    ai = knitr:::output_asis(x, options)
+    col = if (!ai)
+        paste(knitr:::color_def(options$background), if (!knitr:::is_tikz_dev(options))
+            "\\color{fgcolor}", sep = "")
+    k1 = paste(col, "\\begin{kframe}\n", sep = "")
+    k2 = "\\end{kframe}"
+    x = knitr:::.rm.empty.envir(paste(k1, labeling, x, k2, sep = ""))
+    size = if (options$size == "normalsize")
+        ""
+    else sprintf("\\%s", options$size)
+    if (!ai)
+        x = sprintf("\\begin{knitrout}%s\n%s\n\\end{knitrout}",
+            size, x)
+    if (options$split) {
+        name = knitr:::fig_path(".tex", options)
+        if (!file.exists(dirname(name)))
+            dir.create(dirname(name))
+        cat(x, file = name)
+        sprintf("\\input{%s}", name)
+}
+else x 
+}
+)
+
+knit_hooks$set(document = function(x) { 
+			   sub('\\usepackage[]{color}', '\\usepackage[]{xcolor}', 
+			   x, fixed = TRUE) 
+}) 
+@ 
+\def\intersect{\tand}
+
+\parindent=0pt
+\parskip=3mm
+
+\begin{document}
+\maketitle
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+
+<<child="00_Preliminaries.Rnw", eval=TRUE>>=
+@
+
+
+\bibliographystyle{amsalpha}
+\bibliography{StatsBook,DataSets,jamstatassoc,RS,R,kaplan}
+
+\printindex
+
+
+%\section{More Examples}
+
+\end{document}
+

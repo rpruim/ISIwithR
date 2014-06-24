@@ -1,0 +1,15 @@
+\Sexpr{set_parent('Tintle1.Rnw')}
+
+\setcounter{chapter}{-1}
+\Chapter{Preliminaries}
+
+<<>>=
+tally(~ Choice + Default, data=OrganDonor)
+tally(~ Choice + Default, data=OrganDonor, margins=TRUE)
+tally(Choice ~ Default, data=OrganDonor)
+bargraph( ~ Default, groups=Choice, data=OrganDonor, auto.key=TRUE)
+bargraph( ~ Default, groups=Choice, data=OrganDonor, stack=TRUE, auto.key=TRUE)
+OrganDonorSummary <- as.data.frame(tally(~Choice + Default, data=OrganDonor))
+barchart( Freq ~ Default, groups=Choice, data=OrganDonorSummary, stack=TRUE, auto.key=TRUE )
+@
+
