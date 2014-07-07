@@ -1,0 +1,518 @@
+\Sexpr{set_parent('Tintle1.Rnw')}
+
+\setcounter{chapter}{0}
+\Chapter{Significance: How strong is the evidence?}
+
+
+\section{Introduction to Chance Models}
+
+\subsection*{Can Dolphins Communicate?}
+
+%coin flip
+<<>>=
+rflip(n = 16, prob = 0.5)
+rflip(n = 16, prob = 0.5)
+simulation <- do(1000) * rflip(16, 0.5)    # 1000 samples, each of size 16 and proportion 0.5
+head(simulation, 3)
+@
+<<Figure1.4, opts.label="fig1">>=
+dotPlot(~ heads, data = simulation, width = 1)
+@
+
+%dolpins continued
+%making datasets in R? 16/28
+%11 Figure 1.5
+
+<<>>=
+simulation2 <- do(1000) * rflip(28, 0.5)
+head(simulation2, 3)
+@
+
+<<Figure1.6, opts.label="fig1">>=
+dotPlot(~ heads, data = simulation2, width = 1, groups = (16 <= heads))
+@
+%add vector line?
+
+\subsection*{Exploration 1.1: Can Dogs Understand Human Cues?}
+
+%16 q.5 simple bar graph of the data
+<<>>=
+
+@
+
+%18 q.13 redo with manual class heads
+<<>>=
+simulation.harley <- do(1) * rflip(10, 0.5)
+head(simulation.harley)
+simulation.class <- do(30) * rflip(10, 0.5)
+head(simulation.class)
+dotPlot(~ heads, data = simulation.class, width = 1)
+@
+
+%22 q.23
+<<>>=
+simulation.mech <- do(1000) * rflip(10, 0.5)
+head(simulation.mech, 3)
+dotPlot(~ heads, data = simulation.mech, width = 1)
+dotPlot(~ heads, data = simulation.mech, width = 1, groups = (heads <= 6 & heads >= 6))
+@
+
+
+\section{Measuring the Strength of Evidence}
+
+\subsection*{Example 1.2: Rock Paper Scissors}
+
+H_0
+H_a
+%28 Figure 1.7
+<<cache=TRUE>>=
+simulation.scissors <- do(1000) * rflip(12, 1/3)
+head(simulation.scissors, 3)
+dotPlot(~ prop, data = simulation.scissors)
+@
+
+%30 Figure 1.8 any way to add 1/6 line like in a histogram?
+<<>>=
+dotPlot(~ prop, data = simulation.scissors, groups = (prop <= 1/6))
+scissors <- subset(simulation.scissors, prop <= 1/6)
+nrow(scissors)
+172/1000
+@
+
+%32 Figure 1.9
+<<>>=
+dotPlot(~ prop, data = simulation.scissors, groups = (prop <= 1/12))
+scissors2 <- subset(simulation.scissors, prop <= 1/12)
+count <- nrow(scissors2)
+count/1000
+@
+
+\subsection*{Exploration 1.2: Tasting Water}
+
+%p.hat
+%n
+%hypotheses with pi
+
+%Proportion Test?
+<<cache=TRUE>>=
+sample.tap <- do(1) * rflip(27, 1/4)
+head(sample.tap)
+simulation.tap <- do(1000) * rflip(27, 1/4)
+head(simulation.tap, 3)
+dotPlot(~ prop, data = simulation.tap, groups = (prop <= 3/27), width = 0.1)
+@
+<<>>=
+tap <- subset(simulation.tap, prop <= 3/27)
+count <- nrow(tap)
+count/1000
+@
+
+\subsubsection*{Alternate Analysis}
+<<cache=TRUE>>=
+simulation.bottled <- do(1000) * rflip(27, 3/4)
+head(simulation.bottled, 3)
+dotPlot(~ prop, data = simulation.bottled, groups = (prop >= 24/27), width = 0.1)
+@
+<<>>=
+bottled <- subset(simulation.bottled, prop >=24/27)
+count <- nrow(bottled)
+count/1000
+@
+
+
+\section{Alternative Measure of Strength of Evidence}
+
+\subsection*{Example 1.3: Heart Transplant Operations}
+
+%Hypotheses
+<<cache=TRUE>>=
+simulation.heart <- do(1000) * rflip(10, 0.15)
+head(simulation.heart, 3)
+dotPlot(~ prop, data = simulation.heart, groups = (prop >= 8/10), width = 0.1)
+@
+<<>>=
+mean(~ prop, data = simulation.heart)
+sd(~ prop, data = simulation.heart)
+@
+
+\subsubsection*{Digging deeper into the St. George's mortality data}
+%Figure 1.11
+%p-value very different
+<<cache=TRUE>>=
+simulation.1986 <- do(1000) * rflip(361, 0.15)
+head(simulation.1986, 3)
+dotPlot(~ prop, data = simulation.1986, groups = (prop >= 71/361), width = 0.007)
+@
+<<>>=
+tally(~(prop >= 71/361), data = simulation.1986)
+p.value <- 6/1000; p.value
+prop(~(prop >= 71/361), data = simulation.1986)
+@
+<<>>=
+mean(~ prop, data = simulation.1986)
+sd(~ prop, data = simulation.1986)
+@
+
+\subsubsection*{An alternative to the p-value: Standardized value of a statistic}
+
+\[
+\mbox{$Z$-score} = \frac{ \mbox{statistic} - \mbox{mean} } { \mbox{standard deviation} }
+\]
+
+<<tidy=FALSE, opts.label="fig4">>=
+z <- (71/361 - 0.15) / 0.018; z   # z-score for sample size 361
+z <- (8/10 - 0.15) / 0.113; z   # z-score for sample size 10
+@
+
+%Figure 1.12 bell curve, add vectors
+<<>>=
+plotFun(dnorm(x, 0, 1) ~ x, x.lim = c(-4, 4))
+@
+
+\subsection*{Exploration 1.3: Do People Use Facial Prototyping?}
+
+%Hypotheses
+<<>>=
+count <- 18
+n <- 30
+prop <- 18/30
+mean <- 0.5
+@
+
+<<cache=TRUE>>=
+simulation.tim <- do(1000) * rflip(30, 0.5)
+head(simulation.tim, 3)
+dotPlot(~ prop, data = simulation.tim, groups = (prop >= 18/30), width = 0.05)
+@
+<<>>=
+tim <- subset(simulation.tim, prop >=18/30)
+count <- nrow(tim)
+p.value <- count/1000; p.value
+@
+<<>>=
+mean(~ prop, data = simulation.tim)
+sd <- sd(~ prop, data = simulation.tim); sd
+@
+<<>>=
+z <- (prop - mean) / sd; z
+@
+<<>>=
+xpnorm(prop, mean, sd)
+@
+
+%Figure 1.13
+
+
+\section{What Impacts Strength of Evidence?}
+
+\subsection*{Example 1.4: Predicting Elections from Faces?}
+
+%Hypotheses
+
+<<cache=TRUE>>=
+simulation.senate <- do(1000) * rflip(32, 0.5)
+head(simulation.senate, 3)
+dotPlot(~ prop, data = simulation.senate, groups = (prop >= 23/32), width = 0.05)
+@
+<<>>=
+senate <- subset(simulation.senate, prop >=23/32)
+count <- nrow(senate)
+p.value <- count/1000; p.value
+@
+<<>>=
+mean(~ prop, data = simulation.senate)
+sd <- sd(~ prop, data = simulation.senate); sd
+@
+<<>>=
+z <- (23/32 - 0.500) / sd; z
+@
+<<>>=
+xpnorm(prop, mean, sd)
+@
+
+%Figure 1.15
+
+<<cache=TRUE>>=
+senate.32 <- do(1000) * rflip(32, 0.5)
+dotPlot(~ prop, data = senate.32, xlim = c(0.1, 0.9))
+
+senate.128 <- do(1000) * rflip(128, 0.5)
+dotPlot(~ prop, data = senate.128, xlim = c(0.1, 0.9))
+
+
+senate.256 <- do(1000) * rflip(256, 0.5)
+dotPlot(~ prop, data = senate.256, xlim = c(0.1, 0.9))
+@
+
+<<>>=
+sd(~ prop, data = senate.32)
+sd(~ prop, data = senate.128)
+sd(~ prop, data = senate.256)
+@
+
+<<>>=
+senate.32 <- subset(senate.32, prop >=0.719)
+count.32 <- nrow(senate.32)
+p <- count.32/1000; p
+
+senate.128 <- subset(senate.128, prop >=0.719)
+count.128 <- nrow(senate.128)
+p <- count.128/1000; p
+
+senate.256 <- subset(senate.256, prop >=0.719)
+count.256 <- nrow(senate.256)
+p <- count.256/1000; p
+@
+
+%Figure 1.16
+%dotPlot(~ prop, data = simulation.senate, groups = (prop <= 0.2812 | prop >= 0.7188), width = 0.03, center = 0.5)
+<<>>=
+dotPlot(~ prop, data = simulation.senate, groups = (prop >= 23/32 & prop <= 9/32), width = 0.03)
+@
+<<>>=
+senate.greater <- subset(simulation.senate, prop >=23/32)
+count.greater <- nrow(senate.greater); count.greater
+
+senate.less <- subset(simulation.senate, prop <=9/32)
+count.less <- nrow(senate.less); count.less
+
+p.value <- (count.greater + count.less) /1000; p.value
+@
+
+\subsubsection*{Follow-up Study}
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
+	\item
+		Test statistic:  $\hat p = 189/279$ (the sample proportion)
+	\item
+		We simulate a world in which $\pi = 0.5$:
+<<cache=TRUE>>=
+simulation.house <- do(1000) * rflip(279, 0.5)
+head(simulation.house, 3)
+dotPlot(~ prop, data = simulation.house, width = 0.002)
+@
+
+<<>>=
+mean(~ prop, data = simulation.house)
+sd <- sd(~ prop, data = simulation.house); sd
+@
+<<>>=
+z <- (189/279 - 0.500) / sd; z
+@
+
+\end{enumerate}
+
+\subsection*{Exploration 1.4: Competitive Advantage to Uniform Colors?}
+
+One-sided test.
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
+  \item
+		Test statistic:  $\hat p = 0.543$ (the sample proportion of 248/457)
+	\item
+		We simulate a world in which $\pi = 0.5$:
+<<cache=TRUE>>=
+simulation.red <- do(1000) * rflip(457, 0.5)
+head(simulation.red, 3)
+dotPlot(~ prop, data = simulation.red, groups = (prop >= 0.543), width = 0.005)
+@
+<<>>=
+mean(~ prop, data = simulation.red)
+sd(~ prop, data = simulation.red)
+prop(~ (prop >=0.543), data = simulation.red)
+@
+\end{enumerate}
+
+Two-sided test.
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
+  \item
+  	Test statistic:  $\hat p = 0.543$ (the sample proportion of 248/457)
+	\item
+		We use the simulated world in which $\pi = 0.5$ from the one-sided test:
+<<>>=
+dotPlot(~ prop, data = simulation.red, groups = (prop <=0.457 | prop >= 0.543), width = 0.005)
+prop(~ (prop <=0.457 | prop >= 0.543), data = simulation.red)
+@
+\end{enumerate}
+
+\subsubsection*{Difference between statistic and null hypothesis parameter value}
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
+  \item
+  	Test statistic:  $\hat p = 0.57$ (the sample proportion)
+	\item
+		We use the simulated world in which $\pi = 0.5$:
+<<>>=
+dotPlot(~ prop, data = simulation.red, groups = (prop >= 0.57), width = 0.005)
+prop(~ (prop >=0.57), data = simulation.red)
+@
+\end{enumerate}
+
+\subsubsection*{Sample size}
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
+  \item
+    Test statistic:  $\hat p = 0.551$ (the sample proportion of 150/272)
+	\item
+		We simulate a world in which $\pi = 0.5$:
+<<cache=TRUE>>=
+simulation.boxing <- do(1000) * rflip(272, 0.5)
+head(simulation.boxing, 3)
+dotPlot(~ prop, data = simulation.boxing, groups = (prop >= 0.551), width = 0.005)
+@
+<<>>=
+mean(~ prop, data = simulation.boxing)
+sd(~ prop, data = simulation.boxing)
+prop(~ (prop >=0.551), data = simulation.boxing)
+@
+\end{enumerate}
+
+
+\section*{Inference on a single proportion: Theory-based approach}
+
+\subsection*{Example 1.5: Halloween Treats}
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
+  \item
+    Test statistic:  $\hat p = 0.523$ (the sample proportion of 148/283)
+  \item
+		We simulate a world in which $\pi = 0.5$:
+<<cache=TRUE>>=
+simulation.candy <- do(1000) * rflip(283, 0.5)
+head(simulation.candy, 3)
+dotPlot(~ prop, data = simulation.candy, width = 0.0025)
+@
+<<>>=
+mean(~ prop, data = simulation.candy)
+sd(~ prop, data = simulation.candy)
+@
+\end{enumerate}
+
+\subsubsection*{Theory-based approach (One proportion z test)}
+
+<<>>=
+mean <- 0.5
+n <- 283
+sd <- sqrt(mean * (1 - mean) / n); sd
+@
+
+<<>>=
+z <- (0.523 - mean) / sd; z
+@
+
+<<>>=
+pnorm(0.523, mean, sd)
+xpnorm(0.523, mean, sd)
+@
+
+%Figure 1.20
+<<>>=
+dotPlot(~ prop, data = simulation.candy, group = (prop <= 0.4770 | prop >= 0.5230), width = 0.0025)
+prop(~ (prop <= 0.4770 | prop >= 0.5230), data = simulation.candy)
+@
+
+\subsubsection*{A situation where a theory-based approach doesn't work}
+
+\subsection*{Exploration 1.5: Calling Heads or Tails}
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
+  \item
+    Test statistic:  $\hat p = 0.651$ (the sample proportion of 54/83)
+  \item
+  	We simulate a world in which $\pi = 0.5$:
+<<cache=TRUE>>=
+simulation.heads <- do(1000) * rflip(83, 0.5)
+head(simulation.heads, 3)
+dotPlot(~ prop, data = simulation.heads, groups = (prop >= 0.651), width = 0.02)
+@
+<<>>=
+mean(~ prop, data = simulation.heads)
+sd <- sd(~ prop, data = simulation.heads); sd
+prop(~ (prop >= 0.651), data = simulation.heads)
+@
+<<>>=
+z <- (0.651 - 0.500) / sd; z
+@
+%find z not by hand?
+\end{enumerate}
+
+\subsubsection*{Theory-based approach (One proportion z test)}
+
+%p.82 q.6 Normal Approximation
+
+\subsubsection*{Validity Conditions for Theory-Based Approach}
+<<>>=
+p.hat <- 0.651
+p.hat * 83    # check >= 10
+(1 - p.hat) *83    # check >= 10
+@
+
+\subsubsection*{Formulas}
+
+<<>>=
+sd <- sqrt(0.5 * (1 - 0.5) / 83); sd
+@
+<<>>=
+z <- (0.651 - 0.500) / sd; z
+2 * pnorm(z, lower.tail=FALSE) # times 2 because two-sided test
+@
+
+\subsubsection*{Follow-up Analysis #1}
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
+  \item
+    Test statistic:  $\hat p = 0.70$ (the sample proportion)
+  \item
+    We simulate a world in which $\pi = 0.5$:
+<<cache=TRUE>>=
+dotPlot(~ prop, data = simulation.heads, groups = (prop <= 0.30 | prop >= 0.70), width = 0.02)
+prop(~ (prop <= 0.30 | prop >= 0.70), data = simulation.heads)
+@
+\end{enumerate}
+
+\subsubsection*{Follow-up Analysis #2}
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
+  \item
+    Test statistic:  $\hat p = 0.875$ (the sample proportion of 7/8)
+  \item
+    We simulate a world in which $\pi = 0.5$:
+<<cache=TRUE>>=
+simulation.small <- do(1000) * rflip(8, 0.5)
+head(simulation.small, 3)
+dotPlot(~ prop, data = simulation.small, groups = (prop <= 0.125 | prop >= 0.875))
+prop(~ (prop <= 0.125 | prop >= 0.875), data = simulation.small)
+@
+%fix dotPlot
+\end{enumerate}
+
+<<>>=
+p.hat <- 0.875
+p.hat * 8    # check >= 10
+(1 - p.hat) * 8    # check >= 10
+@
+
+<<>>=
+sd <- sqrt(0.5 * (1 - 0.5) / 8); sd
+z <- (0.875 - 0.500) / sd; z
+2 * pnorm(z, lower.tail=FALSE)    # times 2 because two-sided test
+@
