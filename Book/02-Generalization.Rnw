@@ -1,0 +1,257 @@
+\Sexpr{set_parent('Tintle1.Rnw')}
+
+\setcounter{chapter}{1}
+\Chapter{Generalization: How Broadly Do the Results Apply?}
+
+
+\section{Sampling from a Finite Population}
+
+\subsection*{Example 2.1A: Sampling Students}
+
+<<Table2.1>>=
+head(CollegeMidwest, 8)
+summary(CollegeMidwest)
+@
+
+<<Figure2.1>>=
+histogram(~ CumGpa, data = CollegeMidwest, nint =  24)
+bargraph(~ OnCampus, data = CollegeMidwest)
+@
+%explain nint = number of bins
+
+\subsubsection*{Simple Random Samples}
+
+<<Table2.2,cache=TRUE>>=
+sample1 <- sample(CollegeMidwest, 30); sample1
+sample2 <- sample(CollegeMidwest, 30)
+sample3 <- sample(CollegeMidwest, 30)
+sample4 <- sample(CollegeMidwest, 30)
+sample5 <- sample(CollegeMidwest, 30)
+@
+<<Table2.3>>=
+mean(~ CumGpa, data = sample1)
+mean(~ CumGpa, data = sample2)
+mean(~ CumGpa, data = sample3)
+mean(~ CumGpa, data = sample4)
+mean(~ CumGpa, data = sample5)
+
+prop(~ OnCampus, level = "Y", data = sample1)
+prop(~ OnCampus, level = "Y", data = sample2)
+prop(~ OnCampus, level = "Y", data = sample3)
+prop(~ OnCampus, level = "Y", data = sample4)
+prop(~ OnCampus, level = "Y", data = sample5)
+@
+
+<<Figure2.2,cache=TRUE,opts.label="fig4">>=
+sample.gpa <- do(1000) * mean(~ CumGpa, data = sample(CollegeMidwest, 30))
+head(sample.gpa)
+mean(~ result, data = sample.gpa)
+histogram(~ result, data = sample.gpa)
+@
+
+<<Figure2.2b,cache=TRUE,opts.label="fig4">>=
+sample.campus <- do(1000) * prop(~ OnCampus, level = "Y", data = sample(CollegeMidwest, 30))
+head(sample.campus)
+mean(~ Y, data = sample.campus)
+histogram(~ Y, data = sample.campus)
+@
+
+\subsubsection*{Exploration 2.1A: Sampling Words}
+
+<<>>=
+head(GettysburgAddress)
+words <- sample(GettysburgAddress, 10)
+nchar(words[1:10])
+@
+%how to get length? how to find "e"
+%Where is Sampling Words Applets
+%overlay (groups) vs. panels (|)
+%favstats
+%tally(sex ~ substance, data = HELPrct) comes in prop
+%tally(~sex, groups = substance, data =HELPrct) comes in count
+
+\subsubsection*{Example 2.1B: Should Supersize Drinks be Banned?}
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi < 0.5$
+  \item
+  	Test statistic:  $\hat p = 0.46$ (the sample proportion of 503/1093)
+	\item
+		We simulate a world in which $\pi = 0.5$:
+<<cache=TRUE,opts.label="fig4">>=
+simulation.ban <- do(1000) * rflip(1093, 0.5)
+head(simulation.ban, 3)
+dotPlot(~ prop, data = simulation.ban, groups = (prop <= 0.46), width = 0.0005)
+@
+<<>>=
+favstats(~prop, data = simulation.ban)
+prop(~ (prop <= 0.46), data = simulation.ban)
+@
+  \item
+    Normal approximation:
+<<opts.label="fig4">>=
+sd <- sqrt(0.5 * (1 - 0.5) / 1093); sd
+xpnorm(0.46, 0.5, sd)
+@
+\end{enumerate}
+
+\subsubsection*{Exploration 2.1B: Banning Smoking in Cars?}
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
+  \item
+    Test statistic:  $\hat p = 0.55$ (the sample proportion)
+	\item
+		We simulate a world in which $\pi = 0.5$:
+<<cache=TRUE,opts.label="fig4">>=
+simulation.smoke <- do(1000) * rflip(1421, 0.5)
+head(simulation.smoke, 3)
+dotPlot(~ prop, data = simulation.smoke, groups = (prop >= 0.55), width = 0.0005)
+@
+<<>>=
+favstats(~prop, data = simulation.smoke)
+prop(~ (prop >= 0.55), data = simulation.smoke)
+@
+  \item
+    Normal approximation:
+<<opts.label="fig4">>=
+sd <- sqrt(0.5 * (1 - 0.5) / 1421); sd
+xpnorm(0.55, 0.5, sd, lower.tail=FALSE)
+@
+\end{enumerate}
+
+
+\section{Inference for a Single Quantitative Variable}
+
+\subsection*{Example 2.2: Estimating Elapsed Time}
+
+<<Figure2.5,opts.label="fig1">>=
+head(TimeEstimate)
+dotPlot(~ Estimate, data = TimeEstimate, width = 1)
+@
+
+<<>>=
+mean(~ Estimate, data = TimeEstimate)
+median(~ Estimate, data = TimeEstimate)
+sd(~ Estimate, data = TimeEstimate)
+favstats(~ Estimate, data = TimeEstimate)
+@
+%Table 2.5 ordering
+%outliers?
+
+<<Figure2.6>>=
+head(TimePopulation, 3)
+favstats(~ Estimate, data = TimePopulation)
+histogram(~ Estimate, data = TimePopulation, type = "count", nint = 20)
+@
+
+<<Figure2.7, cache=TRUE>>=
+sample1 <- sample(TimePopulation, 48)
+head(sample1, 3)
+favstats(~ Estimate, data = sample1)
+dotPlot(~ Estimate, data = sample1, width = 1, cex = 0.5)
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\mu = 10$;  $H_a$: $\mu \neq 10$
+  \item
+    Test statistic:  $\bar x = 13.71$ (the sample mean)
+  \item
+    We simulate random samples from a finite population:
+<<Figure2.8, cache=TRUE, opts.label="fig4">>=
+simulation.time <- do(1000) * mean(~ Estimate, data = sample(TimePopulation, 48))
+head(simulation.time, 3)
+histogram(~ result, data = simulation.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10)
+prop(~ (result <= 6.29 | result >= 13.71), data = simulation.time)
+@
+<<>>=
+mean(~ result, data = simulation.time)
+sd <- sd(~ result, data = simulation.time); sd
+xpnorm(13.71, 10, sd, lower.tail=FALSE, plot=FALSE)
+@
+\end{enumerate}
+
+\subsubsection*{Theory-based approach: One-sample t-test}
+%t=standardized statistic
+
+<<>>=
+xbar <- 13.71
+mu <- 10
+s <- 6.5
+n <- 48
+t <- (xbar - mu) / (s / sqrt(n)); t
+@
+
+<<Figure2.9>>=
+histogram(~ result, data = simulation.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10, fit = "t")
+pt(t, df=47, lower.tail=FALSE)
+@
+%help fit t
+
+%Figure 2.10 Theory-Based Inference for time estimate study
+
+%<<opts.label="fig4", fig.keep='last'>>=
+%plotFun(dnorm(x, 0, 1) ~ x, x.lim = c(-4, 4))
+%plotFun(dt(x, df=47) ~ x, add = TRUE, lty = 2, col = "green", under=TRUE)
+%plotFun(dt(x, df = 5) ~ x, add = TRUE, lty = 3, col = "red")
+%@
+
+\subsubsection*{Alternative Analysis: What about the median?}
+
+<<cache=TRUE>>=
+simulation.median <- do(1000) * median(~ Estimate, data = sample(TimePopulation, 48))
+head(simulation.median, 3)
+histogram(~ result, data = simulation.median, groups = (result < 8 | result > 12), width = 0.5, type = "count")
+prop(~ (result < 8 | result > 12), data = simulation.median)
+@
+
+\subsection*{Exploration 2.2: Sleepless Nights?}
+
+<<>>=
+head(SleepTimes, 3)
+histogram(~ SleepHrs, data = SleepTimes, nint = 15)    # shape
+favstats(~ SleepHrs, data = SleepTimes)    # center and variability
+@
+
+% simulation on pp.60 from a hypothetical population of many thousands of college students. dataset "Pop1" not avail.
+
+% cannot do follow-up 1 simulating "Pop2"
+% cannot do follow-up 2 simulating median "Pop1"
+
+
+\section{Errors and Significance}
+
+\subsection*{Example 2.3: Heart Transplant Operations (continued)}
+
+% Table 2.8 not included b/c redundant 
+
+\subsection*{Exploration 2.3: Parapsychology Studies}
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.25$;  $H_a$: $\pi > 0.25$
+  \item
+    Test statistic:  $\hat p = 0.333$ (the sample proportion of 709/2124)
+  \item
+    We simulate a world in which $\pi = 0.25$:
+<<Exploration2.3.4,cache=TRUE>>=
+simulation.esp <- do(1000) * rflip(2124, 0.25)
+head(simulation.esp, 3)
+prop(~ (prop >= 0.333), data = simulation.esp)
+@
+  \item
+    Normal approximation:
+<<Exploration2.3.5>>=
+sd <- sqrt(0.25 * (1 - 0.25) / 2124); sd
+xpnorm(1/3, 0.25, sd, lower.tail = FALSE, plot = FALSE)
+@
+  \item
+    Normal approximation if $\hat p = 15/50$:
+<<Exploration2.3.12>>=
+sd <- sqrt(0.25 * (1 - 0.25) / 50); sd
+pnorm(15/50, 0.25, sd, lower.tail = FALSE)
+@
+\end{enumerate}
