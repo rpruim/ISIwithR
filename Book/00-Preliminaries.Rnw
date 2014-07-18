@@ -3,13 +3,108 @@
 \setcounter{chapter}{-1}
 \Chapter{Preliminaries}
 
+%Don't forget to incorporate vocabulary
+\section{Introduction to the Six-Step Method}
+
+\subsection*{Example P.1: Organ Donations}
+
+Data sets in \R\ are usually stored as \term{data frames} in a rectangular arrangement with rows 
+corresponding to observational units and columns corresponding to variables. A number of data
+sets are built into \R\ and its packages. The package for our text is \pkg{Tintle1} which comes with a number of data sets. %copied from Lock5
+
 <<>>=
-tally(~ Choice + Default, data=OrganDonor)
-tally(~ Choice + Default, data=OrganDonor, margins=TRUE)
-tally(Choice ~ Default, data=OrganDonor)
-bargraph( ~ Default, groups=Choice, data=OrganDonor, auto.key=TRUE)
-bargraph( ~ Default, groups=Choice, data=OrganDonor, stack=TRUE, auto.key=TRUE)
-OrganDonorSummary <- as.data.frame(tally(~Choice + Default, data=OrganDonor))
-barchart( Freq ~ Default, groups=Choice, data=OrganDonorSummary, stack=TRUE, auto.key=TRUE )
+require(Tintle1)    # tell R to use the package for our textbook
+data(OrganDonor)    # load the OrganDonor dataset
 @
 
+<<eval=FALSE>>=
+OrganDonor    # show entire dataset in console
+@
+
+For large datasets, it may be more practical to look at different types of summaries or subsets of the data.
+<<tidy=FALSE>>=
+head(OrganDonor)       # first six cases of the dataset
+summary(OrganDonor)    # summary of each variable
+str(OrganDonor)        # structure of the dataset
+dim(OrganDonor)        # number of rows and columns
+nrow(OrganDonor)       # number of rows
+ncol(OrganDonor)       # number of columns
+@
+
+%Table
+<<>>=
+tally(~ choice + default, data=OrganDonor)
+tally(~ choice + default, data=OrganDonor, margins=TRUE)
+@
+
+%Proportions (add prop()?)
+<<>>=
+tally(choice ~ default, data=OrganDonor)
+tally(choice ~ default, data=OrganDonor, format="percent")
+@
+
+%Bargraph (|?)
+%Explain last one
+<<FigureP.1>>=
+bargraph(~ default, groups=choice, data=OrganDonor, auto.key=TRUE)
+bargraph(~ default, groups=choice, data=OrganDonor, stack=TRUE, auto.key=TRUE)
+bargraph(~ default, groups=choice, data=OrganDonor, stack=TRUE, auto.key=TRUE)
+OrganDonorSummary <- as.data.frame(tally(~choice + default, data=OrganDonor))
+barchart( Freq ~ default, groups=choice, data=OrganDonorSummary, stack=TRUE, auto.key=TRUE )
+@
+%how to change y-axis into percentage?
+
+
+\section{Exploring Data}
+
+\subsection*{Example P.2: Old Faithful}
+
+<<opts.label="fig1">>=
+head(OldFaithful1)
+summary(OldFaithful1)
+dotPlot(~ Time, data = OldFaithful1, width = 1, cex = .5)
+dotPlot(~ Time, data = OldFaithful1, width = 1, cex = .5, xlab = "time until next eruption (min)")
+@
+%Old Faithful years? OldFaithful, OldFaithful1, OldFaithful2
+
+<<>>=
+head(OldFaithful2)
+summary(OldFaithful2)
+dotPlot(~ TimeBetween, groups = EruptionType, data = OldFaithful2, width = 1, cex = .5)
+dotPlot(~ TimeBetween | EruptionType, data = OldFaithful2, layout = c(1,2), width = 1, cex = .5)
+@
+
+<<>>=
+favstats(~ TimeBetween, data = OldFaithful2)
+favstats(TimeBetween ~ EruptionType, data = OldFaithful2)
+@
+
+<<>>=
+mean(~ TimeBetween, data = OldFaithful2)
+sd(~ TimeBetween, data = OldFaithful2)
+mean(TimeBetween ~ EruptionType, data = OldFaithful2)
+sd(TimeBetween ~ EruptionType, data = OldFaithful2)
+sd(~ TimeBetween | EruptionType, data = OldFaithful2)
+@
+
+%Figure P.5 on pp.11?
+
+
+\section{Exploring random Processes}
+
+\subsection*{Exploration P.3: Cars or Goats}
+
+%simulating cards
+%graph of simulation
+
+We can simulate coin flips using \function{rflip()} by defining \argument{n}, the number of flips, and \argument{prob}, the probability of heads. Further, we can repeat each simulation however many times by multiplying it by \function{do()}.
+
+%assigning to name
+<<>>=
+sample <- do(1000) * rflip(n = 10, prob = 1/3)    # 1000 samples, each of size 200 and proportion 1/3
+head(sample)
+summary(sample)
+dotPlot(~ prop, data = sample, width = 0.1)
+@
+
+%how to do Monty Hall problem in R?
