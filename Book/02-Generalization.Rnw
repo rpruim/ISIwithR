@@ -94,6 +94,16 @@ prop(~ (prop <= 0.46), data = simulation.ban)
 sd <- sqrt(0.5 * (1 - 0.5) / 1093); sd
 xpnorm(0.46, 0.5, sd)
 @
+  \item
+    Approximate test for proportions:
+<<>>=
+prop.test(503, 1093, alt = "less")
+@
+  \item
+    Exact test for proportions:
+<<>>=
+binom.test(503, 1093, alt = "less")
+@
 \end{enumerate}
 
 \subsubsection*{Exploration 2.1B: Banning Smoking in Cars?}
@@ -119,6 +129,16 @@ prop(~ (prop >= 0.55), data = simulation.smoke)
 <<opts.label="fig4">>=
 sd <- sqrt(0.5 * (1 - 0.5) / 1421); sd
 xpnorm(0.55, 0.5, sd, lower.tail=FALSE)
+@
+  \item
+    Approximate test for proportions:
+<<>>=
+prop.test(781.55, 1421, alt = "greater") # 781.55 = 1421* 0.55
+@
+  \item
+    Exact test for proportions:
+<<>>=
+binom.test(781, 1421, alt = "greater")
 @
 \end{enumerate}
 
@@ -167,11 +187,14 @@ head(simulation.time, 3)
 histogram(~ result, data = simulation.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10)
 prop(~ (result <= 6.29 | result >= 13.71), data = simulation.time)
 @
+  \item
+    Normal approximation:
 <<>>=
 mean(~ result, data = simulation.time)
 sd <- sd(~ result, data = simulation.time); sd
 xpnorm(13.71, 10, sd, lower.tail=FALSE, plot=FALSE)
 @
+
 \end{enumerate}
 
 \subsubsection*{Theory-based approach: One-sample t-test}
@@ -249,9 +272,32 @@ sd <- sqrt(0.25 * (1 - 0.25) / 2124); sd
 xpnorm(1/3, 0.25, sd, lower.tail = FALSE, plot = FALSE)
 @
   \item
+    Approximate test for proportions:
+<<>>=
+prop.test(709, 2124, p= 0.25, alt = "greater")
+@
+  \item
+    Exact test for proportions:
+<<>>=
+binom.test(709, 2124, p= 0.25, alt = "greater")
+@
+%use t instead?
+  \item
     Normal approximation if $\hat p = 15/50$:
 <<Exploration2.3.12>>=
 sd <- sqrt(0.25 * (1 - 0.25) / 50); sd
 pnorm(15/50, 0.25, sd, lower.tail = FALSE)
 @
+  \item
+    Approximate test for proportions if $\hat p = 15/50$:
+<<>>=
+prop.test(15, 50, p= 0.25, alt = "greater")
+@
+  \item
+    Exact test for proportions if $\hat p = 15/50$:
+<<>>=
+binom.test(15, 50, p= 0.25, alt = "greater")
+@
+%use t instead?
+%include prop.test?
 \end{enumerate}
