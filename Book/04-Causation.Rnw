@@ -1,0 +1,54 @@
+\Sexpr{set_parent('Tintle1.Rnw')}
+
+\setcounter{chapter}{3}
+\Chapter{Causation: Can We Say What Caused the Effect?}
+
+\section{Association and Confounding}
+
+\subsection*{Example 4.1: Night Lights and Near-Sightedness}
+
+Often, when a dataset has only categorical variables, it may come in the form of a table and not a frame.
+
+Here is a way to create a data frame in \R.
+<<tidy=FALSE>>=
+NightLight1
+NightLight <- rbind(
+  do(18)  *  data.frame(light = "Darkness",   nearsight = "Near"),
+  do(154) *  data.frame(light = "Darkness",   nearsight = "Not"),
+  do(78)  *  data.frame(light = "NightLight", nearsight = "Near"),
+  do(154) *  data.frame(light = "NightLight", nearsight = "Not"),
+  do(41)  *  data.frame(light = "RoomLight",  nearsight = "Near"),
+  do(34)  *  data.frame(light = "RoomLight",  nearsight = "Not")
+ )
+head(NightLight)
+@
+
+<<>>=
+head(NightLight)
+@
+% ignore the .row and .index
+<<Table4.1>>=
+tally(nearsight ~ light, data = NightLight)
+tally(~ nearsight | light, data = NightLight)
+tally(~ nearsight + light, data = NightLight, margins = TRUE)
+@
+% include data frame making here?
+
+\subsection*{Exploration 4.1: Home Court Disadvantage?}
+
+% no R
+
+\section{Observational studies versus experiments}
+
+\subsection*{Example 4.2: Lying on the Internet}
+
+% no R
+
+\subsection*{Exploration 4.2: Have a Nice Trip}
+
+% Randomizing Subjects applet missing?
+
+<<>>=
+sim <- do (2) * rflip(12, 16/24)
+sim
+@
