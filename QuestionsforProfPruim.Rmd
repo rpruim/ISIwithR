@@ -1,0 +1,73 @@
+---
+title: "Questions about Tintle with R"
+author: "Lana Park"
+date: "Tuesday, July 22, 2014"
+output: pdf_document
+---
+
+## Chapter 1: Significance
+
+- How should I name chunks? The Examples don't have clear ways to organize--sometimes I name them like "Figure1.2". The Explorations, I named "Exploration1.2.1" because they are organized as ordered questions. Any way to consistently name chunks?
+
+- Tintle uses simulations for every example in the text and I was wondering if we should change the default size for figures. I've been switching many to "fig4" but should we try something else?
+
+- Because Tintle uses simulations for every example, I've been trying to organize the examples by putting them in ordered lists (you can see this starting from chapter 1). Within the ordered list, I don't directly follow Tintle's order. Is this something I should continue doing or would you rather get rid of it?
+
+- Tintle focuses on introducing simulations first and then using theory in each of the chapters so I've been doing every example with both simulations and theory (doing 1000 repetitions vs. binom.test).
+
+- Is there any way to fit normal curves to dotPlots such as the one in "Figure1.20"?
+
+## Chapter 2: Generalization
+
+- I skipped all of Exploration 2.1A with dataset "GettysburgAddress". The dataset is in character form but the questions ask about the number of letters in each word and the inclusion of the letter "e" in each word. I thought it might be better just to have the dataset in a frame with two new columns that include this information. If not, how should I approach Exploration 2.1A questions?
+
+- I was trying to make the histogram on page 2-45 Figure2.9 and fitting a t-distribution like so:
+```
+histogram(~ result, data = simulation.time, groups = (result <= 6.29 | result >= 13.71),
+  nint = 20, center = 10, fit = "t")
+```
+Is this not the way to fit a t-distribution on a histogram? Should I add a plot instead?
+
+## Chapter 3: Estimation
+
+- As I was working through 95% confidence intervals, I was wondering exactly what cdata calulated. So if I was trying to find the 95% CI of a simulation of 1000 proportions:
+```
+cdata(0.95, prop, data = simulation.amer)
+```
+Is this using a distribution of some type (i.e. normal)? or is it counting 950/1000 of the proportions in the middle of the simulation and giving the lower and higher limit values? Or is it something else completely?
+
+- I also realized I may want to go back to Lock5 to catch the nuances of the confidence intervals (probably after I finish the draft of Tintle).
+
+## Chapter 4: Causation
+
+- There's really not much here to do in R. Should I even include what's been done?
+
+## Chapter 5: Comparing Two Proportions
+
+- I've been making segmented bargraphs for this chapter and I couldn't figure out how to change the y-axis to show proportions or percentages instead of frequencies (this is important to show conditional proportions). Please see Figure5.1
+
+- Tintle works compares proportions through their differences but also relative risks. How do you find realtive risk in R and do simulations? The example is on page 5-28
+
+- There aren't datasets for many of the examples in chapter 5. I've been making them myself with the way you did in Lock5. Did you want to make them datasets?
+
+- I was also wondering if we could reorganize the datasets such that the default levels will match the hypotheses in the book. I think the clearest example is in Exploration 5.3: Donating Blood. The book states the null as "pi_2002 - pi_2004 = 0" but I did "pi_2004 - pi_2002" because that's the default I get when I do the diff in prop. I also had to change the level to "donated" because the default is "did.not". I can easily how this won't make a difference in the analysis but then Tintle asks about this in question 14 (Exploration5.3.14 on page 5-63).
+Further, if I do this:
+```
+prop.test(Response ~ Year, data = Blood)
+```
+I cannot seem to change the level to "donated" (nor can I change the alternative to one-sided tests and the conf.levels for the CIs)
+
+- So then, my next question is whether I should be doing this at all:
+```
+prop.test(Response ~ Year, data = Blood)
+```
+and instead just doing this for all of the difference in prop tests:
+```
+success <- c(230, 210)
+n <- c(1336, 1362)
+prop.test(success, n)
+```
+so that I can easily manipulate the levels, one-sided tests, and conf.levels (although for the simulations I would continue to have to use specified levels?).
+
+
+(Those last two questions are a handful so if you didn't understand me, I can ask you when we talk in person. Also, chapter 5 is a mess right now because I wasn't checking whether the hypotheses matched the defaults so I wouldn't look too closely that all of the examples.)

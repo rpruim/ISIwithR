@@ -89,7 +89,7 @@ favstats(~prop, data = simulation.ban)
 prop(~ (prop <= 0.46), data = simulation.ban)
 @
   \item
-    Normal approximation:
+    Normal approximation (using predicted standard deviation):
 <<opts.label="fig4">>=
 sd <- sqrt(0.5 * (1 - 0.5) / 1093); sd
 xpnorm(0.46, 0.5, sd)
@@ -125,7 +125,7 @@ favstats(~prop, data = simulation.smoke)
 prop(~ (prop >= 0.55), data = simulation.smoke)
 @
   \item
-    Normal approximation:
+    Normal approximation (using predicted standard deviation):
 <<opts.label="fig4">>=
 sd <- sqrt(0.5 * (1 - 0.5) / 1421); sd
 xpnorm(0.55, 0.5, sd, lower.tail=FALSE)
@@ -188,7 +188,7 @@ histogram(~ result, data = simulation.time, groups = (result <= 6.29 | result >=
 prop(~ (result <= 6.29 | result >= 13.71), data = simulation.time)
 @
   \item
-    Normal approximation:
+    Normal approximation (using simulated standard deviation):
 <<>>=
 mean(~ result, data = simulation.time)
 sd <- sd(~ result, data = simulation.time); sd
@@ -213,6 +213,7 @@ histogram(~ result, data = simulation.time, groups = (result <= 6.29 | result >=
 pt(t, df=47, lower.tail=FALSE)
 @
 %help fit t
+%use t-test
 
 %Figure 2.10 Theory-Based Inference for time estimate study
 
@@ -266,7 +267,7 @@ head(simulation.esp, 3)
 prop(~ (prop >= 0.333), data = simulation.esp)
 @
   \item
-    Normal approximation:
+    Normal approximation (using predicted standard deviation):
 <<Exploration2.3.5>>=
 sd <- sqrt(0.25 * (1 - 0.25) / 2124); sd
 xpnorm(1/3, 0.25, sd, lower.tail = FALSE, plot = FALSE)
@@ -283,7 +284,7 @@ binom.test(709, 2124, p= 0.25, alt = "greater")
 @
 %use t instead?
   \item
-    Normal approximation if $\hat p = 15/50$:
+    Normal approximation if $\hat p = 15/50$ (using predicted standard deviation):
 <<Exploration2.3.12>>=
 sd <- sqrt(0.25 * (1 - 0.25) / 50); sd
 pnorm(15/50, 0.25, sd, lower.tail = FALSE)

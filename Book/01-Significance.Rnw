@@ -512,16 +512,26 @@ favstats(~ prop, data = simulation.candy)
 \subsubsection*{Theory-based approach (One proportion z test)}
 
 %central limit theorem
-
+Calculating predicted standard deviation:
 <<>>=
 mean <- 0.5
 n <- 283
 sd <- sqrt(mean * (1 - mean) / n); sd
 @
-
+Calculating z-score:
 <<opts.label="fig4">>=
 z <- (0.523 - mean) / sd; z
+@
+Using the function \function{pnorm()} with calculated z-score to find the p-value:
+<<>>=
+pnorm(z, 0, 1)
+@
+Using the function \function{pnorm()} with raw data to find the p-value:
+<<>>=
 pnorm(0.523, mean, sd)
+@
+Using the function \function{xpnorm()} with raw data to find both the z-score and p-value: 
+<<>>=
 xpnorm(0.523, mean, sd)
 @
 
@@ -549,6 +559,8 @@ prop(~ (prop <= 1/6), data = simulation.sci)
 @
 %overlay normal approximation?
 
+%%%%%%%%%%%%%%%%%%%%%%%%%begin fix%%%%%%%%%%%%%%%%%%%%%
+
 \subsection*{Exploration 1.5: Calling Heads or Tails}
 
 \begin{enumerate}
@@ -564,13 +576,13 @@ head(simulation.heads, 3)
 dotPlot(~ prop, data = simulation.heads, groups = (prop >= 0.651), width = 0.02)
 @
 <<Exploration1.5b>>=
-mean(~ prop, data = simulation.heads)
-sd <- sd(~ prop, data = simulation.heads); sd
+favstats(~ prop, data = simulation.heads)
 prop(~ (prop >= 0.651), data = simulation.heads)
 @
   \item
-    Normal approximation:
+    Normal approximation (using predicted sd):
 <<Exploration1.5c,opts.label="fig4">>=
+sd <- sqrt(0.5 * (1 - 0.5) / 83); sd
 xpnorm(0.651, 0.5, sd, lower.tail=FALSE)
 @
   \item
@@ -594,9 +606,9 @@ sd <- sqrt(0.5 * (1 - 0.5) / 83); sd
 z <- (0.651 - 0.500) / sd; z
 2 * pnorm(z, 0, 1, lower.tail=FALSE) # times 2 because two-sided test
 @
-<<Exploration1.5fopts.label="fig4">>=
-xpnorm(0.651, 0.5, sd)
+<<Exploration1.5f, opts.label="fig4">>=
 xpnorm(z, 0, 1)
+xpnorm(0.651, 0.5, sd)
 @
 
 \subsubsection*{Follow-up Analysis \#1}
@@ -640,8 +652,10 @@ dotPlot(~ prop, data = simulation.small, groups = (prop <= 0.125 | prop >= 0.875
 prop(~ (prop <= 0.125 | prop >= 0.875), data = simulation.small)
 @
 %fix dotPlot
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%fix%%%%%%%%%%%%%%
   \item
-    Normal approximation:
+    Normal approximation (using predicted sd):
 <<Exploration1.5i, opts.label="fig4">>=
 sd <- sqrt(0.5 * (1 - 0.5) / 8); sd
 z <- (0.875 - 0.500) / sd; z
