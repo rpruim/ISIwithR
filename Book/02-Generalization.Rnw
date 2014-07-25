@@ -56,6 +56,10 @@ mean(~ Y, data = sample.campus)
 histogram(~ Y, data = sample.campus)
 @
 
+<<othername, include=TRUE>>=
+<<Figure2.2>>
+<<Figure2.2b>>
+@
 \subsubsection*{Exploration 2.1A: Sampling Words}
 
 <<>>=

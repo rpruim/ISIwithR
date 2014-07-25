@@ -2,9 +2,16 @@
 title: "Questions about Tintle with R"
 author: "Lana Park"
 date: "Tuesday, July 22, 2014"
-output: pdf_document
+output:
+  pdf_document:
+    fig_height: 2.5
+    fig_width: 4
 ---
 
+```{r include=FALSE}
+require(mosaic)
+require(Tintle1)
+```
 ## Chapter 1: Significance
 
 - How should I name chunks? The Examples don't have clear ways to organize--sometimes I name them like "Figure1.2". The Explorations, I named "Exploration1.2.1" because they are organized as ordered questions. Any way to consistently name chunks?
@@ -20,6 +27,13 @@ output: pdf_document
 ## Chapter 2: Generalization
 
 - I skipped all of Exploration 2.1A with dataset "GettysburgAddress". The dataset is in character form but the questions ask about the number of letters in each word and the inclusion of the letter "e" in each word. I thought it might be better just to have the dataset in a frame with two new columns that include this information. If not, how should I approach Exploration 2.1A questions?
+
+  * Here is one way:
+```{r}
+G <- data.frame(word=GettysburgAddress, stringsAsFactors=FALSE)
+G %>% mutate( nchar = nchar(word), e=grepl("e", word)) -> G
+histogram(~nchar, data=G, width=1)
+```
 
 - I was trying to make the histogram on page 2-45 Figure2.9 and fitting a t-distribution like so:
 ```
