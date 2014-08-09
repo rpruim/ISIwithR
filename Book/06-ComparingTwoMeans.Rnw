@@ -1,0 +1,320 @@
+\Sexpr{set_parent('Tintle1.Rnw')}
+
+\setcounter{chapter}{5}
+\Chapter{Comparing Two Means}
+
+\section{Comparing Two Groups: Quantitative Response}
+
+\subsection*{Example 6.1: Geyser Eruptions}
+
+<<Figure6.1>>=
+head(OldFaithful, 3)
+dotPlot(~time | year, data = OldFaithful)
+@
+
+<<Example6.1a>>=
+fivenum(~time, data = OldFaithful)
+fivenum(time ~ year, data = OldFaithful)
+@
+
+<<Example6.1b>>=
+IQR(~time, data = OldFaithful)
+IQR(~time | year, data = OldFaithful)
+@
+
+<<Figure6.2>>=
+bwplot(time ~ year, data = OldFaithful)
+bwplot(year ~ time, data = OldFaithful, horizontal = TRUE)
+@
+
+\subsection*{Exploration 6.1A: Haircut Prices}
+
+<<Exploration6.1A.1>>=
+head(Haircuts)
+@
+
+<<Exploration6.1A.4, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
+dotPlot(~ Cost | Sex, data = Haircuts, width = 1, cex = 0.1)
+@
+
+<<Exploration6.1A.8>>=
+favstats(~ Cost | Sex, data = Haircuts)
+@
+
+<<Exploration6.1A.10>>=
+diff(mean(Cost ~ Sex, data = Haircuts))
+@
+
+\subsubsection*{Further Analyses}
+<<Exploration6.1A.14>>=
+median(Cost ~ Sex, data = Haircuts)
+@
+
+<<Exploration6.1A.16>>=
+fivenum(~ Cost, data = Haircuts)
+fivenum(~ Cost | Sex, data = Haircuts)
+@
+
+<<Exploration6.1A.17>>=
+bwplot(Sex ~ Cost, data = Haircuts, horizontal = TRUE)
+@
+
+<<Exploration6.1A.18>>=
+IQR(Cost ~ Sex, data = Haircuts)
+@
+
+<<Exploration6.1A.19>>=
+
+@
+%remove outlier
+
+\subsection*{Exploration 6.1B: Cancer Pamplets}
+
+<<Table6.1>>=
+
+@
+%make table
+
+\section{Comparing Two Means: Simulation-Based Approach}
+
+\subsection*{Example 6.2: Bicycling to Work}
+
+<<Table6.2>>=
+head(BikeTimes)
+@
+
+<<Figure6.3>>=
+bwplot(Frame ~ Time, data = BikeTimes, horizontal = TRUE)
+@
+
+<<Table6.3>>=
+favstats(Time ~ Frame, data = BikeTimes)
+@
+
+<<Figure6.4>>=
+dotPlot(~Time | Frame, data = BikeTimes, width = 0.05, cex = 0.05, ylim = c(0.9, 1.1))
+diff(mean(Time ~ Frame, data = BikeTimes))
+dotPlot(~shuffle(Time) | Frame, data = BikeTimes, width = 0.05, cex = 0.05, ylim = c(0.9, 1.1))
+diff(mean(shuffle(Time) ~ Frame, data = BikeTimes))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\mu_{carbon} - \mu_{steel} = 0$
+    
+    $H_a$: $\mu_{carbon} - \mu_{steel} \neq 0$
+
+    Test statistic:  $\bar x_{carbon} - \bar x_{steel} = 0.53$ (the difference in the sample means)
+  \item
+    We simulate a world in which $\mu_{carbon} - \mu_{steel} = 0$:
+<<Figure6.7, cache=TRUE, tidy=FALSE>>=
+simulation.bike <- do(1000) * diff(mean(shuffle(Time) ~ Frame, data = BikeTimes))
+head(simulation.bike, 3)
+histogram(~ steel, data = simulation.bike, 
+        groups = (steel <= -0.53 | steel >= 0.53))
+@
+  \item
+    Strength of evidence:
+<<Figure6.8>>=
+favstats(~ steel, data = simulation.bike)
+prop(~ (steel <= -0.53 | steel >= 0.53), data = simulation.bike)
+@
+\end{enumerate}
+
+\subsubsection*{Estimating a confidence interval}
+
+Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
+<<Example6.2>>=
+diff <- -diff(mean(Time ~ Frame, data = BikeTimes))  # note the negative sign
+sd <- sd(~ steel, data = simulation.bike)
+diff - 2 * sd   # lower limit of 95% CI
+diff + 2 * sd   # upper limit of 95% CI
+@
+
+\subsection*{Exploration 6.2: Lingering Effects of Sleep Deprivation}
+
+<<Exploration6.2.2>>=
+head(Sleep)
+@
+
+<<Exploration6.2.5>>=
+dotPlot(~ time | sleep, data = Sleep, cex = 0.5)
+favstats(time ~ sleep, data = Sleep)
+diff(mean(time ~ sleep, data = Sleep))
+@
+
+<<Exploration6.2.9>>=
+diff(mean(shuffle(time) ~ sleep, data = Sleep))
+sample <- do(30) * diff(mean(shuffle(time) ~ sleep, data = Sleep))
+head(sample, 3)
+dotPlot(~ unrestricted, data = sample, width = 1, cex = .1)
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\mu_{unrestricted} - \mu_{deprived} = 0$
+    
+    $H_a$: $\mu_{unrestricted} - \mu_{deprived} > 0$
+    
+    Test statistic:  $\bar x_{unrestricted} - \bar x_{deprived} = 15.92$ (the difference in the sample means)
+  \item
+    We simulate a world in which $\mu_{unrestricted} - \mu_{deprived} = 0$:
+<<Exploration6.2.10, cache=TRUE, tidy=FALSE>>=
+simulation.sleep <- do(1000) * diff(mean(shuffle(time) ~ sleep, data = Sleep))
+head(simulation.sleep, 3)
+histogram(~ unrestricted, data = simulation.sleep, 
+        groups = (unrestricted >= 15.92))
+@
+  \item
+    Strength of evidence:
+<<Exploration6.2.10b>>=
+favstats(~ unrestricted, data = simulation.sleep)
+prop(~ (unrestricted >= 15.92), data = simulation.sleep)
+@
+\end{enumerate}
+
+Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
+<<Exploration6.2.13>>=
+diff <- diff(mean(time ~ sleep, data = Sleep))
+sd <- sd(~ unrestricted, data = simulation.sleep)
+diff - 2 * sd   # lower limit of 95% CI
+diff + 2 * sd   # upper limit of 95% CI
+@
+
+\subsubsection*{Another statistic}
+
+<<Exploration6.2.16a>>=
+median(time ~ sleep, data = Sleep)
+diff(median(time ~ sleep, data = Sleep))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: median$_{unrestricted}$ - median$_{deprived}$ = 0
+    
+    $H_a$: median$_{unrestricted}$ - median$_{deprived} > 0$
+    
+    Test statistic:  median$_{unrestricted}$ - median$_{deprived}$ = 12.05 (the difference in the sample medians)
+  \item
+    We simulate a world in which median$_{unrestricted}$ - median$_{deprived}$ = 0:
+<<Exploration6.2.16b,cache=TRUE, tidy=FALSE>>=
+simulation.med <- do(1000) * diff(median(shuffle(time) ~ sleep, data = Sleep))
+head(simulation.med, 3)
+histogram(~ unrestricted, data = simulation.med, 
+        groups = (unrestricted >= 12.05),
+        width = 3)
+@
+  \item
+    Strength of evidence:
+<<Exploration6.2.16c>>=
+favstats(~ unrestricted, data = simulation.med)
+prop(~ (unrestricted >= 12.05), data = simulation.med)
+@
+\end{enumerate}
+
+\section{Comparing Two Means: Theory-Based Approach}
+
+\subsection*{Example 6.3: Breastfeeding and Intelligence}
+
+<<Table6.4>>=
+head(BreastFeedIntell)
+favstats(GCI ~ Feeding, data = BreastFeedIntell)
+diff(mean(GCI ~ Feeding, data = BreastFeedIntell))
+@
+
+<<Figure6.10>>=
+bwplot(Feeding ~ GCI, horizontal = TRUE, data = BreastFeedIntell)
+histogram(~ GCI | Feeding, data = BreastFeedIntell, width = 5)
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\mu_{breastfed} - \mu_{not} = 0$
+    
+    $H_a$: $\mu_{breastfed} - \mu_{not} \neq 0$
+    
+    Test statistic:  $\bar x_{breastfed} - \bar x_{not} = 4.40$ (the difference in the sample means)
+  \item
+    We simulate a world in which $\mu_{breastfed} - \mu_{not} = 0$:
+<<Figure6.11, cache=TRUE, tidy=FALSE>>=
+simulation.GCI <- do(1000) * diff(mean(shuffle(GCI) ~ Feeding, data = BreastFeedIntell))
+head(simulation.GCI, 3)
+histogram(~ NotBreastfed, data = simulation.GCI, 
+        groups = (NotBreastfed <= -4.40 | NotBreastfed >= 4.40), width = 1)
+@
+  \item
+    Strength of evidence:
+<<Figure6.12>>=
+favstats(~ NotBreastfed, data = simulation.GCI)
+prop(~ (NotBreastfed <= -4.40 | NotBreastfed >= 4.40), data = simulation.GCI)
+@
+\end{enumerate}
+
+Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
+<<Example6.3a>>=
+diff <- -diff(mean(GCI ~ Feeding, data = BreastFeedIntell))   # note the negative sign
+sd <- sd(~ NotBreastfed, data = simulation.GCI); sd
+diff - 2 * sd   # lower limit of 95% CI
+diff + 2 * sd   # upper limit of 95% CI
+@
+
+<<Figure6.13>>=
+t.test(GCI ~ Feeding, data = BreastFeedIntell)
+stat(t.test(GCI ~ Feeding, data = BreastFeedIntell))
+@
+
+%Figure 6.14 (skip)
+
+\subsection*{Exploration 6.3: Close Friends}
+
+<<Exploration6.3.1>>=
+head(CloseFriends)
+tally(~ Friends + Sex, data = CloseFriends, margin = TRUE)
+@
+
+<<Table6.5, include=FALSE>>=
+<<Exploration6.3.1>>
+@
+
+<<Exploration6.3.7>>=
+favstats(Friends ~ Sex, data = CloseFriends)
+diff(mean(Friends ~ Sex, data = CloseFriends))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\mu_{men} - \mu_{women} = 0$
+    
+    $H_a$: $\mu_{men} - \mu_{women} \neq 0$
+    
+    Test statistic:  $\bar x_{men} - \bar x_{women} = -0.228$ (the difference in the sample means)
+  \item
+    We simulate a world in which $\mu_{men} - \mu_{women} = 0$:
+<<Exploration6.3.8, cache=TRUE, tidy=FALSE>>=
+simulation.fri <- do(1000) * diff(mean(shuffle(Friends) ~ Sex, data = CloseFriends))
+head(simulation.fri, 3)
+histogram(~ Women, data = simulation.fri, 
+        groups = (Women <= -0.228 | Women >= 0.228), width = 0.05)
+@
+  \item
+    Strength of evidence:
+<<Exploration6.3.10>>=
+favstats(~ Women, data = simulation.fri)
+prop(~ (Women <= -0.228 | Women >= 0.228), data = simulation.fri)
+@
+\end{enumerate}
+
+<<Exploration6.3.13>>=
+t.test(Friends ~ Sex, data = CloseFriends)
+stat(t.test(Friends ~ Sex, data = CloseFriends))
+@
+
+<<Exploration6.3.17>>=
+pval(t.test(Friends ~ Sex, data = CloseFriends))
+@
+
+\subsubsection*{Validity Conditions}
+
+<<Exploration6.3.20>>=
+confint(t.test(Friends ~ Sex, data = CloseFriends))
+@
