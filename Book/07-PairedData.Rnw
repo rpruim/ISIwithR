@@ -1,0 +1,187 @@
+\Sexpr{set_parent('Tintle1.Rnw')}
+
+\setcounter{chapter}{6}
+\Chapter{Paired Data: One Quantitative Variable}
+
+\section{Paired Designs}
+
+\section{Simulation-Based Approach for Analyzing Paired Data}
+
+\subsection*{Example 7.2: Rounding First Base (continued)}
+
+<<Table7.1>>=
+head(FirstBase, 10)
+@
+
+<<Figure7.3>>=
+dotPlot(~ narrow, data = FirstBase, nint = 40, xlim = c(4.50, 6.50), cex = 0.25)
+dotPlot(~ wide, data = FirstBase, nint = 40, xlim = c(4.50, 6.50), cex = 0.15)
+@
+
+<<Table7.2>>=
+FirstBase$narrow - FirstBase$wide
+favstats(FirstBase$narrow - FirstBase$wide)
+favstats(~ (narrow - wide), data = FirstBase)
+@
+
+<<Figure7.4>>=
+dotPlot(FirstBase$narrow - FirstBase$wide)
+dotPlot(~ (narrow - wide), data = FirstBase)
+@
+
+%Figure 7.5 (skip)
+
+<<Table7.3>>=
+
+@
+%how to simulate difference in pairs
+
+We simulate a world in which $\mu_d = 0$:
+<<Figure7.6, cache=TRUE, tidy=FALSE>>=
+
+@
+%1000 rep of swapped difference in pairs
+<<Figure7.7>>=
+
+@
+%estimate sd
+%estimate CI
+
+%Figure 7.8 (include difference in two means? how?)
+
+\subsection*{Exploration 7.2: Exercise and Heart Rate}
+
+<<Exploration7.2.5>>=
+head(JJvsBicycle)
+@
+
+<<Exploration7.2.7>>=
+favstats(~JJ, data = JJvsBicycle)
+favstats(~bicycle, data = JJvsBicycle)
+mean(JJvsBicycle$JJ - JJvsBicycle$bicycle)
+@
+
+<<Exploration7.2.8>>=
+
+@
+%randomization
+
+\begin{enumerate}
+  \item
+    $H_0$: $\mu_d = 0$  
+    
+    $H_a$: $\mu_d \neq 0$
+    
+    Test statistic:  $\bar x_d = $ (the mean difference in sample)
+  \item
+    We simulate a world in which $\mu_d = 0$:
+<<Exploration7.2.10, cache=TRUE, tidy=FALSE>>=
+
+@
+%(1000 rep of swapped difference in pairs)
+  \item
+    Strength of evidence:
+<<Exploration7.2.12>>=
+
+@
+\end{enumerate}
+
+Standarized statistic:
+<<Exploration7.2.14>>=
+
+@
+95\% confidence interval using 2SD Method:
+<<Exploration7.2.15>>=
+
+@
+
+<<Exploration7.2.17>>=
+
+@
+%shuffled difference in means
+
+\section{Theory-Based Approach to Analyzing Data from Paired Samples}
+
+\subsection*{Example 7.3: How Many M&Ms Would You Like?}
+
+<<Table7.4>>=
+head(BowlsMMs)
+@
+
+<<Table7.5>>=
+favstats(~ Small, data = BowlsMMs)
+favstats(~ Large, data = BowlsMMs)
+favstats(BowlsMMs$Small-BowlsMMs$Large)
+@
+
+<<Figure7.9>>=
+dotPlot(~(Small - Large), data = BowlsMMs, nint = 100, ylim = c(0.75, 1.25),cex = .05)
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\mu_d = 0$  
+    
+    $H_a$: $\mu_d < 0$
+    
+    Test statistic:  $\bar x_d = -10.88$ (the mean difference in paired samples)
+  \item
+    We simulate a world in which $\mu_d = 0$:
+<<Figure7.10, cache=TRUE, tidy=FALSE>>=
+
+@
+%(1000 rep of swapped difference in pairs)
+  \item
+    Strength of evidence:
+<<Figure7.11>>=
+
+@
+\end{enumerate}
+
+\subsubsection*{Theory-based approach}
+
+<<Figure7.12>>=
+t.test(BowlsMMs$Small, BowlsMMs$Large, paired = TRUE, alt = "less")
+@
+%include t-dist?
+
+\subsection*{Exploration 7.3: comparing Auction Formats}
+
+<<Exploration7.3.1>>=
+head(Auction)
+@
+
+<<Exploration7.3.5a>>=
+summary(Auction)
+favstats(Auction$dutch - Auction$FP)
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\mu_d = 0$  
+    
+    $H_a$: $\mu_d \neq 0$
+    
+    Test statistic:  $\bar x_d = 0.384$ (the mean difference in paired samples)
+  \item
+    We simulate a world in which $\mu_d = 0$:
+<<Exploration7.3.5b, cache=TRUE, tidy=FALSE>>=
+
+@
+  \item
+    Strength of evidence:
+<<Exploration7.3.5c>>=
+
+@
+  \item
+    t-test for paired samples (theory-based approach):
+<<Exploration7.3.7>>=
+t.test(Auction$dutch, Auction$FP, paired = TRUE)
+t.test(~ (dutch - FP), data = Auction)
+@
+\end{enumerate}
+
+95\% confidence interval using the t-test: 
+<<Exploration7.3.8>>=
+confint(t.test(Auction$dutch, Auction$FP, paired = TRUE))
+@
