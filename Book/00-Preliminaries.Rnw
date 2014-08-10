@@ -3,25 +3,140 @@
 \setcounter{chapter}{-1}
 \Chapter{Preliminaries}
 
-%Don't forget to incorporate vocabulary
+
 \section{Introduction to the Six-Step Method}
+
+%copied from Lock5
+
+\R\ is divided up into packages.  A few of these are loaded every time you
+run \R, but most have to be selected.  This way you only have as much of \R\ as you
+need.
+
+In the \tab{Packages} tab, check the boxes next to the following package to
+load them:
+\begin{itemize}
+  \item mosaic  (a package from Project MOSAIC)
+\end{itemize}
+
+\RStudio\ provides several ways to create documents that include text, \R\ code, \R\ output, graphics, even mathematical notation all in one document.  The simplest of these is R Markdown.  
+
+To create a new R Markdown document, go to ``File", ``New", then ``R Markdown."
+
+When you do this, a file editing pane will open with a template inserted.  If you click
+on ``Knit HTML", \RStudio\ will turn this into an HTML file and display it for you.  Give it a try.
+You will be asked to name your file if you haven't already done so.  If you are using the \RStudio\
+server in a browser, then your file will live on the server (``in the cloud") rather than 
+on your computer.
+
+If you look at the template file you will see that the file has two kinds of sections.  Some of this file is just normal text (with some extra symbols to make things bold, add in headings, etc.)  You can get a list of all of these mark up options by selecting the ``Mardown Quick Reference" in the question mark menu.
+
+\begin{center}
+  \includegraphics[width=2in]{images/MardownQuickReference}
+\end{center}
+
+The second type of section is an \R\ code chunk.  These are colored differently to make them
+easier to see.  You can insert a new code chunk by selecting ``Insert Chunk" from the ``Chunks" 
+menu:
+\begin{center}
+  \includegraphics[width=2in]{images/InsertChunk}
+\end{center}
+\noindent
+(You can also type \verb!```{r}! to begin and \verb!```! to end the code chunk if you would 
+rather type.)
+You can put any \R\ code in these code chunks and the results (text output or graphics) as well
+as the \R\ code will be displayed in your HTML file.
+
+There are options to do things like (a) run \R\ code without displayng it, (b) run \R\ code without
+displaying the output, (c) controling size of plots, etc., etc.  
+But for starting out, this is really all you need to know.
+
+R Markdown files are self-contained, meaning they do not have access to things you have done in your console.  (This is good, else your document would change based on things not in the file.)  This means that you must explicitly load data, and require packages \emph{in the R Markdown file} in order to use them.  For this text, this means that most of your R Markdown files will have a chunk near the beginning that includes
+<<>>=
+require(mosaic)       # load the mosaic package
+@
+
+
+Functions in \R\ use the following syntax:
+<<function-syntax,eval=FALSE>>=
+functionname( argument1, argument2, ... )
+@
+\vspace{-5mm}
+The arguments are \underline{always} \emph{surrounded by (round) parentheses} and 
+\emph{separated by commas}.
+
+Some functions (like \function{data()}) 
+have no required arguments, but you still need the parentheses.
+
+
+Most of what we will do in the subsequent chapters makes use of a single \R\ template:
+
+\def\phbox#1{\fbox{\phantom{#1}}}
+\def\ttfbox#1{\fbox{\texttt{#1}}}
+\[
+\phbox{goal} \; ( \; \phbox{yl} \; \sim \; \phbox{yl} \;, \; \texttt{data}=\phbox{mydata} \; )
+\]
+
+It is useful if we name the slots in this template:
+
+\[
+\ttfbox{goal} \; (  \;\ttfbox{y}  \;\sim  \;\ttfbox{x} \;, \; \texttt{data}=\ttfbox{mydata} \; )
+\]
+
+However, there are some variations on this template:
+<<eval=FALSE>>=
+### Simpler version
+goal( ~ x, data = mydata )
+
+### Fancier version: 
+goal( y ~ x | z , data = mydata )
+ 
+### Unified version: 
+goal( formula , data = mydata )
+@
+
+To use the template, you just need to know what goes in each slot.  This can be determined by
+asking yourself two questions:
+\begin{enumerate}
+  \item
+    What do you want \R\ to do? 
+  	\begin{itemize}
+			\item this determines what function to use (goal).
+		\end{itemize}
+	\item
+		What must \R\ know to do that?
+		\begin{itemize}
+			\item this determines the inputs to the function
+			\item for describing data, must must identify \emph{which data frame}
+				and \emph{which variable(s)}.
+		\end{itemize}
+\end{enumerate}
+
+Further, if you begin a command and hit the TAB key, \R\ will show you a list of possible ways to complete the command.  If you hit TAB after the opening parenthesis of a function, it will show you the list of arguments it expects. The up and down arrows can be used to retrieve past commands.
+
+%end copy from Lock5
 
 \subsection*{Example P.1: Organ Donations}
 
-Data sets in \R\ are usually stored as \term{data frames} in a rectangular arrangement with rows 
-corresponding to observational units and columns corresponding to variables. A number of data
-sets are built into \R\ and its packages. The package for our text is \pkg{Tintle1} which comes with a number of data sets. %copied from Lock5
+Now that we've explained a few basics for using \R, let's take a look at a data set.
 
+
+Data sets in \R\ are usually stored as \term{data frames} in a rectangular arrangement with rows 
+corresponding to \term{observational units} and columns corresponding to \term{variables}. A number of data
+sets are built into \R\ and its packages. The package for our text is \pkg{Tintle1} which comes with a number of data sets. %copied from Lock5
 <<>>=
 require(Tintle1)    # tell R to use the package for our textbook
 data(OrganDonor)    # load the OrganDonor dataset
 @
 
+
+If you want a list of all data sets available to you in loaded packages, use \function{data()} without any arguments. If you want to view the entire data set, just typing the name will show the details in the console.
 <<eval=FALSE>>=
+data()        # list all datasets available in loaded packages
 OrganDonor    # show entire dataset in console
 @
 
-For large datasets, it may be more practical to look at different types of summaries or subsets of the data.
+
+For large data sets, it may be more practical to look at different types of summaries or subsets of the data.
 <<tidy=FALSE>>=
 head(OrganDonor)       # first six cases of the dataset
 summary(OrganDonor)    # summary of each variable
@@ -31,80 +146,170 @@ nrow(OrganDonor)       # number of rows
 ncol(OrganDonor)       # number of columns
 @
 
-%Table
+
+Now that we have a general sense of how the data is structured, we can take a more detailed look by using the \R\ template. Let's say we want a count of observational units of each variable. We can tally the number by using the \function{tally()} function. 
 <<>>=
-tally(~ choice + default, data=OrganDonor)
-tally(~ choice + default, data=OrganDonor, margins=TRUE)
+tally(~ choice, data = OrganDonor)
+tally(~ default, data = OrganDonor)
 @
 
-%Proportions (add prop()?)
+
+This didn't really show us any more information than the \function{summary()} from above so instead, let's tally the variables together.
 <<>>=
-tally(choice ~ default, data=OrganDonor)
-tally(choice ~ default, data=OrganDonor, format="percent")
+tally(~ choice + default, data = OrganDonor)
+tally(~ choice + default, data = OrganDonor, margins = TRUE)
+@
+Notice that the default for \function{tally} was to exclude the total counts of each row and column. You could have used either tab completion or search \function{tally} in the help section to find \argument{margins} and set \argument{margins=TRUE}. There will be many instances where you will need to change the default settings of a function.
+
+
+Moreover, we can change the organization of the variables for a slightly different output:
+<<>>=
+tally(choice ~ default, data = OrganDonor)
+tally(choice ~ default, data = OrganDonor, format = "percent")
+@
+This may be a little confusing now (proportions will be covered in chapter 2) but let's focus more on the the changed organization of the variables in the \function{tally} function. This version of tallying calculated the proportions (and percentages) of participants who agreed and did not agree to become organ donors (\variable{choice}) in each of the groups opt-in, opt-out, and neutral (\variable{default}).
+
+%copied from Lock5
+\R\ also has many tools to visualize data.The general syntax for making a graph of one variable in a data frame is
+<<eval=FALSE>>=
+plotname(~ variable, data=dataName)
 @
 
-%Bargraph (|?)
-%Explain last one
-<<FigureP.1>>=
-bargraph(~ default, groups=choice, data=OrganDonor, auto.key=TRUE)
-bargraph(~ default, groups=choice, data=OrganDonor, stack=TRUE, auto.key=TRUE)
-bargraph(~ default, groups=choice, data=OrganDonor, stack=TRUE, auto.key=TRUE)
-OrganDonorSummary <- as.data.frame(tally(~choice + default, data=OrganDonor))
-barchart( Freq ~ default, groups=choice, data=OrganDonorSummary, stack=TRUE, auto.key=TRUE )
+
+In other words, there are three pieces of information we must provide to 
+\R\ in order to get the plot we want:
+\begin{itemize}
+  \item
+  	The kind of plot (\function{histogram()}, \function{bargraph()}, 
+		\function{densityplot()}, \function{bwplot()}, etc.)
+	\item
+		The name of the variable 
+	\item
+		The name of the data frame this variable is a part of.
+\end{itemize}
+%end copy from Lock5
+
+<<>>=
+bargraph(~ choice, data = OrganDonor)
+bargraph(~ default, data = OrganDonor)
 @
-%how to change y-axis into percentage?
+Notice that the \function{bargraph} uses the frequency, or counts.
+
+
+In order to graph the variable \variable{default} and show what \variable{choice} each option made, we can utilize the argument \argument{groups=}.
+<<>>=
+bargraph(~ default, groups = choice, data = OrganDonor, auto.key = TRUE)
+bargraph(~ default, groups = choice, data = OrganDonor, auto.key = TRUE, stack = TRUE)
+@
+
+
+Although the bargraph is useful, the y-axis shows counts and not the percentages as in the text. The function \function{mosiac} or \function{mosaicplot} plots the variables relative to each other, in a way that reveals porportions, or percentages.
+<<opts.label="fig4">>=
+mosaic(choice ~ default, data = OrganDonor)
+mosaicplot(default ~ choice, data = OrganDonor)
+@
 
 
 \section{Exploring Data}
 
 \subsection*{Example P.2: Old Faithful}
 
-<<opts.label="fig1">>=
+Everytime you use a new data set, it is beneficial to look at a some key summary statistics. 
+<<>>=
 head(OldFaithful1)
 summary(OldFaithful1)
-dotPlot(~ Time, data = OldFaithful1, width = 1, cex = .5)
-dotPlot(~ Time, data = OldFaithful1, width = 1, cex = .5, xlab = "time until next eruption (min)")
 @
-%Old Faithful years? OldFaithful, OldFaithful1, OldFaithful2
 
+Another useful graph for examining the \term{shape}, \term{center}, and \term{variability} is the \term{dotplot}:
+<<>>=
+dotPlot(~ Time, data = OldFaithful1)
+@
+You can't really see the dots in this plot the defaults for \function{dotPlot()} may not be the best way to examine this particular data set.
+
+%copy from Lock5
+Sometimes it is nice to have elements of a plot be partly transparent.  When such elements overlap, they get darker, showing us where data are ``piling up." Setting the \argument{alpha} argument to a value between 0 and 1 controls the degree of transparency: 1 is completely opaque, 0 is invisible.  The \argument{cex} argument controls ``character expansion" and can be used to make the plotting ``characters" larger or smaller by specifying the scaling ratio.
+
+
+Further, we can change can control the increment width of the plotted data so that it will plot observations on the width assigned. This is especially nice for count or other integer data.
+%end copy from Lock5
+
+In this chuck, there are options set within \verb!{r}! in order to change the size of the graph when the R markdown is knit (only when it is knit - not just when the chuck in run).
+<<FigureP.3, tidy=FALSE, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
+dotPlot(~ Time, data = OldFaithful1, width = 1, cex = .25)
+dotPlot(~ Time, data = OldFaithful1, width = 1, cex = .15)
+dotPlot(~ Time, data = OldFaithful1, width = 1, cex = .15, xlab = "time until next eruption (min)")
+@
+
+
+Similar to the bargraph, we can organize the variables a little differently for the dotplot to graph them in relation to one another.
 <<>>=
 head(OldFaithful2)
 summary(OldFaithful2)
-dotPlot(~ TimeBetween, groups = EruptionType, data = OldFaithful2, width = 1, cex = .5)
-dotPlot(~ TimeBetween | EruptionType, data = OldFaithful2, layout = c(1,2), width = 1, cex = .5)
+@
+<<fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
+dotPlot(~ TimeBetween, groups = EruptionType, data = OldFaithful2, width = 1, cex = 0.15)
 @
 
-<<>>=
+
+The formula for a \pkg{lattice} plot can be extended to create multiple panels (sometimes called \term{facets}) based on a ``condition'', often given by another variable. This is another way to look at multiple groups simultaneously.  The general syntax for this becomes %copy from Lock5
+<<eval=FALSE>>=
+plotname( ~ variable | condition, data=dataName )
+@
+
+<<fig.height=3.5, fig.width=8, out.width=".95\\textwidth">>=
+dotPlot(~ TimeBetween | EruptionType, data = OldFaithful2, layout = c(1,2), width = 1, cex = 0.15)
+@
+
+For more key numerical summaries of the data set, we can use the \function{favestats} for ``favorite" statistics.
+<<TableP.1>>=
 favstats(~ TimeBetween, data = OldFaithful2)
 favstats(TimeBetween ~ EruptionType, data = OldFaithful2)
 @
 
+Here are ways to find the mean and the standard deviation separately:
 <<>>=
 mean(~ TimeBetween, data = OldFaithful2)
 sd(~ TimeBetween, data = OldFaithful2)
+@
+<<>>=
 mean(TimeBetween ~ EruptionType, data = OldFaithful2)
 sd(TimeBetween ~ EruptionType, data = OldFaithful2)
+@
+<<>>=
+mean(~ TimeBetween | EruptionType, data = OldFaithful2)
 sd(~ TimeBetween | EruptionType, data = OldFaithful2)
 @
-
-%Figure P.5 on pp.11?
 
 
 \section{Exploring random Processes}
 
 \subsection*{Exploration P.3: Cars or Goats}
 
-%simulating cards
-%graph of simulation
-
-We can simulate coin flips using \function{rflip()} by defining \argument{n}, the number of flips, and \argument{prob}, the probability of heads. Further, we can repeat each simulation however many times by multiplying it by \function{do()}.
-
-%assigning to name
+The \pkg{mosaic} package has a function \function{rflip()} that \term{simulates} coin tosses. We define arguments \argument{n} (the number of flips) and \argument{prob} (the probability of heads).
 <<>>=
-sample <- do(1000) * rflip(n = 10, prob = 1/3)    # 1000 samples, each of size 200 and proportion 1/3
-head(sample)
-summary(sample)
-dotPlot(~ prop, data = sample, width = 0.1)
+rflip(n = 1, prob = 0.5)
+rflip(n = 5, prob = 0.5)
 @
 
+
+Although \function{rflip} simulates coin tosses, where the probability of heads should be 0.5, we can also simulate any \term{random process} by changing the \term{probability.}
+<<>>=
+rflip(n = 15, prob = 1/3)
+@
+This is equivalent to the playing 15 games (flips), each game having a 1/3 chance of picking the car (heads).
+
+
+Further, we can repeat each simulation many times by multiplying it by \function{do()}. When using \function{do}, you should assign the simulation a name by using an arrow ``\<-" so that you are creating a new data set with all of the repetitions. In this case, we are naming the simulation \dataframe{game.}
+<<cache=TRUE>>=
+game <- do(1000) * rflip(n = 10, prob = 1/3)    # 1000 samples, each of size 200 and proportion 1/3
+head(game)
+@
+
+
+Now we can create a dotplot of the proportion of wins but note that because of there are so many observations (1000), we will not be able to see the individual dots.
+<<>>=
+dotPlot(~ prop, data = game, width = 0.1)
+@
+
+%Figure P.6
 %how to do Monty Hall problem in R?
