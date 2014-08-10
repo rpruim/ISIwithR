@@ -19,57 +19,47 @@ rflip(n = 16, prob = 0.5)    # another sequence of 16 coin flips
 
 \subsubsection*{Using and evaluating the coin flip chance model}
 
-<<cache=TRUE>>=
-simulation <- do(1000) * rflip(16, 0.5)    # 1000 samples, each of size 16 and proportion 0.5
-head(simulation, 3)
-@
-<<Figure1.4, opts.label="fig1">>=
-dotPlot(~ heads, data = simulation, width = 1)
+<<Figure1.4, cache=TRUE>>=
+sim <- do(1000) * rflip(16, 0.5)    # 1000 samples, each of size 16 and proportion 0.5
+head(sim, 3)
+dotPlot(~ heads, data = sim, width = 1, cex = 3)
 @
 
 \subsubsection*{Another Doris and Buzz study}
 
-%make Buzz dataframe?
-%pp.11 Figure 1.5 bargraph
+%Figure 1.5 bargraph (pp.11)
 
-<<cache=TRUE>>=
-simulation2 <- do(1000) * rflip(28, 0.5)
-head(simulation2, 3)
+<<Figure1.6, cache=TRUE>>=
+sim2 <- do(1000) * rflip(28, 0.5)
+head(sim2, 3)
+dotPlot(~ heads, data = sim2, width = 1, cex = 3, groups = (heads <= 16 & heads >= 16))
 @
-
-<<Figure1.6, opts.label="fig1">>=
-dotPlot(~ heads, data = simulation2, width = 1, groups = (16 <= heads))
-@
-%add vector line to dotPlot?
+Notice the way we defined \argument{groups} as \option{(heads <= 16 \& heads >= 16)} in order to differentiate the observations where \variable{heads} equals 16.
 
 \subsection*{Exploration 1.1: Can Dogs Understand Human Cues?}
 
-%make Harley dataframe?
-%pp.16 q.5 simple bar graph of the data
-<<Exploration1.1.5>>=
-
-@
+% Exploration1.1.5 bargraph (pp.16)
 
 \subsubsection*{The Chance Model}
 
-<<Exploration1.1.13, opts.label="fig4", cache=TRUE>>=
-simulation.harley <- do(1) * rflip(10, 0.5)
-simulation.harley
-simulation.class <- do(30) * rflip(10, 0.5)
-head(simulation.class, 3)
-dotPlot(~ heads, data = simulation.class, width = 1)
+<<Exploration1.1.13, cache=TRUE>>=
+sim.harley <- do(1) * rflip(10, 0.5)
+sim.harley
+sim.class <- do(30) * rflip(10, 0.5)
+head(sim.class, 3)
+dotPlot(~ heads, data = sim.class, width = 1, cex = 0.5)
 @
 
-<<Exploration1.1.15, opts.label="fig4", cache=TRUE>>=
-simulation.harley2 <- do(1000) * rflip(10, 0.5)
-head(simulation.harley2, 3)
-dotPlot(~ heads, data = simulation.harley2, width = 1)
+<<Exploration1.1.14, cache=TRUE>>=
+sim.harley2 <- do(1000) * rflip(10, 0.5)
+head(sim.harley2, 3)
+dotPlot(~ heads, data = sim.harley2, width = 1, cex = 3, groups = (heads <= 9 & heads >= 9))
 @
 
 \subsubsection*{Another Study}
 
-<<Exploration1.1.23, opts.label="fig4">>=
-dotPlot(~ heads, data = simulation.harley2, width = 1, groups = (heads <= 6 & heads >= 6))
+<<Exploration1.1.23>>=
+dotPlot(~ heads, data = sim.harley2, width = 1, cex = 3, groups = (heads <= 6 & heads >= 6))
 @
 
 
@@ -79,74 +69,57 @@ dotPlot(~ heads, data = simulation.harley2, width = 1, groups = (heads <= 6 & he
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 1/3$;  $H_a$: $\pi < 1/3$
-  \item
-    Test statistic:  $\hat p = 1/6$ (the sample proportion)
+    $H_0$: $\pi = 1/3$
+    
+    $H_a$: $\pi < 1/3$
+    
+    Test statistic:  $\hat p = 0.167$ (the sample proportion of 1/6)
 	\item
 		We simulate a world in which $\pi = 1/3$:
-<<Figure1.7, cache=TRUE, opts.label="fig4">>=
-simulation.sci <- do(1000) * rflip(12, 1/3)
-head(simulation.sci, 3)
-dotPlot(~ prop, data = simulation.sci, width = 1/12)
+<<Figure1.7, cache=TRUE>>=
+sim.sci <- do(1000) * rflip(12, 1/3)
+head(sim.sci, 3)
+dotPlot(~ prop, data = sim.sci, width = 1/12, cex = 3)
 @
+  \item
+    Strength of evidence:
 
-<<Figure1.8, opts.label="fig4">>=
-dotPlot(~ prop, data = simulation.sci, width = 1/12, groups = (prop <= 1/6))
-prop(~ (prop <= 1/6), data = simulation.sci)
-@
-%pp.30 Figure 1.8 any way to add 1/6 line like in a histogram?
-  \item
-    Approximate test for proportions:
-<<warning=FALSE>>=
-prop.test(2, 12, p = 1/3, alt = "less")
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(2, 12, p = 1/3, alt = "less")
+    For the \term{p-value}, you can use the \function{prop()} function and input \option{(prop <= 1/6)} to find the proportion of samples that is less than or equal to the observed proportion in the data set \data{sim.sci}.
+<<Figure1.8>>=
+dotPlot(~ prop, data = sim.sci, cex = 3, width = 1/12, groups = (prop <= 1/6))
+prop(~ (prop <= 1/6), data = sim.sci)
 @
 \end{enumerate}
 
 \subsubsection{Conclusions}
 
-<<Figure1.9, opts.label="fig4">>=
-dotPlot(~ prop, data = simulation.sci, groups = (prop <= 1/12))
-prop(~ (prop <= 1/12), data = simulation.sci)
-@
-<<warning=FALSE>>=
-prop.test(1, 12, p = 1/3, alt = "less")
-binom.test(1, 12, p = 1/3, alt = "less")
+<<Figure1.9>>=
+dotPlot(~ prop, data = sim.sci, cex = 3, width = 1/12, groups = (prop <= 1/12))
+prop(~ (prop <= 1/12), data = sim.sci)
 @
 
 \subsection*{Exploration 1.2: Tasting Water}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 1/4$;  $H_a$: $\pi < 1/4$
-  \item
+    $H_0$: $\pi = 1/4$
+    
+    $H_a$: $\pi < 1/4$
+    
     Test statistic:  $\hat p = 0.111$ (the sample proportion of 3/27)
   \item
 		We simulate a world in which $\pi = 1/4$:
-%Proportion Test?
-<<Exploration1.2.18,cache=TRUE, opts.label="fig4">>=
+<<Exploration1.2.18, cache=TRUE>>=
 sample.tap <- do(1) * rflip(27, 1/4)
 sample.tap
-simulation.tap <- do(1000) * rflip(27, 1/4)
-head(simulation.tap, 3)
-dotPlot(~ prop, data = simulation.tap, groups = (prop <= 3/27), width = 0.1)
-@
-<<Exploration.1.2.20>>=
-prop(~ (prop <= 3/27), data = simulation.tap)
+sim.tap <- do(1000) * rflip(27, 1/4)
+head(sim.tap, 3)
+dotPlot(~ prop, data = sim.tap, width = 1/27, cex = 3, groups = (prop <= 3/27))
 @
   \item
-    Approximate test for proportions:
-<<warning=FALSE>>=
-prop.test(3, 27, p = 1/4, alt = "less")
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(3, 27, p = 1/4, alt = "less")
+    Strength of evidence:
+<<Exploration1.2.20>>=
+prop(~ (prop <= 3/27), data = sim.tap)
 @
 \end{enumerate}
 
@@ -154,119 +127,131 @@ binom.test(3, 27, p = 1/4, alt = "less")
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 3/4$;  $H_a$: $\pi > 3/4$
-  \item
+    $H_0$: $\pi = 3/4$
+    
+    $H_a$: $\pi > 3/4$
+    
     Test statistic:  $\hat p = 0.889$ (the sample proportion of 24/27)
   \item
   	We simulate a world in which $\pi = 3/4$:
-<<Exploration1.2.26, cache=TRUE, opts.label="fig1">>=
-simulation.bottled <- do(1000) * rflip(27, 3/4)
-head(simulation.bottled, 3)
-dotPlot(~ prop, data = simulation.bottled, groups = (prop >= 24/27), width = 0.1)
-prop(~ (prop >= 24/27), data = simulation.bottled)
+<<Exploration1.2.26, cache=TRUE>>=
+sim.bottled <- do(1000) * rflip(27, 3/4)
+head(sim.bottled, 3)
+dotPlot(~ prop, data = sim.bottled, width = 1/27, cex = 3, groups = (prop >= 24/27))
 @
   \item
-    Approximate test for proportions:
-<<warning=FALSE>>=
-prop.test(24, 27, p = 3/4, alt = "greater")
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(24, 27, p = 3/4, alt = "greater")
+    Strength of evidence:
+<<Exploration1.2.26b>>=
+prop(~ (prop >= 24/27), data = sim.bottled)
 @
 \end{enumerate}
+
 
 \section{Alternative Measure of Strength of Evidence}
 
 \subsection*{Example 1.3: Heart Transplant Operations}
 
-<<Figure1.10,cache=TRUE, opts.label="fig1">>=
-simulation.heart <- do(1000) * rflip(10, 0.15)
-head(simulation.heart, 3)
-dotPlot(~ prop, data = simulation.heart, groups = (prop >= 8/10), width = 0.1)
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.15$
+    
+    $H_a$: $\pi > 0.15$
+    
+    Test statistic:  $\hat p = 0.80$ (the sample proportion of 8/10)
+  \item
+    We simulate a world in which $\pi = 0.15$:
+<<Figure1.10, cache=TRUE>>=
+sim.heart <- do(1000) * rflip(10, 0.15)
+head(sim.heart, 3)
+mean(~ prop, data = sim.heart)
+sd(~ prop, data = sim.heart)
+favstats(~ prop, data = sim.heart)
+dotPlot(~ prop, data = sim.heart, width = 0.1, cex = 3, groups = (prop >= 8/10))
 @
-<<>>=
-mean(~ prop, data = simulation.heart)
-sd(~ prop, data = simulation.heart)
-favstats(~prop, data = simulation.heart)
+  \item
+    Strength of evidence:
+<<Figure1.10b>>=
+prop(~ (prop >= 8/10), data = sim.heart)
 @
+\end{enumerate}
 
 \subsubsection*{Digging deeper into the St. George's mortality data}
 
-%p-value very different
-<<Figure1.11,cache=TRUE, opts.label="fig4">>=
-simulation.1986 <- do(1000) * rflip(361, 0.15)
-head(simulation.1986, 3)
-dotPlot(~ prop, data = simulation.1986, groups = (prop >= 71/361), width = 0.007)
-prop(~(prop >= 71/361), data = simulation.1986)
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.15$
+    
+    $H_a$: $\pi > 0.15$
+    
+    Test statistic:  $\hat p = 0.197$ (the sample proportion of 71/361)
+  \item
+    We simulate a world in which $\pi = 0.15$:
+<<Figure1.11, cache=TRUE>>=
+sim.1986 <- do(1000) * rflip(361, 0.15)
+head(sim.1986, 3)
+favstats(~ prop, data = sim.1986)
+dotPlot(~ prop, data = sim.1986, width = 1/361, groups = (prop >= 71/361))
 @
-<<>>=
-favstats(~ prop, data = simulation.1986)
+  \item
+    Strength of evidence:
+<<Figure1.11b>>=
+prop(~ (prop >= 71/361), data = sim.1986)
 @
-<<warning=FALSE>>=
-prop.test(71, 361, p = 0.15, alt = "greater")
-binom.test(71, 361, p = 0.15, alt = "greater")
-@
-
+\end{enumerate}
 
 \subsubsection*{An alternative to the p-value: Standardized value of a statistic}
 
-\[
-\mbox{$Z$-score} = \frac{ \mbox{statistic} - \mbox{mean} } { \mbox{standard deviation} }
-\]
-
-<<tidy=FALSE>>=
+\R\ can be used as a calculator so we can compute the \term{z-score} manually:
+<<Example1.3, tidy=FALSE>>=
 z <- (71/361 - 0.15) / 0.018; z   # z-score for sample size 361
 z <-  (8/10 - 0.15)  / 0.113; z   # z-score for sample size 10
 @
 
+A very simple way to calculate the standardized statistic, find the p-value, and plot the bell-shaped curve is with the \function{xpnorm()} function. We'll examine \function{xpnorm} in more detail later but for now, we just define a vector of quantiles (z-scores), \argument{mean}, and \argument{sd}.
 <<Figure1.12, opts.label="fig4">>=
-plotFun(dnorm(x, 0, 1) ~ x, x.lim = c(-4, 4))
+xpnorm(c(-3, -2, -1.5, 0, 1.5, 2, 3), mean = 0, sd = 1)
 @
-%how to include vectors
-<<opts.label="fig4">>=
-xpnorm(c(-2, 2), mean = 0, sd = 1)
+
+In the example above, we input standardized values. However, we can input non-standardized statistics (observed statistic) with a new \argument{mean} and \argument{sd} in order to calculate the z-score.
+<<Example1.3b>>=
+xpnorm(71/361, mean = 0.15, sd = 0.018, plot = FALSE)
+xpnorm(8/10, mean = 0.15, sd = 0.113, plot = FALSE)
 @
-<<opts.label="fig4">>=
-xpnorm(c(-3,-2,-1.5, 1.5, 2, 3), 0, 1)
-@
-% include? percentages misleading
+We'll ignore the p-values and plots for now and just realize that \function{xpnorm} has computed the z-score for us so that we do not need to manually compute z by using \R\ as a calculator.
+
 
 \subsection*{Exploration 1.3: Do People Use Facial Prototyping?}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5 $
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi > 0.5 $
+    
     Test statistic:  $\hat p = 0.6$ (the sample proportion of 18/30 for a fictitious class)
   \item
   	We simulate a world in which $\pi = 0.5$:
-<<Exploration1.3.7,cache=TRUE, opts.label="fig4">>=
-simulation.tim <- do(1000) * rflip(30, 0.5)
-head(simulation.tim, 3)
-dotPlot(~ prop, data = simulation.tim, groups = (prop >= 18/30), width = 0.05)
-prop(~ (prop >=18/30), simulation.tim)
+<<Exploration1.3.7, cache=TRUE>>=
+sim.tim <- do(1000) * rflip(30, 0.5)
+head(sim.tim, 3)
+dotPlot(~ prop, data = sim.tim, width = 1/30, cex =3, groups = (prop >= 18/30))
 @
   \item
-    Normal approximation:
+    Strength of evidence:
+<<Exploration1.3.7b>>=
+prop(~ (prop >=18/30), data = sim.tim)
+@
+\end{enumerate}
+
 <<Exploration1.3.8>>=
-mean(~ prop, data = simulation.tim)
-sd <- sd(~ prop, data = simulation.tim); sd
-z <- (0.6 - 0.5) / sd; z
+mean(~ prop, data = sim.tim)
+sd <- sd(~ prop, data = sim.tim); sd # assign the standard deviation to sd
+z <- (0.6 - 0.5) / sd; z # z-score using the assigned sd
 @
+
+Again, we can input the observed statistic, mean, and standard deviation to \function{xpnorm()} for the standardized statistic:
 <<Figure1.13, opts.label="fig4">>=
-xpnorm(0.6, 0.5, sd, lower.tail = FALSE)
-@
-  \item
-    Approximate test for proportions:
-<<warning=FALSE>>=
-prop.test(18, 30, alt = "greater")
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(18, 30, alt = "greater")
+xpnorm(0.6, mean = 0.5, sd = sd, plot = FALSE)
 @
 \end{enumerate}
 
@@ -277,158 +262,149 @@ binom.test(18, 30, alt = "greater")
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5 $
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi > 0.5$
+    
     Test statistic:  $\hat p = 0.719$ (the sample proportion of 23/32)
   \item
     We simulate a world in which $\pi = 0.5$:
-<<Figure1.14,cache=TRUE, opts.label="fig4">>=
-simulation.senate <- do(1000) * rflip(32, 0.5)
-head(simulation.senate, 3)
-dotPlot(~ prop, data = simulation.senate, groups = (prop >= 23/32), width = 0.03, center = 0.5)
-prop(~ (prop >= 23/32), data = simulation.senate)
+<<Figure1.14, cache=TRUE>>=
+sim.senate <- do(1000) * rflip(32, 0.5)
+head(sim.senate, 3)
+favstats(~ prop, data = sim.senate)
+dotPlot(~ prop, data = sim.senate, groups = (prop >= 23/32), width = 1/32, cex = 3)
 @
   \item
-    Normal approximation
-<<opts.label="fig4">>=
-mean(~ prop, data = simulation.senate)
-sd <- sd(~ prop, data = simulation.senate); sd
-xpnorm(23/32, 0.5, sd, lower.tail = FALSE)
+    Strength of evidence:
+<<Figure1.14b>>=
+prop(~ (prop >= 23/32), data = sim.senate)
 @
-  \item
-    Approximate test for proportions:
-<<warning=FALSE>>=
-prop.test(23, 32, alt = "greater")
+    Strength of evidence with the standardized statistic:
+<<Figure1.14c>>=
+mean(~ prop, data = sim.senate)
+sd <- sd(~ prop, data = sim.senate); sd
+xpnorm(23/32, 0.5, sd, plot = FALSE)
 @
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(23, 32, alt = "greater")
-@
+\end{enumerate}
 
 \subsection*{What impacts strength of evidence?}
-%Figure 1.15
 
 <<Figure1.15, cache=TRUE, opts.label="fig3">>=
 senate.32 <- do(1000) * rflip(32, 0.5)
-dotPlot(~ prop, data = senate.32, xlim = c(0.1, 0.9))
+dotPlot(~ prop, data = senate.32, xlim = c(0.1, 0.9), cex = 5)
 
 senate.128 <- do(1000) * rflip(128, 0.5)
-dotPlot(~ prop, data = senate.128, xlim = c(0.1, 0.9))
-
+dotPlot(~ prop, data = senate.128, xlim = c(0.1, 0.9), cex = 5)
 
 senate.256 <- do(1000) * rflip(256, 0.5)
-dotPlot(~ prop, data = senate.256, xlim = c(0.1, 0.9))
+dotPlot(~ prop, data = senate.256, xlim = c(0.1, 0.9), cex = 5)
 @
 
-<<>>=
+<<Figure1.15b>>=
 sd(~ prop, data = senate.32)
 sd(~ prop, data = senate.128)
 sd(~ prop, data = senate.256)
 @
 
-<<>>=
-prop(~(prop >= 0.719), data = senate.32)
-prop(~(prop >= 0.719), data = senate.128)
-prop(~(prop >= 0.719), data = senate.256)
+<<Figure1.15c>>=
+prop(~ (prop >= 23/32), data = senate.32)
+prop(~ (prop >= 23/32), data = senate.128)
+prop(~ (prop >= 23/32), data = senate.256)
 @
 
-<<Figure1.16, opts.label="fig4">>=
-dotPlot(~ prop, data = simulation.senate, groups = (prop >= 23/32 | prop <= 9/32), width = 0.03, center = 0.5)
-prop(~(prop <= 9/32 | prop >= 23/32), data = simulation.senate)
+\begin{enumerate}
+  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi \neq 0.5$
+    
+    Test statistic:  $\hat p = 0.719$ (the sample proportion of 23/32)
+  \item
+    We use the simulated world in which $\pi = 0.5$:
+<<Figure1.16, tidy=FALSE>>=
+dotPlot(~ prop, data = sim.senate, groups = (prop >= 23/32 | prop <= 9/32), 
+        width = 1/32, cex = 3)
 @
-<<>>=
-prop.test(23, 32)
-binom.test(23, 32)
+Notice that because we are doing a two-sided test, we differentiate the samples with proportions greater than or equal to  23/32 and proportions less than or equal to 9/32 (the proportion that is as extreme as 23/32) by using the bar $|$.
+  \item
+    Strength of evidence:
+<<Figure1.16b>>=
+prop(~(prop <= 9/32 | prop >= 23/32), data = sim.senate)
 @
+\end{enumerate}
 
 \subsubsection*{Follow-up Study}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
-	\item
-		Test statistic:  $\hat p = 189/279$ (the sample proportion)
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi \neq 0.5$
+    
+		Test statistic:  $\hat p = 0.677$ (the sample proportion of 189/279)
 	\item
 		We simulate a world in which $\pi = 0.5$:
-<<Figure1.17,cache=TRUE,opts.label="fig4">>=
-simulation.house <- do(1000) * rflip(279, 0.5)
-head(simulation.house, 3)
-dotPlot(~ prop, data = simulation.house, groups = (prop >= 189/279), width = 0.002)
+<<Figure1.17, cache=TRUE>>=
+sim.house <- do(1000) * rflip(279, 0.5)
+head(sim.house, 3)
+favstats(~ prop, data = sim.house)
+dotPlot(~ prop, data = sim.house, groups = (prop >= 189/279 | prop <=90/279), width = 0.007)
 @
   \item
-    Normal approximation
-<<opts.label="fig4">>=
-mean(~ prop, data = simulation.house)
-sd <- sd(~ prop, data = simulation.house); sd
-xpnorm(189/279, 0.5, sd)
+    Strength of evidence:
+<<Figure1.17b>>=
+prop(~ (prop >= 189/279 | prop <=90/279), data = sim.house)
 @
-  \item
-    Approximate test for proportions:
-<<>>=
-prop.test(189, 279)
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(189, 279)
+    Strength of evidence with the standardized statistic:
+<<Figure1.17c>>=
+mean(~ prop, data = sim.house)
+sd <- sd(~ prop, data = sim.house); sd
+xpnorm(189/279, 0.5, sd, plot = FALSE)
 @
 \end{enumerate}
 
 \subsection*{Exploration 1.4: Competitive Advantage to Uniform Colors?}
 
-One-sided test.
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi > 0.5$
+    
 		Test statistic:  $\hat p = 0.543$ (the sample proportion of 248/457)
 	\item
 		We simulate a world in which $\pi = 0.5$:
-<<Exploration1.4,cache=TRUE, opts.label="fig4">>=
-simulation.red <- do(1000) * rflip(457, 0.5)
-head(simulation.red, 3)
-dotPlot(~ prop, data = simulation.red, groups = (prop >= 0.543), width = 0.005)
-@
-<<Exploration1.4b>>=
-favstats(~ prop, data = simulation.red)
-prop(~ (prop >=0.543), data = simulation.red)
+<<Exploration1.4.3,cache=TRUE>>=
+sim.red <- do(1000) * rflip(457, 0.5)
+head(sim.red, 3)
+favstats(~ prop, data = sim.red)
+dotPlot(~ prop, data = sim.red, groups = (prop >= 0.543), width = 2/457)
 @
   \item
-    Approximate test for proportions:
-<<>>=
-prop.test(248, 457, alt = "greater")
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(248, 457, alt = "greater")
+    Strength of evidence:
+<<Exploration1.4.3b>>=
+prop(~ (prop >=0.543), data = sim.red)
 @
 \end{enumerate}
 
-Two-sided test.
-
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi \neq 0.5$
+    
   	Test statistic:  $\hat p = 0.543$ (the sample proportion of 248/457)
 	\item
 		We use the simulated world in which $\pi = 0.5$ from the one-sided test:
-<<Exploration1.4c, opts.label="fig4">>=
-dotPlot(~ prop, data = simulation.red, groups = (prop <=0.457 | prop >= 0.543), width = 0.005)
-prop(~ (prop <=0.457 | prop >= 0.543), data = simulation.red)
+<<Exploration1.4.5>>=
+dotPlot(~ prop, data = sim.red, groups = (prop <=0.457 | prop >= 0.543), width = 2/457)
 @
   \item
-    Approximate test for proportions:
-<<>>=
-prop.test(248, 457)
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(248, 457)
+    Strength of evidence:
+<<Exploration1.4.5b>>=
+prop(~ (prop <=0.457 | prop >= 0.543), data = sim.red)
 @
 \end{enumerate}
 
@@ -436,24 +412,20 @@ binom.test(248, 457)
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi > 0.5$
+    
   	Test statistic:  $\hat p = 0.57$ (the sample proportion)
 	\item
 		We use the simulated world in which $\pi = 0.5$:
-<<Exploration1.4d, opts.label="fig4">>=
-dotPlot(~ prop, data = simulation.red, groups = (prop >= 0.57), width = 0.005)
-prop(~ (prop >=0.57), data = simulation.red)
+<<Exploration1.4.6>>=
+dotPlot(~ prop, data = sim.red, groups = (prop >= 0.57), width = 2/457)
 @
   \item
-    Approximate test for proportions:
-<<>>=
-prop.test(260.49, 457, alt = "greater") # 260.49 = 0.59 * 457
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(260, 457, alt = "greater")
+    Strength of evidence:    
+<<Exploration1.4.6b>>=
+prop(~ (prop >=0.57), data = sim.red)
 @
 \end{enumerate}
 
@@ -461,178 +433,187 @@ binom.test(260, 457, alt = "greater")
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi > 0.5$
+    
     Test statistic:  $\hat p = 0.551$ (the sample proportion of 150/272)
 	\item
 		We simulate a world in which $\pi = 0.5$:
-<<Exploration1.4e,cache=TRUE, opts.label="fig4">>=
-simulation.boxing <- do(1000) * rflip(272, 0.5)
-head(simulation.boxing, 3)
-dotPlot(~ prop, data = simulation.boxing, groups = (prop >= 0.551), width = 0.005)
-@
-<<Exploration1.4f>>=
-favstats(~ prop, data = simulation.boxing)
-prop(~ (prop >=0.551), data = simulation.boxing)
+<<Exploration1.4.7, cache=TRUE>>=
+sim.box <- do(1000) * rflip(272, 0.5)
+head(sim.box, 3)
+favstats(~ prop, data = sim.box)
+dotPlot(~ prop, data = sim.box, groups = (prop >= 0.551), width = 1/272)
 @
   \item
-    Approximate test for proportions:
-<<>>=
-prop.test(150, 272, alt = "greater")
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(150, 272, alt = "greater")
+    Strength of evidence
+<<Exploration1.4.7b>>=
+prop(~ (prop >=0.551), data = sim.box)
 @
 \end{enumerate}
 
 
 \section{Inference on a single proportion: Theory-based approach}
 
+%Figure 1.18 (skip)
+
 \subsection*{Example 1.5: Halloween Treats}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi \neq 0.5$
+    
     Test statistic:  $\hat p = 0.523$ (the sample proportion of 148/283)
   \item
 		We simulate a world in which $\pi = 0.5$:
-<<Figure1.19,cache=TRUE,opts.label="fig4">>=
-simulation.candy <- do(1000) * rflip(283, 0.5)
-head(simulation.candy, 3)
-dotPlot(~ prop, data = simulation.candy, width = 0.0025)
-@
-<<>>=
-favstats(~ prop, data = simulation.candy)
+<<Figure1.19, cache=TRUE>>=
+sim.candy <- do(1000) * rflip(283, 0.5)
+head(sim.candy, 3)
+favstats(~ prop, data = sim.candy)
+dotPlot(~ prop, data = sim.candy, width = 1/283)
 @
 \end{enumerate}
 
 \subsubsection*{Theory-based approach (One proportion z test)}
 
-%central limit theorem
 Calculating predicted standard deviation:
-<<>>=
+<<Example1.5>>=
 mean <- 0.5
 n <- 283
 sd <- sqrt(mean * (1 - mean) / n); sd
 @
+
 Calculating z-score:
-<<opts.label="fig4">>=
+<<Example1.5b>>=
 z <- (0.523 - mean) / sd; z
-@
-Using the function \function{pnorm()} with calculated z-score to find the p-value:
-<<>>=
-pnorm(z, 0, 1)
-@
-Using the function \function{pnorm()} with raw data to find the p-value:
-<<>>=
-pnorm(0.523, mean, sd)
-@
-Using the function \function{xpnorm()} with raw data to find both the z-score and p-value: 
-<<>>=
-xpnorm(0.523, mean, sd)
+xpnorm(148/283, 0.5, sd, plot = FALSE)
 @
 
-<<Figure1.20,opts.label="fig4">>=
-dotPlot(~ prop, data = simulation.candy, group = (prop <= 0.4770 | prop >= 0.5230), width = 0.0025)
-prop(~ (prop <= 0.4770 | prop >= 0.5230), data = simulation.candy)
+To overlay a normal approximation, let's graph a histogram using \function{histogram()} instead of a dotplot:
+<<Figure1.20, opts.label="fig3", message=FALSE>>=
+histogram(~ prop, data = sim.candy)
+histogram(~ prop, data = sim.candy, fit = "normal")
+histogram(~ prop, data = sim.candy, fit = "normal", group = (prop <= 135/283 | prop >= 148/283))
+prop(~ (prop <= 135/283 | prop >= 148/283), data = sim.candy)
 @
-%how to fit normal approx to dotPlot()
+%help with histogram grouping
+
+Now that we've covered normal approximation, we can examine the rest of the output from \function {xpnorm()}. Because it's a two-sided test, we can input both the observed statistic (148/283) and the statistic that is as extreme as the observed (135/283). 
+<<Figure1.20b, opts.label="fig4">>=
+xpnorm(c(135/283, 148/283), 0.5, sd)
+@
+The output gives the z-scores for both statistics and the p-value. We know now that this p-value is found using the predicted standard deviation and normal approximation. The p-value for the two-sided test is the sum of P($Z <= -0.773$) and P($Z >  0.773$). 
+
+We can also use the just observed statistic as we have done before but only we will need to change the \argument{lower.tail} to \option{FALSE}.
+<<Figure1.20c, >>=
+xpnorm(148/283, 0.5, sd, lower.tail = FALSE, plot = FALSE)
+2 * xpnorm(148/283, 0.5, sd, lower.tail = FALSE, plot = FALSE)
+@
+This results in the p-value of the alternative hypothsis that $\pi$ is greater than the observed statistic (the default is the alternative hypothsis that $\pi$ is less than the observed statistic). For the two-sided test, we have multiplied the resulting p-value by two.
+
+The function \function{pnorm()} can be used just to find the p-value:
+<<Figure1.20d>>=
+2 * pnorm(148/283, 0.5, sd, lower.tail = FALSE)
+@
+
+Further, we can input the standardized statistic (z-score) to find the p-value: 
+<<Figure1.20e>>=
+2 * pnorm(z, 0, 1, lower.tail = FALSE)
+@
+
+The most convenient way to find the p-value for a proportion using normal approximation is to use \function{prop.test()} by inputing the number of sucesses and the number of samples:
+<<Example1.5c>>=
+prop.test(148, n = 283)
+@
+Note that the default for the prop test is with a $\pi=0.5$, two-sided test, and a continuity correction. The continuity correction results in a more accurate p-value but if you want the p-value found with \function{pnorm()} we can change the default.
+
+<<Figure1.5d>>=
+prop.test(148, 283, correct = FALSE)
+@
 
 \subsubsection*{A situation where a theory-based approach doesn't work}
 
-<<>>=
+<<Example1.5e>>=
 mean <- 1/3
 n <- 12
 sd <- sqrt(mean * (1 - mean) / n); sd
 @
 
-<<opts.label="fig4">>=
-xpnorm(1/6, mean, sd)
+<<Figure1.21>>=
+dotPlot(~ prop, data = sim.sci, group = (prop <= 1/6), width = 1/12, cex = 3)
+prop(~ (prop <= 1/6), data = sim.sci)
 @
 
-<<Figure1.21,opts.label="fig4">>=
-dotPlot(~ prop, data = simulation.sci, group = (prop <= 1/6), width = 1/12, center = 1/3)
-prop(~ (prop <= 1/6), data = simulation.sci)
+<<Figure1.21b, opts.label="fig4">>=
+xpnorm(1/6, 1/3, sd)
 @
-%overlay normal approximation?
 
-%%%%%%%%%%%%%%%%%%%%%%%%%begin fix%%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{Exploration 1.5: Calling Heads or Tails}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi > 0.5$
+    
     Test statistic:  $\hat p = 0.651$ (the sample proportion of 54/83)
   \item
   	We simulate a world in which $\pi = 0.5$:
-<<Exploration1.5,cache=TRUE, opts.label="fig4">>=
-simulation.heads <- do(1000) * rflip(83, 0.5)
-head(simulation.heads, 3)
-dotPlot(~ prop, data = simulation.heads, groups = (prop >= 0.651), width = 0.02)
-@
-<<Exploration1.5b>>=
-favstats(~ prop, data = simulation.heads)
-prop(~ (prop >= 0.651), data = simulation.heads)
+<<Exploration1.5.5,cache=TRUE>>=
+sim.heads <- do(1000) * rflip(83, 0.5)
+head(sim.heads, 3)
+favstats(~ prop, data = sim.heads)
+histogram(~ prop, data = sim.heads, groups = (prop >= 54/83), fit = "normal")
 @
   \item
-    Normal approximation (using predicted sd):
-<<Exploration1.5c,opts.label="fig4">>=
-sd <- sqrt(0.5 * (1 - 0.5) / 83); sd
-xpnorm(0.651, 0.5, sd, lower.tail=FALSE)
+    Strength of evidence
+<<Exploration1.5.5b>>=
+prop(~ (prop >= 54/83), data = sim.heads)
 @
-  \item
-    Approximate test for proportions:
-<<>>=
-prop.test(54, 83, alt = "greater")
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(54, 83, alt = "greater")
+    Normal approximation using simulated sd:
+<<Exploration1.5.5c, opts.label="fig4">>=
+sd <- sd(~ prop, data = sim.heads)
+xpnorm(54/83, 0.5, sd, lower.tail=FALSE)
 @
 \end{enumerate}
 
 \subsubsection*{Formulas}
 
-<<Exploration1.5d>>=
+<<Exploration1.5.8>>=
 sd <- sqrt(0.5 * (1 - 0.5) / 83); sd
 @
-<<Exploration1.5e>>=
-z <- (0.651 - 0.500) / sd; z
-2 * pnorm(z, 0, 1, lower.tail=FALSE) # times 2 because two-sided test
+
+<<Exploration1.5.9>>=
+xpnorm(54/83, 0.5, sd, plot = FALSE, lower.tail = FALSE)
+prop.test(54, 83, alt = "greater", correct = FALSE)
 @
-<<Exploration1.5f, opts.label="fig4">>=
-xpnorm(z, 0, 1)
-xpnorm(0.651, 0.5, sd)
+
+<<Exploration1.5.10, include=FALSE>>=
+<<Exploration1.5.9>>
 @
 
 \subsubsection*{Follow-up Analysis \#1}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi \neq 0.5$
+    
     Test statistic:  $\hat p = 0.70$ (the sample proportion)
   \item
-    We use the simulated world in which $\pi = 0.5$:
-<<Exploration1.5g,opts.label="fig4">>=
-dotPlot(~ prop, data = simulation.heads, groups = (prop <= 0.30 | prop >= 0.70), width = 0.02)
-prop(~ (prop <= 0.30 | prop >= 0.70), data = simulation.heads)
+    Normal approximation using predicted sd:
+<<Exploration1.5.12>>=
+sd <- sqrt(0.5 * (1 - 0.5) / 83); sd
+2 * xpnorm(0.70, 0.5, sd, plot = FALSE, lower.tail = FALSE)
 @
-  \item
-    Approximate test for proportions:
-<<>>=
-prop.test(58.1, 83) # 58.1 = 0.70 * 83
-@
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(58, 83)
+    Approximate test for proportions without continuity correction:
+<<Exploration1.5.12b>>=
+prop.test(58.1, 83, correct = FALSE) # 58.1 = 0.70 * 83
 @
 \end{enumerate}
 
@@ -640,36 +621,31 @@ binom.test(58, 83)
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi \neq 0.5$
+    
     Test statistic:  $\hat p = 0.875$ (the sample proportion of 7/8)
   \item
     We simulate a world in which $\pi = 0.5$:
-<<Exploration1.5h,opts.label="fig4",cache=TRUE>>=
-simulation.small <- do(1000) * rflip(8, 0.5)
-head(simulation.small, 3)
-dotPlot(~ prop, data = simulation.small, groups = (prop <= 0.125 | prop >= 0.875), width = 0.03125)
-prop(~ (prop <= 0.125 | prop >= 0.875), data = simulation.small)
-@
-%fix dotPlot
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%fix%%%%%%%%%%%%%%
-  \item
-    Normal approximation (using predicted sd):
-<<Exploration1.5i, opts.label="fig4">>=
-sd <- sqrt(0.5 * (1 - 0.5) / 8); sd
-z <- (0.875 - 0.500) / sd; z
-2 * pnorm(z, lower.tail=FALSE)    # times 2 because two-sided test
-xpnorm(z, 0, 1, lower.tail=FALSE)
+<<Exploration1.5.13, cache=TRUE>>=
+sim.small <- do(1000) * rflip(8, 0.5)
+head(sim.small, 3)
+dotPlot(~ prop, data = sim.small, groups = (prop <= 0.125 | prop >= 0.875), width = 1/8, cex = 3)
 @
   \item
-    Approximate test for proportions:
-<<warning=FALSE>>=
-prop.test(7, 8)
+    Strength of evidence:
+<<Exploration1.5.13b>>=
+prop(~ (prop <= 0.125 | prop >= 0.875), data = sim.small)
 @
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(7, 8)
+    Approximate test for proportions without continuity correction:
+<<Exploration1.5.13c, warning=FALSE>>=
+prop.test(7, 8, correct = FALSE)
 @
 \end{enumerate}
+
+There is also another test that will compute the p-value for a proportion and that the binomial test. \function{binom.test()} utilizes a binomial probability distribution while \function{prop.test()} utilizes a normal probability distribution. The tests are similar but the binomial test will result in the most accurate p-value.
+<<>>=
+binom.test(7, 8)
+binom.test(58, 83)
+@
