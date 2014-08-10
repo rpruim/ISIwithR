@@ -85,3 +85,25 @@ so that I can easily manipulate the levels, one-sided tests, and conf.levels (al
 
 
 (Those last two questions are a handful so if you didn't understand me, I can ask you when we talk in person. Also, chapter 5 is a mess right now because I wasn't checking whether the hypotheses matched the defaults so I wouldn't look too closely that all of the examples.)
+
+### Updated questions
+
+## Preliminaries
+
+- Is there a way to replicate Figure P.6 (pp.15)? This is what I want to graph:
+```
+game <- do(1000) * rflip(n = 10, prob = 1/3)    # 1000 samples, each of size 200 and proportion 1/3
+head(game)
+```
+
+- How would you do the Monty Hall problem in R? The above is a game picking one out of three doors. Tintle does the actual problem where after you pick one out of three doors, a goat is revealed in one of the two you don't pick. Then I'd simulate the success after the switch. (pp.15)
+
+## Chapter 1
+
+- For Figure1.20, in the third histogram, I wanted to group values more or as extreme as the observed statistic but the histogram is being colored in badly. How to fix?
+
+## Chapter 2
+
+- How do you get an ordered list of a data set? See Table 2.5 (pp.38) data is "TimeEstimate"
+
+- Part of Exploration 2.2 (pp.60, questions 24+) requires data sets called "Pop1", "Pop2", and "Pop3". They are not data sets in Tintle1. Could we add them? http://www.rossmanchance.com/ISIapplets.html under the "One Mean" section.
