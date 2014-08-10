@@ -10,18 +10,18 @@
 
 <<Table2.1>>=
 head(CollegeMidwest, 8)
-summary(CollegeMidwest)
 @
 
+In chapter one, we used \term{histograms} a few times instead of dotplots and changed their widths. You can also control the number of bins by defining \argument{nint,} or \argument{n} for short.
 <<Figure2.1>>=
-histogram(~ CumGpa, data = CollegeMidwest, nint =  24)
+histogram(~ CumGpa, data = CollegeMidwest, n =  24)
 bargraph(~ OnCampus, data = CollegeMidwest)
 @
-%explain nint = number of bins
 
 \subsubsection*{Simple Random Samples}
 
-<<Table2.2,cache=TRUE>>=
+For a \term{simple random sample} of a data set, we use \function{sample()} and define the size of the same we want.
+<<Table2.2, cache=TRUE>>=
 sample1 <- sample(CollegeMidwest, 30); sample1
 sample2 <- sample(CollegeMidwest, 30)
 sample3 <- sample(CollegeMidwest, 30)
@@ -41,25 +41,23 @@ prop(~ OnCampus, level = "Y", data = sample3)
 prop(~ OnCampus, level = "Y", data = sample4)
 prop(~ OnCampus, level = "Y", data = sample5)
 @
+Notice the \argument{level} in order to find the proportion of students who said ``yes" instead of the default ``no".
 
-<<Figure2.2,cache=TRUE,opts.label="fig4">>=
+Similar to the simulation of random processes in chapter one, we can repeat taking different simple random samples. Conveniently, \R\ will let you set \argument{data=} to a simple random sample so we can repeat finding the mean or the proportion of a different simple random sample many times.
+<<Figure2.2, cache=TRUE>>=
 sample.gpa <- do(1000) * mean(~ CumGpa, data = sample(CollegeMidwest, 30))
 head(sample.gpa)
-mean(~ result, data = sample.gpa)
+favstats(~ result, data = sample.gpa)
 histogram(~ result, data = sample.gpa)
 @
 
-<<Figure2.2b,cache=TRUE,opts.label="fig4">>=
+<<Figure2.2b, cache=TRUE>>=
 sample.campus <- do(1000) * prop(~ OnCampus, level = "Y", data = sample(CollegeMidwest, 30))
 head(sample.campus)
-mean(~ Y, data = sample.campus)
+favstats(~ Y, data = sample.campus)
 histogram(~ Y, data = sample.campus)
 @
 
-<<othername, include=TRUE>>=
-<<Figure2.2>>
-<<Figure2.2b>>
-@
 \subsubsection*{Exploration 2.1A: Sampling Words}
 
 <<>>=
@@ -67,45 +65,42 @@ head(GettysburgAddress)
 words <- sample(GettysburgAddress, 10)
 nchar(words[1:10])
 @
-%how to get length? how to find "e"
-%Where is Sampling Words Applets
-%overlay (groups) vs. panels (|)
-%favstats
-%tally(sex ~ substance, data = HELPrct) comes in prop
-%tally(~sex, groups = substance, data =HELPrct) comes in count
+
+%for Prof. Prium
 
 \subsubsection*{Example 2.1B: Should Supersize Drinks be Banned?}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi < 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi < 0.5$
+    
   	Test statistic:  $\hat p = 0.46$ (the sample proportion of 503/1093)
 	\item
 		We simulate a world in which $\pi = 0.5$:
-<<cache=TRUE,opts.label="fig4">>=
-simulation.ban <- do(1000) * rflip(1093, 0.5)
-head(simulation.ban, 3)
-dotPlot(~ prop, data = simulation.ban, groups = (prop <= 0.46), width = 0.0005)
-@
-<<>>=
-favstats(~prop, data = simulation.ban)
-prop(~ (prop <= 0.46), data = simulation.ban)
+<<Figure2.3, cache=TRUE>>=
+sim.ban <- do(1000) * rflip(1093, 0.5)
+head(sim.ban, 3)
+favstats(~ prop, data = sim.ban)
+dotPlot(~ prop, data = sim.ban, groups = (prop <= 0.46), width = 0.001)
 @
   \item
-    Normal approximation (using predicted standard deviation):
-<<opts.label="fig4">>=
+    Strength of evidence:
+<<Figure2.3b>>=
+prop(~ (prop <= 0.46), data = sim.ban)
+@
+    Normal approximation using predicted standard deviation:
+<<Figure2.4, opts.label="fig4">>=
 sd <- sqrt(0.5 * (1 - 0.5) / 1093); sd
 xpnorm(0.46, 0.5, sd)
 @
-  \item
-    Approximate test for proportions:
-<<>>=
+    Approximate test for proportions with continuity correction:
+<<Figure2.4b>>=
 prop.test(503, 1093, alt = "less")
 @
-  \item
     Exact test for proportions:
-<<>>=
+<<Figure2.4c>>=
 binom.test(503, 1093, alt = "less")
 @
 \end{enumerate}
@@ -114,35 +109,36 @@ binom.test(503, 1093, alt = "less")
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi > 0.5$
+    
     Test statistic:  $\hat p = 0.55$ (the sample proportion)
 	\item
 		We simulate a world in which $\pi = 0.5$:
-<<cache=TRUE,opts.label="fig4">>=
-simulation.smoke <- do(1000) * rflip(1421, 0.5)
-head(simulation.smoke, 3)
-dotPlot(~ prop, data = simulation.smoke, groups = (prop >= 0.55), width = 0.0005)
-@
-<<>>=
-favstats(~prop, data = simulation.smoke)
-prop(~ (prop >= 0.55), data = simulation.smoke)
+<<Exploration2.1B.10, cache=TRUE>>=
+sim.smoke <- do(1000) * rflip(1421, 0.5)
+head(sim.smoke, 3)
+favstats(~prop, data = sim.smoke)
+dotPlot(~ prop, data = sim.smoke, groups = (prop >= 0.55), width = 0.0014)
 @
   \item
-    Normal approximation (using predicted standard deviation):
-<<opts.label="fig4">>=
+    Strength of evidence:
+<<Exploration2.1B.10b>>=
+prop(~ (prop >= 0.55), data = sim.smoke)
+@
+    Normal approximation using predicted standard deviation:
+<<Exploration2.1B.14, opts.label="fig4">>=
 sd <- sqrt(0.5 * (1 - 0.5) / 1421); sd
-xpnorm(0.55, 0.5, sd, lower.tail=FALSE)
+xpnorm(0.55, 0.5, sd, lower.tail = FALSE, )
 @
-  \item
-    Approximate test for proportions:
-<<>>=
-prop.test(781.55, 1421, alt = "greater") # 781.55 = 1421* 0.55
+    Approximate test for proportions with continuity correction:
+<<Exploration2.1B.14b>>=
+prop.test(782, 1421, alt = "greater") # 782 = 1421 * 0.55
 @
-  \item
     Exact test for proportions:
-<<>>=
-binom.test(781, 1421, alt = "greater")
+<<Exploration2.1B.14c>>=
+binom.test(782, 1421, alt = "greater")
 @
 \end{enumerate}
 
@@ -151,17 +147,12 @@ binom.test(781, 1421, alt = "greater")
 
 \subsection*{Example 2.2: Estimating Elapsed Time}
 
-<<Figure2.5,opts.label="fig1">>=
+<<Figure2.5, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
 head(TimeEstimate)
-dotPlot(~ Estimate, data = TimeEstimate, width = 1)
+favstats(~ Estimate, data = TimeEstimate)
+dotPlot(~ Estimate, data = TimeEstimate, width = 1, cex = 0.25)
 @
 
-<<>>=
-mean(~ Estimate, data = TimeEstimate)
-median(~ Estimate, data = TimeEstimate)
-sd(~ Estimate, data = TimeEstimate)
-favstats(~ Estimate, data = TimeEstimate)
-@
 %Table 2.5 ordering
 %outliers?
 
@@ -175,36 +166,39 @@ histogram(~ Estimate, data = TimePopulation, type = "count", nint = 20)
 sample1 <- sample(TimePopulation, 48)
 head(sample1, 3)
 favstats(~ Estimate, data = sample1)
-dotPlot(~ Estimate, data = sample1, width = 1, cex = 0.5)
+dotPlot(~ Estimate, data = sample1, width = 1, cex = 0.3)
 @
 
 \begin{enumerate}
   \item
-    $H_0$: $\mu = 10$;  $H_a$: $\mu \neq 10$
-  \item
+    $H_0$: $\mu = 10$
+    
+    $H_a$: $\mu \neq 10$
+    
     Test statistic:  $\bar x = 13.71$ (the sample mean)
   \item
     We simulate random samples from a finite population:
-<<Figure2.8, cache=TRUE, opts.label="fig4">>=
-simulation.time <- do(1000) * mean(~ Estimate, data = sample(TimePopulation, 48))
-head(simulation.time, 3)
-histogram(~ result, data = simulation.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10)
-prop(~ (result <= 6.29 | result >= 13.71), data = simulation.time)
+<<Figure2.8, cache=TRUE>>=
+sim.time <- do(1000) * mean(~ Estimate, data = sample(TimePopulation, 48))
+head(sim.time, 3)
+histogram(~ result, data = sim.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10)
 @
   \item
-    Normal approximation (using simulated standard deviation):
-<<>>=
-mean(~ result, data = simulation.time)
-sd <- sd(~ result, data = simulation.time); sd
+    Strength of evidence:
+<<Figure2.8b>>=
+prop(~ (result <= 6.29 | result >= 13.71), data = sim.time)
+@
+    Strength of evidence with the standardized statistic:
+<<Figure2.8c>>=
+mean(~ result, data = sim.time)
+sd <- sd(~ result, data = sim.time); sd
 xpnorm(13.71, 10, sd, lower.tail=FALSE, plot=FALSE)
 @
-
 \end{enumerate}
 
 \subsubsection*{Theory-based approach: One-sample t-test}
-%t=standardized statistic
 
-<<>>=
+<<Example2.2>>=
 xbar <- 13.71
 mu <- 10
 s <- 6.5
@@ -213,13 +207,15 @@ t <- (xbar - mu) / (s / sqrt(n)); t
 @
 
 <<Figure2.9>>=
-histogram(~ result, data = simulation.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10, fit = "t")
-pt(t, df=47, lower.tail=FALSE)
+histogram(~ result, data = sim.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10, fit = "t")
 @
+
+<<Figure2.10>>=
+2 * pt(t, df=47, lower.tail=FALSE)
+@
+
 %help fit t
 %use t-test
-
-%Figure 2.10 Theory-Based Inference for time estimate study
 
 %<<opts.label="fig4", fig.keep='last'>>=
 %plotFun(dnorm(x, 0, 1) ~ x, x.lim = c(-4, 4))
@@ -229,22 +225,48 @@ pt(t, df=47, lower.tail=FALSE)
 
 \subsubsection*{Alternative Analysis: What about the median?}
 
-<<cache=TRUE>>=
-simulation.median <- do(1000) * median(~ Estimate, data = sample(TimePopulation, 48))
-head(simulation.median, 3)
-histogram(~ result, data = simulation.median, groups = (result < 8 | result > 12), width = 0.5, type = "count")
-prop(~ (result < 8 | result > 12), data = simulation.median)
+<<Figure2.11, cache=TRUE>>=
+sim.median <- do(1000) * median(~ Estimate, data = sample(TimePopulation, 48))
+head(sim.median, 3)
+histogram(~ result, data = sim.median, groups = (result < 8 | result > 12), width = 0.5, type = "count")
+prop(~ (result < 8 | result > 12), data = sim.median)
 @
 
 \subsection*{Exploration 2.2: Sleepless Nights?}
 
-<<>>=
+<<Exploration2.2.1>>=
 head(SleepTimes, 3)
-histogram(~ SleepHrs, data = SleepTimes, nint = 15)    # shape
-favstats(~ SleepHrs, data = SleepTimes)    # center and variability
 @
 
-% simulation on pp.60 from a hypothetical population of many thousands of college students. dataset "Pop1" not avail.
+\subsubsection*{Shape}
+
+<<Exploration2.2.10>>=
+histogram(~ SleepHrs, data = SleepTimes, nint = 15)
+@
+
+\subsubsection*{Center}
+
+<<Exploration2.2.11>>=
+mean(~ SleepHrs, data = SleepTimes) 
+@
+
+<<Exploration2.2.16>>=
+median(~ SleepHrs, data = SleepTimes)
+@
+
+\subsubsection*{Variability}
+
+<<Exploration2.2.18>>=
+sd(~ SleepHrs, data = SleepTimes)
+@
+
+\subsubsection*{Unusual observations}
+
+We could examine the entire data set to find any outliers but there is a quicker way to see if there potential outliers. The \function{bwplot()} function plots a box-and-whisker plot which identifies \emph{possible} outliers with a dot beyond the whiskers.
+<<Exploration2.2.20>>=
+bwplot(~ SleepHrs, data = SleepTimes)
+@
+% simulation on pp.60 from a hypothetical population of many thousands of college students from applet
 
 % cannot do follow-up 1 simulating "Pop2"
 % cannot do follow-up 2 simulating median "Pop1"
@@ -254,55 +276,40 @@ favstats(~ SleepHrs, data = SleepTimes)    # center and variability
 
 \subsection*{Example 2.3: Heart Transplant Operations (continued)}
 
-% Table 2.8 not included b/c redundant 
+%no R
 
 \subsection*{Exploration 2.3: Parapsychology Studies}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.25$;  $H_a$: $\pi > 0.25$
-  \item
+    $H_0$: $\pi = 0.25$
+    
+    $H_a$: $\pi > 0.25$
+
     Test statistic:  $\hat p = 0.333$ (the sample proportion of 709/2124)
   \item
     We simulate a world in which $\pi = 0.25$:
 <<Exploration2.3.4,cache=TRUE>>=
-simulation.esp <- do(1000) * rflip(2124, 0.25)
-head(simulation.esp, 3)
-prop(~ (prop >= 0.333), data = simulation.esp)
+sim.esp <- do(1000) * rflip(2124, 0.25)
+head(sim.esp, 3)
 @
   \item
-    Normal approximation (using predicted standard deviation):
-<<Exploration2.3.5>>=
-sd <- sqrt(0.25 * (1 - 0.25) / 2124); sd
-xpnorm(1/3, 0.25, sd, lower.tail = FALSE, plot = FALSE)
+    Strength of evidence:
+<<Exploration2.3.4b>>=
+prop(~ (prop >= 0.333), data = sim.esp)
 @
-  \item
     Approximate test for proportions:
-<<>>=
+<<Exploration2.3.5>>=
 prop.test(709, 2124, p= 0.25, alt = "greater")
 @
-  \item
-    Exact test for proportions:
-<<>>=
-binom.test(709, 2124, p= 0.25, alt = "greater")
-@
-%use t instead?
-  \item
-    Normal approximation if $\hat p = 15/50$ (using predicted standard deviation):
-<<Exploration2.3.12>>=
-sd <- sqrt(0.25 * (1 - 0.25) / 50); sd
-pnorm(15/50, 0.25, sd, lower.tail = FALSE)
-@
-  \item
-    Approximate test for proportions if $\hat p = 15/50$:
-<<>>=
-prop.test(15, 50, p= 0.25, alt = "greater")
-@
-  \item
-    Exact test for proportions if $\hat p = 15/50$:
-<<>>=
-binom.test(15, 50, p= 0.25, alt = "greater")
-@
-%use t instead?
-%include prop.test?
 \end{enumerate}
+
+Approximate test for $\hat p = 15/50$ if $\pi = 0.25$:
+<<Exploration2.3.12>>=
+prop.test(15, 50, p = 0.25, alt = "greater")
+@
+
+Approximate test for $\hat p = 15/50$ if $\pi = 0.33$:
+<<Exploration2.3.16>>=
+prop.test(15, 50, p = 0.33, alt = "greater")
+@
