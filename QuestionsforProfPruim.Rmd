@@ -29,7 +29,7 @@ require(Tintle1)
 - I skipped all of Exploration 2.1A with dataset "GettysburgAddress". The dataset is in character form but the questions ask about the number of letters in each word and the inclusion of the letter "e" in each word. I thought it might be better just to have the dataset in a frame with two new columns that include this information. If not, how should I approach Exploration 2.1A questions?
 
   * Here is one way:
-```{r}
+```
 G <- data.frame(word=GettysburgAddress, stringsAsFactors=FALSE)
 G %>% mutate( nchar = nchar(word), e=grepl("e", word)) -> G
 histogram(~nchar, data=G, width=1)
@@ -86,7 +86,7 @@ so that I can easily manipulate the levels, one-sided tests, and conf.levels (al
 
 (Those last two questions are a handful so if you didn't understand me, I can ask you when we talk in person. Also, chapter 5 is a mess right now because I wasn't checking whether the hypotheses matched the defaults so I wouldn't look too closely that all of the examples.)
 
-### Updated questions
+# Updated questions
 
 ## Preliminaries
 
@@ -107,3 +107,11 @@ head(game)
 - How do you get an ordered list of a data set? See Table 2.5 (pp.38) data is "TimeEstimate"
 
 - Part of Exploration 2.2 (pp.60, questions 24+) requires data sets called "Pop1", "Pop2", and "Pop3". They are not data sets in Tintle1. Could we add them? http://www.rossmanchance.com/ISIapplets.html under the "One Mean" section.
+
+## Chapter 6
+
+- I'm skipping Exploration 6.1B: Cancer Pamphlets because of the type of data and questions. Please let me know if you disagree.
+
+## Chapter 7
+
+- How do you do a simulation of differences in means? Specifically by "swapping" paired data? Like Table 7.3 and then 1000 repetitions? I've never done this with paired data (the data set is "FirstBase" in chapter 7). 
