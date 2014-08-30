@@ -343,7 +343,7 @@ binom.test(815, 1019, p = 0.775, conf.level = 0.95)
 binom.test(815, 1019, p = 0.775, conf.level = 0.99)
 binom.test(815, 1019, p = 0.775, conf.level = 0.90)
 @
-Note that the specified \pi, the \option{p = 0.775}, only matters in calculating the p-value and does not affect the confidence interval.
+Note that the specified $\pi$, the \option{p = 0.775}, only matters in calculating the p-value and does not affect the confidence interval.
 
 
 \section{2SD and Theory-Based Confidence Intervals for a Single Mean}
@@ -494,7 +494,7 @@ Simulate 100 sample proportions and calculate the 95\% confidence intervals:
 sim.CI <- CIsim(100, samples = 100, rdist = rbinom, args = list(size = 1, prob = 0.5), method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
 @
 
-Proportion of intervals produced that do not contain \pi = 0.5:
+Proportion of intervals produced that do not contain $\pi = 0.5$:
 <<>>=
 prop(~ cover, data = sim.CI)
 @
@@ -510,7 +510,7 @@ Simulate 1000 sample proportions and calculate the 95\% confidence intervals:
 sim.CI2 <- CIsim(100, samples = 1000, rdist = rbinom, args = list(size = 1, prob = 0.5), method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
 @
 
-Proportion of intervals produced that do not contain \pi = 0.5:
+Proportion of intervals produced that do not contain $\pi = 0.5$:
 <<>>=
 prop(~ cover, data = sim.CI2)
 @
@@ -520,7 +520,7 @@ Simulate 1000 sample proportions and calculate the 90\% confidence intervals:
 sim.CI3 <- CIsim(100, samples = 1000, rdist = rbinom, args = list(size = 1, prob = 0.5), conf.level = 0.90, method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
 @
 
-Proportion of intervals produced that do not contain \pi = 0.5:
+Proportion of intervals produced that do not contain $\pi = 0.5$:
 <<>>=
 prop(~ cover, data = sim.CI3)
 @
@@ -530,7 +530,7 @@ Simulate 1000 sample proportions and calculate the 90\% confidence intervals (sa
 sim.CI4 <- CIsim(400, samples = 100, rdist = rbinom, args = list(size = 1, prob = 0.5), conf.level = 0.90, method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
 @
 
-Proportion of intervals produced that do not contain \pi = 0.5:
+Proportion of intervals produced that do not contain $\pi = 0.5$:
 <<>>=
 prop(~ cover, data = sim.CI4)
 @

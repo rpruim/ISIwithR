@@ -9,6 +9,16 @@
 .Rproj.user
 Tintle1.Rproj
 
+# tex clutter
+*.tex
+*.notes
+*.log
+*.ilg
+*.ind
+*.idx
+*.synctex.gz
+Book/0*-*.pdf
+
 # vim work files
 *~
 *.swp

@@ -398,7 +398,7 @@ prop.test(c(40, 100), c(160, 340), alt = "greater")
 @
 \end{enumerate}
 
-\subsubseciton*{Relative risk}
+\subsubsection*{Relative risk}
 
 % relative risk simulation
 

@@ -3,8 +3,9 @@
 \setcounter{chapter}{-1}
 \Chapter{Preliminaries}
 
+\setcounter{section}{-1}
+\section{Getting Started with R and RStudio}
 
-\section{Introduction to the Six-Step Method}
 
 %copied from Lock5
 
@@ -12,10 +13,11 @@
 run \R, but most have to be selected.  This way you only have as much of \R\ as you
 need.
 
-In the \tab{Packages} tab, check the boxes next to the following package to
+In the \tab{Packages} tab, check the boxes next to the following packages to
 load them:
 \begin{itemize}
-  \item mosaic  (a package from Project MOSAIC)
+  \item \pkg{mosaic}  (a package from Project MOSAIC)
+  \item \pkg{Tintle1}  (data sets)
 \end{itemize}
 
 \RStudio\ provides several ways to create documents that include text, \R\ code, \R\ output, graphics, even mathematical notation all in one document.  The simplest of these is R Markdown.  
@@ -113,7 +115,12 @@ asking yourself two questions:
 
 Further, if you begin a command and hit the TAB key, \R\ will show you a list of possible ways to complete the command.  If you hit TAB after the opening parenthesis of a function, it will show you the list of arguments it expects. The up and down arrows can be used to retrieve past commands.
 
+Additional \R\ funcitonality will be introduced as we go along.
+The \pkg{mosaic} package includes several vignettes with additional information about using the package and using \R.
+
 %end copy from Lock5
+
+\section{Introduction to the Six-Step Method}
 
 \subsection*{Example P.1: Organ Donations}
 
@@ -224,20 +231,38 @@ Another useful graph for examining the \term{shape}, \term{center}, and \term{va
 <<>>=
 dotPlot(~ Time, data = OldFaithful1)
 @
-You can't really see the dots in this plot the defaults for \function{dotPlot()} may not be the best way to examine this particular data set.
+The dots in this plot are a bit small.  The defaults for \function{dotPlot()} may not be the best way to examine a particular data set.  We can increase the size of the
+dots using the \option{cex} argument.  (\option{cex} stands for ``character 
+expansion" and is used to scale up or down the size of plotting characters -- in this 
+case the dots.)
+
+<<>>=
+dotPlot(~ Time, data = OldFaithful1, cex=2)
+@
+
+Or we can change the distance between columns of dots
+<<>>=
+dotPlot(~ Time, data = OldFaithful1, width = 2)
+@
+Notice that the dots have been automatically resized when we do this.
 
 %copy from Lock5
+\iffalse
 Sometimes it is nice to have elements of a plot be partly transparent.  When such elements overlap, they get darker, showing us where data are ``piling up." Setting the \argument{alpha} argument to a value between 0 and 1 controls the degree of transparency: 1 is completely opaque, 0 is invisible.  The \argument{cex} argument controls ``character expansion" and can be used to make the plotting ``characters" larger or smaller by specifying the scaling ratio.
 
 
 Further, we can change can control the increment width of the plotted data so that it will plot observations on the width assigned. This is especially nice for count or other integer data.
 %end copy from Lock5
+\fi
 
-In this chuck, there are options set within \verb!{r}! in order to change the size of the graph when the R markdown is knit (only when it is knit - not just when the chuck in run).
+% In this chuck, there are options set within \verb!{r}! in order to change the size of the graph when the R markdown is knit (only when it is knit - not just when the chuck in run).
+
+The appropriate choice may depend on the intended size and shape of the plot.  The plots below are much wider, allowing us to present a finer view of the data.  In the 
+second plot, we have also added a more informative label.
 <<FigureP.3, tidy=FALSE, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
-dotPlot(~ Time, data = OldFaithful1, width = 1, cex = .25)
-dotPlot(~ Time, data = OldFaithful1, width = 1, cex = .15)
-dotPlot(~ Time, data = OldFaithful1, width = 1, cex = .15, xlab = "time until next eruption (min)")
+dotPlot(~ Time, data = OldFaithful1, width = 1)
+dotPlot(~ Time, data = OldFaithful1, width = 1, 
+        xlab = "time until next eruption (min)")
 @
 
 
@@ -247,7 +272,7 @@ head(OldFaithful2)
 summary(OldFaithful2)
 @
 <<fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
-dotPlot(~ TimeBetween, groups = EruptionType, data = OldFaithful2, width = 1, cex = 0.15)
+dotPlot(~ TimeBetween, groups = EruptionType, data = OldFaithful2, width = 1)
 @
 
 
@@ -257,7 +282,10 @@ plotname( ~ variable | condition, data=dataName )
 @
 
 <<fig.height=3.5, fig.width=8, out.width=".95\\textwidth">>=
-dotPlot(~ TimeBetween | EruptionType, data = OldFaithful2, layout = c(1,2), width = 1, cex = 0.15)
+dotPlot(~ TimeBetween | EruptionType, 
+        data = OldFaithful2, width = 1,
+        layout = c(1,2) 
+        )
 @
 
 For more key numerical summaries of the data set, we can use the \function{favestats} for ``favorite" statistics.
@@ -299,17 +327,59 @@ rflip(n = 15, prob = 1/3)
 This is equivalent to the playing 15 games (flips), each game having a 1/3 chance of picking the car (heads).
 
 
-Further, we can repeat each simulation many times by multiplying it by \function{do()}. When using \function{do}, you should assign the simulation a name by using an arrow ``\<-" so that you are creating a new data set with all of the repetitions. In this case, we are naming the simulation \dataframe{game.}
+Further, we can repeat each simulation many times by multiplying it by \function{do()}. When using \function{do}, you should assign the simulation a name by using an arrow (\verb!<-!) so that you are creating a new data set with all of the repetitions. In this case, we are naming the simulation \dataframe{GameSims.}
 <<cache=TRUE>>=
-game <- do(1000) * rflip(n = 10, prob = 1/3)    # 1000 samples, each of size 200 and proportion 1/3
-head(game)
+# 1000 samples, each of size 200 and proportion 1/3
+GameSims <- do(1000) * rflip(n = 10, prob = 1/3)    
+head(GameSims)
 @
 
 
 Now we can create a dotplot of the proportion of wins but note that because of there are so many observations (1000), we will not be able to see the individual dots.
 <<>>=
-dotPlot(~ prop, data = game, width = 0.1)
+dotPlot(~ prop, data = GameSims, width = 0.1)
 @
 
 %Figure P.6
 %how to do Monty Hall problem in R?
+
+\section{Other Visualizations}
+
+Several other types of plots can be used in place of dot plots to visualize the distribution of a single quantitative variable.  The most familiar of these is the 
+histogram, which replaces the dots of a histogram with rectangles and stacks them up touching each other to form bars.  If instead we draw lines connecting the tops
+of each bar in a histogram (and then erase the bars), the result in a frequency 
+polygon.  A density plot is a smoother version of this idea.
+
+
+Notice that to create these plots (and various numerical summaries), all we have 
+to change is the name of the \R\ function --  
+all of them follow the same general template.
+
+<<tidy=FALSE>>=
+    dotPlot(~ prop, data = GameSims, width = 0.1)
+  histogram(~ prop, data = GameSims, width = 0.1)
+freqpolygon(~ prop, data = GameSims, width = 0.1, ylim=c(0,4))
+densityplot(~ prop, data = GameSims)
+densityplot(~ prop, data = GameSims, adjust=2)    # "smoother"
+densityplot(~ prop, data = GameSims, adjust=0.5)  # less "smooth"
+   favstats(~ prop, data = GameSims)
+       mean(~ prop, data = GameSims)
+         sd(~ prop, data = GameSims)
+@
+
+For this data set, a histogram is probably best.  This is in part due to
+the discreteness of the data -- 
+there are only 11 possible values for \variable{prop}.
+
+Compared to dot plots, histograms, frequency polygons, and density plots handle a 
+wider range of data sizes.  The ``sweet spot'' for dot plots is around 100--1000 
+observations.  Also, frequency polygons and density plot have the advantage
+that they can be overlaid.
+
+<<>>=
+freqpolygon(~ TimeBetween, groups=EruptionType, data = OldFaithful2, ylim=c(0,0.7))
+densityplot(~ TimeBetween, groups=EruptionType, data = OldFaithful2)
+@
+
+(The current version of \function{freqpolygon()} is not too clever about choosing the
+limits for the y-axis -- sometimes you need to give it a hand.)

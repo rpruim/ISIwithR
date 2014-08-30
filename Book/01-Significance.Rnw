@@ -84,7 +84,7 @@ dotPlot(~ prop, data = sim.sci, width = 1/12, cex = 3)
   \item
     Strength of evidence:
 
-    For the \term{p-value}, you can use the \function{prop()} function and input \option{(prop <= 1/6)} to find the proportion of samples that is less than or equal to the observed proportion in the data set \data{sim.sci}.
+    For the \term{p-value}, you can use the \function{prop()} function and input \option{(prop <= 1/6)} to find the proportion of samples that is less than or equal to the observed proportion in the data set \dataframe{sim.sci}.
 <<Figure1.8>>=
 dotPlot(~ prop, data = sim.sci, cex = 3, width = 1/12, groups = (prop <= 1/6))
 prop(~ (prop <= 1/6), data = sim.sci)
@@ -253,7 +253,6 @@ Again, we can input the observed statistic, mean, and standard deviation to \fun
 <<Figure1.13, opts.label="fig4">>=
 xpnorm(0.6, mean = 0.5, sd = sd, plot = FALSE)
 @
-\end{enumerate}
 
 
 \section{What Impacts Strength of Evidence?}

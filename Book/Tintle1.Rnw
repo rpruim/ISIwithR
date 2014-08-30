@@ -161,6 +161,7 @@ require(stats)
 require(lattice)
 require(grid)
 require(mosaic)
+require(mosaicData)
 require(vcd)
 require(fastR)
 require(Tintle1)
@@ -245,7 +246,28 @@ knit_hooks$set(document = function(x) {
 \tableofcontents
 
 
-<<child="00_Preliminaries.Rnw", eval=TRUE>>=
+<<child="00-Preliminaries.Rnw", eval=TRUE>>=
+@
+
+<<child="01-Significance.Rnw", eval=TRUE>>=
+@
+
+<<child="02-Generalization.Rnw", eval=TRUE>>=
+@
+
+<<child="03-Estimation.Rnw", eval=TRUE>>=
+@
+
+<<child="04-Causation.Rnw", eval=TRUE>>=
+@
+
+<<child="05-ComparingTwoProportions.Rnw", eval=TRUE>>=
+@
+
+<<child="06-ComparingTwoMeans.Rnw", eval=TRUE>>=
+@
+
+<<child="07-PairedData.Rnw", eval=TRUE>>=
 @
 
 

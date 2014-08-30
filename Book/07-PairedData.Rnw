@@ -102,7 +102,7 @@ Standarized statistic:
 
 \section{Theory-Based Approach to Analyzing Data from Paired Samples}
 
-\subsection*{Example 7.3: How Many M&Ms Would You Like?}
+\subsection*{Example 7.3: How Many M\&Ms Would You Like?}
 
 <<Table7.4>>=
 head(BowlsMMs)
