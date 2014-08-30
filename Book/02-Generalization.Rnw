@@ -130,7 +130,7 @@ prop(~ (prop >= 0.55), data = sim.smoke)
     Normal approximation using predicted standard deviation:
 <<Exploration2.1B.14, opts.label="fig4">>=
 sd <- sqrt(0.5 * (1 - 0.5) / 1421); sd
-xpnorm(0.55, 0.5, sd, lower.tail = FALSE, )
+xpnorm(0.55, 0.5, sd, lower.tail = FALSE)
 @
     Approximate test for proportions with continuity correction:
 <<Exploration2.1B.14b>>=
@@ -153,7 +153,15 @@ favstats(~ Estimate, data = TimeEstimate)
 dotPlot(~ Estimate, data = TimeEstimate, width = 1, cex = 0.25)
 @
 
-%Table 2.5 ordering
+<<Table2.5>>=
+TimeEstimate %>% mutate(Rank=rank(Estimate, ties.method = "random")) %>% arrange(Rank)
+@
+
+%<<results='asis'>>=
+%require(xtable)
+%TimeEstimate %>% mutate(Rank=rank(Estimate, ties.method = "random")) %>% arrange(Rank) %>% t() %>% %xtable()
+%@
+
 %outliers?
 
 <<Figure2.6>>=
@@ -215,7 +223,6 @@ histogram(~ result, data = sim.time, groups = (result <= 6.29 | result >= 13.71)
 @
 
 %help fit t
-%use t-test
 
 %<<opts.label="fig4", fig.keep='last'>>=
 %plotFun(dnorm(x, 0, 1) ~ x, x.lim = c(-4, 4))
@@ -266,7 +273,55 @@ We could examine the entire data set to find any outliers but there is a quicker
 <<Exploration2.2.20>>=
 bwplot(~ SleepHrs, data = SleepTimes)
 @
-% simulation on pp.60 from a hypothetical population of many thousands of college students from applet
+
+% This may not originally be a normal distribution
+Instead of using the hypothetical population provided in the applet, we can create our own hypothetical population by assigning a variable (\variable{SleepHrs}) a random normal distribution (\function{rnorm}) of count (18000), mean (8 hrs), and standard deviation (1.5 hrs). Additionally, let's round each value to the nearest hundredth (2) using \function{round()}
+<<Exploration2.2.24>>=
+Pop1 <- data.frame(SleepHrs = round(rnorm(18000, 8, 1.5), 2))
+head(Pop1)
+favstats(SleepHrs, data = Pop1)
+@
+
+<<Exploration2.2.25>>=
+sim.pop1 <- do(1000) * mean(~ SleepHrs, data = sample(Pop1, 48))
+head(sim.pop1, 3)
+dotPlot(~ result, data = sim.pop1, width = 0.05)
+favstats(~ result, data = sim.pop1)
+@
+
+<<Exploration2.2.26>>=
+prop(~ (result <= 6.705), data = sim.pop1)
+@
+
+<<Exploration2.2.27>>=
+sd <- sd(~ result, data = sim.pop1)
+xpnorm(6.705, 8, sd, plot = FALSE)
+@
+
+<<Exploration2.2.30>>=
+t <- (6.705 - 8) / (1.5 / sqrt(48))
+t
+@
+
+<<Exploration2.2.33>>=
+sim.t <- do(1000) * stat(t.test(~ SleepHrs, data = sample(Pop1, 48)))
+head(sim.t, 3)
+histogram(~ t, data = sim.t, width = 1, fit = "t")
+@
+
+<<Exploration2.2.34>>=
+prop(~ (t <= 5.981), data = sim.t)
+@
+
+<<Exploration2.2.35>>=
+t.test(~ SleepHrs, data = Pop1)
+@
+
+%<<Exploration2.2.40>>=
+%Pop2 <- data.frame(SleepHrs = round(rt(18000, ncp = 8), 2))
+%head(Pop2)
+%favstats(SleepHrs, data = Pop2)
+%@
 
 % cannot do follow-up 1 simulating "Pop2"
 % cannot do follow-up 2 simulating median "Pop1"
@@ -274,7 +329,7 @@ bwplot(~ SleepHrs, data = SleepTimes)
 
 \section{Errors and Significance}
 
-\subsection*{Example 2.3: Heart Transplant Operations (continued)}
+%\subsection*{Example 2.3: Heart Transplant Operations (continued)}
 
 %no R
 
