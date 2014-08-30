@@ -10,58 +10,68 @@
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.20$;  $H_a$: $\pi > 0.20$
-  \item
+    $H_0$: $\pi = 0.20$
+    
+    $H_a$: $\pi > 0.20$
+    
     Test statistic:  $\hat p = 0.909$ (the sample proportion of 30/33)
 	\item
 		We simulate a world in which $\pi = 0.20$:
 <<Figure3.1,cache=TRUE>>=
-simulation.cancer <- do(1000) * rflip(33, 0.20)
-head(simulation.cancer, 3)
-dotPlot(~ prop, data = simulation.cancer, groups = (prop >= 0.909), width = 0.001)
+sim.cancer <- do(1000) * rflip(33, 0.20)
+head(sim.cancer, 3)
+dotPlot(~ prop, data = sim.cancer, groups = (prop >= 0.909), width = 0.001)
 @
-<<>>=
-favstats(~ prop, data = simulation.cancer)
-prop(~ (prop >= 0.909), data = simulation.cancer)
+  \item
+    Strength of evidence:
+<<Figure3.1b>>=
+favstats(~ prop, data = sim.cancer)
+prop(~ (prop >= 0.909), data = sim.cancer)
 @
 \end{enumerate}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.70$;  $H_a$: $\pi \neq 0.70$
-  \item
+    $H_0$: $\pi = 0.70$
+    
+    $H_a$: $\pi \neq 0.70$
+
     Test statistic:  $\hat p = 0.909$ (the sample proportion of 30/33)
   \item
 		We simulate a world in which $\pi = 0.70$:
 <<Figure3.2, cache=TRUE>>=
-simulation.cancer2 <- do(1000) * rflip(33, 0.70)
-head(simulation.cancer2, 3)
-dotPlot(~ prop, data = simulation.cancer2, groups = (prop <= 0.491 | prop >= 0.909), width = 0.001)
+sim.cancer2 <- do(1000) * rflip(33, 0.70)
+head(sim.cancer2, 3)
+dotPlot(~ prop, data = sim.cancer2, groups = (prop <= 0.4545 | prop >= 0.909), width = 0.001)
 @
-<<>>=
-favstats(~ prop, data = simulation.cancer2)
-prop(~ (prop <= 0.491 | prop >= 0.909), data = simulation.cancer2)
+  \item
+    Strength of evidence:
+<<Figure3.2b>>=
+favstats(~ prop, data = sim.cancer2)
+prop(~ (prop <= 0.4545 | prop >= 0.909), data = sim.cancer2)
 @
-%typo in book? left limit is 0.4545 not 0.491
 \end{enumerate}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.80$;  $H_a$: $\pi \neq 0.80$
-  \item
+    $H_0$: $\pi = 0.80$
+    
+    $H_a$: $\pi \neq 0.80$
+
     Test statistic:  $\hat p = 0.909$ (the sample proportion of 30/33)
   \item
   	We simulate a world in which $\pi = 0.80$:
 <<Figure3.3, cache=TRUE>>=
-simulation.cancer3 <- do(1000) * rflip(33, 0.80)
-head(simulation.cancer3, 3)
-dotPlot(~ prop, data = simulation.cancer3, groups = (prop <= 0.691 | prop >= 0.909), width = 0.001)
+sim.cancer3 <- do(1000) * rflip(33, 0.80)
+head(sim.cancer3, 3)
+dotPlot(~ prop, data = sim.cancer3, groups = (prop <= 0.691 | prop >= 0.909), width = 0.001)
 @
-<<>>=
-favstats(~ prop, data = simulation.cancer3)
-prop(~ (prop <= 0.691 | prop >= 0.909), data = simulation.cancer3)
+  \item
+    Strength of evidence:
+<<Figure3.3b>>=
+favstats(~ prop, data = sim.cancer3)
+prop(~ (prop <= 0.6667 | prop >= 0.909), data = sim.cancer3)
 @
-%typo in book? left limit is 0.6667 not 0.691
 \end{enumerate}
 
 Results of testing different values of probabilities under the null hypothesis:
@@ -74,11 +84,11 @@ pval(binom.test(30, 33, p = 0.97))
 pval(binom.test(30, 33, p = 0.98))
 pval(binom.test(30, 33, p = 0.99))
 @
-% Table 3.2 not included
+% Table 3.2 (skip)
 
 % Confidence Level
 
-% Table 3.3 not included
+% Table 3.3 (skip)
 
 %confidence intervals
 %xqnorm(c(0.025, 0.975), 0, 1)
@@ -87,56 +97,64 @@ pval(binom.test(30, 33, p = 0.99))
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi > 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi > 0.5$
+
     Test statistic:  $\hat p = 0.645$ (the sample proportion of 80/124)
   \item
     We simulate a world in which $\pi = 0.5$:
 <<Exploration3.1.7, cache=TRUE>>=
-simulation.kiss <- do(1000) * rflip(124, 0.5)
-head(simulation.kiss, 3)
-dotPlot(~ prop, data = simulation.kiss, groups = (prop >= 0.645), width = 0.001)
-@
-<<>>=
-favstats(~ prop, data = simulation.kiss)
-prop(~ (prop >= 0.645), data = simulation.kiss)
+sim.kiss <- do(1000) * rflip(124, 0.5)
+head(sim.kiss, 3)
+dotPlot(~ prop, data = sim.kiss, groups = (prop >= 0.645), width = 0.001)
 @
   \item
+    Strength of evidence:
+<<Exploration3.1.7b>>=
+favstats(~ prop, data = sim.kiss)
+prop(~ (prop >= 0.645), data = sim.kiss)
+@
+
     Approximate test for proportions:
-<<>>=
+<<Exploration3.1.7c>>=
 prop.test(80, 124, alt = "greater")
 @
-  \item
+
     Exact test for proportions:
-<<>>=
+<<Exploration3.1.7d>>=
 binom.test(80, 124, alt = "greater")
 @
 \end{enumerate}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.6$;  $H_a$: $\pi \neq 0.6$
-  \item
+    $H_0$: $\pi = 0.6$
+    
+    $H_a$: $\pi \neq 0.6$
+
     Test statistic:  $\hat p = 0.645$ (the sample proportion of 80/124)
   \item
     We simulate a world in which $\pi = 0.6$:
 <<Exploration3.1.8, cache=TRUE>>=
-simulation.kiss2 <- do(1000) * rflip(124, 0.6)
-head(simulation.kiss2, 3)
-dotPlot(~ prop, data = simulation.kiss2, groups = (prop <= 0.555 | prop >= 0.645), width = 0.001)
-@
-<<>>=
-favstats(~ prop, data = simulation.kiss2)
-prop(~ (prop <= 0.555 | prop >= 0.645), data = simulation.kiss2)
+sim.kiss2 <- do(1000) * rflip(124, 0.6)
+head(sim.kiss2, 3)
+dotPlot(~ prop, data = sim.kiss2, groups = (prop <= 0.555 | prop >= 0.645), width = 0.001)
 @
   \item
+    Strength of evidence:
+<<Exploration3.1.8b>>=
+favstats(~ prop, data = sim.kiss2)
+prop(~ (prop <= 0.555 | prop >= 0.645), data = sim.kiss2)
+@
+
     Approximate test for proportions:
-<<>>=
+<<Exploration3.1.8c>>=
 prop.test(80, 124, p = 0.60)
 @
-  \item
+
     Exact test for proportions:
-<<>>=
+<<Exploration3.1.8d>>=
 binom.test(80, 124, p = 0.60)
 @
 \end{enumerate}
@@ -174,25 +192,24 @@ confint(binom.test(80, 124, p = 0.60, conf.level = 0.99))
 
 \subsection*{Example 3.2: The Afforable Care Act}
 
-An easy way to find a confidence interval in \R\ is to use \function{prop.test()} or \function{binom.test()} which by default calculates a 95\% confidencen interval in its results.
+An easy way to find a confidence interval in \R\ is to use \function{prop.test()} or \function{binom.test()} which by default calculates a 95\% confidence interval in its results.
 
 <<>>=
 binom.test(713, 1034) # 713 = 1034 * 0.69
 @
 
-%Figure 3.4
+%Figure 3.4 (skip)
 
 \subsubsection*{Theory-Based Approach}
 
-<<Figure3.6>>=
+<<Figure3.6, opts.label="fig4">>=
 xpnorm(c(-1.645, 1.645), 0, 1)
 xpnorm(c(-1.96, 1.96), 0, 1)
 xpnorm(c(-2.576, 2.576), 0, 1)
 @
-%fix graph size
 
 Using 2SD method and standard error of the observed sample proportion (Theory-Based Inference applet):
-<<Figure3.7>>=
+<<Figure3.7, tidy=FALSE>>=
 n <- 1034
 p.hat <- 0.69; p.hat                   # 0.69 = 713 / 1034
 SE <- sqrt( p.hat * (1 - p.hat) / n )  # standard error
@@ -216,71 +233,79 @@ p.hat + MoE                            # upper limit of 95% CI
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.775$;  $H_a$: $\pi \neq 0.775$
-  \item
+    $H_0$: $\pi = 0.775$
+    
+    $H_a$: $\pi \neq 0.775$
+
     Test statistic:  $\hat p = 0.80$ (the sample proportion of 85/1019)
   \item
     We simulate a world in which $\pi = 0.775$:
-<<cache=TRUE>>=
-simulation.amer <- do(1000) * rflip(1019, 0.775)
-head(simulation.amer, 3)
-dotPlot(~ prop, data = simulation.amer, groups = (prop <= 0.750 | prop >= 0.80), width = 0.001)
-@
-<<>>=
-favstats(~ prop, data = simulation.amer)
-prop(~ (prop <= 0.750 | prop >= 0.80), data = simulation.amer)
+<<Exploration3.2.6, cache=TRUE>>=
+sim.amer <- do(1000) * rflip(1019, 0.775)
+head(sim.amer, 3)
+dotPlot(~ prop, data = sim.amer, groups = (prop <= 0.750 | prop >= 0.80), width = 0.001)
 @
   \item
+    Strength of evidence:
+<<Exploration3.2.6b>>=
+favstats(~ prop, data = sim.amer)
+prop(~ (prop <= 0.750 | prop >= 0.80), data = sim.amer)
+@
+
     Approximate test for proportions:
-<<>>=
+<<Exploration3.2.6c>>=
 prop.test(815, 1019, p = 0.775)
 @
-  \item
+
     Exact test for proportions:
-<<>>=
+<<Exploration3.2.6d>>=
 binom.test(815, 1019, p = 0.775)
 @
 \end{enumerate}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.5$;  $H_a$: $\pi \neq 0.5$
-  \item
+    $H_0$: $\pi = 0.5$
+    
+    $H_a$: $\pi \neq 0.5$
+
     Test statistic:  $\hat p = 0.80$ (the sample proportion of 815/1019)
   \item
     We simulate a world in which $\pi = 0.5$:
-<<cache=TRUE>>=
-simulation.amer2 <- do(1000) * rflip(1019, 0.5)
-head(simulation.amer2, 3)
-dotPlot(~ prop, data = simulation.amer2, groups = (prop <= 0.20 | prop >= 0.80), width = 0.001)
-@
-<<>>=
-favstats(~ prop, data = simulation.amer2)
-prop(~ (prop <= 0.20 | prop >= 0.80), data = simulation.amer2)
+<<Exploration3.2.8,cache=TRUE>>=
+sim.amer2 <- do(1000) * rflip(1019, 0.5)
+head(sim.amer2, 3)
+dotPlot(~ prop, data = sim.amer2, groups = (prop <= 0.20 | prop >= 0.80), width = 0.001)
 @
   \item
+    Strength of evidence:
+<<Exploration3.2.8b>>=
+favstats(~ prop, data = sim.amer2)
+prop(~ (prop <= 0.20 | prop >= 0.80), data = sim.amer2)
+@
+
     Approximate test for proportions:
-<<>>=
+<<Exploration3.2.8c>>=
 prop.test(815, 1019)
 @
-  \item
+
     Exact test for proportions:
-<<>>=
+<<Exploration3.2.8d>>=
 binom.test(815, 1019)
 @
 \end{enumerate}
 
 Finding the standard deviation using simulated deviation:
-<<>>=
-sd <- sd(~ prop, data = simulation.amer); sd
+<<Exploration3.2.9>>=
+sd <- sd(~ prop, data = sim.amer); sd
 z <- (0.80 - 0.775) / sd; z
 xpnorm(0.8, 0.775, sd, lower.tail = FALSE, plot = FALSE)
 @
 
 Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
-<<tidy=FALSE>>=
+<<Exploration3.2.11, tidy=FALSE>>=
 p.hat <- 0.80         # given sample proportion
-sd    # previously found simulated standard deviation
+sd                    # previously found simulated standard deviation
 MoE <- 2 * sd; MoE    # margin of error for 95% CI
 p.hat - MoE           # lower limit of 95% CI
 p.hat + MoE           # upper limit of 95% CI
@@ -308,7 +333,7 @@ p.hat + MoE           # upper limit of 95% CI
 
 Another way to create a 95\% confidence interval is to use the middle 95\% of the simulated null distribution. This is not exactly the same as the interval found by the 2SD Method, but it is very close.
 <<>>=
-cdata(0.95, prop, data = simulation.amer)
+cdata(0.95, prop, data = sim.amer)
 @
 % include cdata? is it counting values?
 
@@ -466,67 +491,71 @@ sample.CI
 
 Simulate 100 sample proportions and calculate the 95\% confidence intervals:
 <<Exploration3.4B.5, cache=TRUE>>=
-simulation.CI <- CIsim(100, samples = 100, rdist = rbinom, args = list(size = 1, prob = 0.5), method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
+sim.CI <- CIsim(100, samples = 100, rdist = rbinom, args = list(size = 1, prob = 0.5), method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
 @
 
 Proportion of intervals produced that do not contain \pi = 0.5:
 <<>>=
-prop(~ cover, data = simulation.CI)
+prop(~ cover, data = sim.CI)
 @
 
 Plot the 95\% confidence intervals of the simulation of 100 sample proportions:
 <<message=FALSE,opts.label="fig1">>=
 require(Hmisc)
-xYplot(Cbind(estimate, lower, upper) ~ sample, data = simulation.CI, par.settings = col.mosaic(), groups = cover)
+xYplot(Cbind(estimate, lower, upper) ~ sample, data = sim.CI, par.settings = col.mosaic(), groups = cover)
 @
 
 Simulate 1000 sample proportions and calculate the 95\% confidence intervals:
 <<cache=TRUE>>=
-simulation.CI2 <- CIsim(100, samples = 1000, rdist = rbinom, args = list(size = 1, prob = 0.5), method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
+sim.CI2 <- CIsim(100, samples = 1000, rdist = rbinom, args = list(size = 1, prob = 0.5), method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
 @
 
 Proportion of intervals produced that do not contain \pi = 0.5:
 <<>>=
-prop(~ cover, data = simulation.CI2)
+prop(~ cover, data = sim.CI2)
 @
 
 Simulate 1000 sample proportions and calculate the 90\% confidence intervals:
 <<cache=TRUE>>=
-simulation.CI3 <- CIsim(100, samples = 1000, rdist = rbinom, args = list(size = 1, prob = 0.5), conf.level = 0.90, method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
+sim.CI3 <- CIsim(100, samples = 1000, rdist = rbinom, args = list(size = 1, prob = 0.5), conf.level = 0.90, method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
 @
 
 Proportion of intervals produced that do not contain \pi = 0.5:
 <<>>=
-prop(~ cover, data = simulation.CI3)
+prop(~ cover, data = sim.CI3)
 @
 
 Simulate 1000 sample proportions and calculate the 90\% confidence intervals (sample size = 400):
 <<cache=TRUE>>=
-simulation.CI4 <- CIsim(400, samples = 100, rdist = rbinom, args = list(size = 1, prob = 0.5), conf.level = 0.90, method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
+sim.CI4 <- CIsim(400, samples = 100, rdist = rbinom, args = list(size = 1, prob = 0.5), conf.level = 0.90, method = binom.test, method.args = list(success = 1), verbose = FALSE, estimand = 0.5)
 @
 
 Proportion of intervals produced that do not contain \pi = 0.5:
 <<>>=
-prop(~ cover, data = simulation.CI4)
+prop(~ cover, data = sim.CI4)
 @
 
 
 \section{Cautions When Conducting Inference}
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.3645$;  $H_a$: $\pi > 0.3645$
-  \item
+    $H_0$: $\pi = 0.3645$
+    
+    $H_a$: $\pi > 0.3645$
+
     Test statistic:  $\hat p = 0.41$ (the sample proportion)
   \item
 		We simulate a world in which $\pi = 0.3645$:
 <<Figure3.14,cache=TRUE>>=
-simulation.obama <- do(1000) * rflip(1000, 0.3645)
-head(simulation.obama, 3)
-dotPlot(~ prop, data = simulation.obama, groups = (prop >= 0.41), width = 0.001)
+sim.obama <- do(1000) * rflip(1000, 0.3645)
+head(sim.obama, 3)
+dotPlot(~ prop, data = sim.obama, groups = (prop >= 0.41), width = 0.001)
 @
+  \item
+    Strength of evidence:
 <<>>=
-favstats(~ prop, data = simulation.obama)
-prop(~ (prop >= 0.41), data = simulation.obama)
+favstats(~ prop, data = sim.obama)
+prop(~ (prop >= 0.41), data = sim.obama)
 @
 \end{enumerate}
 
@@ -553,31 +582,35 @@ confint(binom.test(709, 2124, conf.level = 0.99))
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.25$;  $H_a$: $\pi > 0.25$
-  \item
+    $H_0$: $\pi = 0.25$
+    
+    $H_a$: $\pi > 0.25$
+
     Test statistic:  $\hat p = 0.38$ (the sample proportion of 19/50)
   \item
     We simulate a world in which $\pi = 0.25$:
 <<cache=TRUE>>=
-simulation.esp2 <- do(10000) * rflip(50, 0.25)
-head(simulation.esp2, 3)
-dotPlot(~ prop, data = simulation.esp2, groups = (prop >=0.38), width = 0.01, cex = 10)
-prop(~ (prop >= 0.38), data = simulation.esp2)
+sim.esp2 <- do(10000) * rflip(50, 0.25)
+head(sim.esp2, 3)
+dotPlot(~ prop, data = sim.esp2, groups = (prop >=0.38), width = 0.01, cex = 10)
+prop(~ (prop >= 0.38), data = sim.esp2)
 @
 \end{enumerate}
     
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 1/3$;  $H_a$: $\pi > 1/3$
-  \item
+    $H_0$: $\pi = 1/3$;
+    
+    $H_a$: $\pi > 1/3$
+
     Test statistic:  $\hat p = 0.38$ (the sample proportion of 19/50)
   \item
     We simulate a world in which $\pi = 1/3$:
 <<cache=TRUE>>=
-simulation.esp3 <- do(10000) * rflip(50, 1/3)
-head(simulation.esp3, 3)
-dotPlot(~ prop, data = simulation.esp3, groups = (prop >=0.38), width = 0.01, cex = 10)
-prop(~ (prop >= 0.38), data = simulation.esp3)
+sim.esp3 <- do(10000) * rflip(50, 1/3)
+head(sim.esp3, 3)
+dotPlot(~ prop, data = sim.esp3, groups = (prop >=0.38), width = 0.01, cex = 10)
+prop(~ (prop >= 0.38), data = sim.esp3)
 @
 \end{enumerate}
 
@@ -589,10 +622,10 @@ prop(~ (prop >= 0.38), data = simulation.esp3)
   \item
     We simulate a world in which $\pi = 1/2$:
 <<cache=TRUE>>=
-simulation.esp4 <- do(10000) * rflip(50, 1/2)
-head(simulation.esp4, 3)
-dotPlot(~ prop, data = simulation.esp4, groups = (prop >=0.38), width = 0.01, cex = 10)
-prop(~ (prop >= 0.38), data = simulation.esp4)
+sim.esp4 <- do(10000) * rflip(50, 1/2)
+head(sim.esp4, 3)
+dotPlot(~ prop, data = sim.esp4, groups = (prop >=0.38), width = 0.01, cex = 10)
+prop(~ (prop >= 0.38), data = sim.esp4)
 @
 \end{enumerate}
 
@@ -612,32 +645,34 @@ binom.test(15228, 47000, p = 1/3, alt = "less")
   \item
     We simulate a world in which $\pi = 1/3$:
 <<cache=TRUE>>=
-simulation.pets <- do(1000) * rflip(100, 1/3)
-head(simulation.pets, 3)
+sim.pets <- do(1000) * rflip(100, 1/3)
+head(sim.pets, 3)
 @
 % power
 
 We could use trial-and-error to determine values of the sample proportion that would produce a p-value of less than 0.05. \R\ can quickly calculate try possible values that would result in the significance level of 0.05 but we can also have \R\ calculate them for us.
 <<>>=
-cdata(0.95, prop, data = simulation.pets)
+cdata(0.95, prop, data = sim.pets)
 @
 \end{enumerate}
 
 \begin{enumerate}
   \item
-    $H_0$: $\pi = 0.30$;  $H_a$: $\pi < 0.30$
-  \item
+    $H_0$: $\pi = 0.30$
+    
+    $H_a$: $\pi < 0.30$
+    
     Test statistic:  $\hat p = 0.243$ (the sample proportion)
   \item
     We simulate a world in which $\pi = 0.30$:
 <<cache=TRUE>>=
-simulation.pets2 <- do(1000) * rflip(100, 0.30)
-head(simulation.pets2, 3)
-prop(~ (prop <=0.243), data = simulation.pets2)
+sim.pets2 <- do(1000) * rflip(100, 0.30)
+head(sim.pets2, 3)
+prop(~ (prop <=0.243), data = sim.pets2)
 @
 % power
 <<>>=
-cdata(0.90, prop, data = simulation.pets2)
+cdata(0.90, prop, data = sim.pets2)
 @
 \end{enumerate}
 
