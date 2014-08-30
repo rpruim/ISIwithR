@@ -496,12 +496,24 @@ To overlay a normal approximation, let's graph a histogram using \function{histo
 <<Figure1.20, opts.label="fig3", message=FALSE>>=
 histogram(~ prop, data = sim.candy)
 histogram(~ prop, data = sim.candy, fit = "normal")
-histogram(~ prop, data = sim.candy, fit = "normal", group = (prop <= 135/283 | prop >= 148/283))
+histogram(~ prop, data = sim.candy, fit = "normal", group = cut(prop, c(0, 135/283, 148/283, 1)), fcol=c("steelblue", "navy", "steelblue"))
+
 prop(~ (prop <= 135/283 | prop >= 148/283), data = sim.candy)
 @
 %help with histogram grouping
 
-Now that we've covered normal approximation, we can examine the rest of the output from \function {xpnorm()}. Because it's a two-sided test, we can input both the observed statistic (148/283) and the statistic that is as extreme as the observed (135/283). 
+The two main functions we need for working with normal distributions are \function{pnorm} and \function{qnorm}.
+\function{pnorm} computes the proportion of a normal distribution below a specified value:
+
+
+\[
+\mbox{\texttt{pnorm(x,mean=$\mu$, sd=$\sigma$)}} = \Prob(X \le x)
+\]
+when $X \sim \Norm(\mu, \sigma)$.
+
+We can obtain arbitrary probabilities using \verb!pnorm()!
+%copied from Lock5
+We can now examine the rest of the output from \function{xpnorm}, which is an augmented version of \function{pnorm}. Because it's a two-sided test, we can input both the observed statistic (148/283) and the statistic that is as extreme as the observed (135/283). 
 <<Figure1.20b, opts.label="fig4">>=
 xpnorm(c(135/283, 148/283), 0.5, sd)
 @
