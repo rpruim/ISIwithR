@@ -32,9 +32,12 @@ dotPlot(~ heads, data = sim, width = 1, cex = 3)
 <<Figure1.6, cache=TRUE>>=
 sim2 <- do(1000) * rflip(28, 0.5)
 head(sim2, 3)
-dotPlot(~ heads, data = sim2, width = 1, cex = 3, groups = (heads <= 16 & heads >= 16))
+dotPlot(~ heads, data = sim2, width = 1, cex = 3, groups = (heads == 16))
 @
-Notice the way we defined \argument{groups} as \option{(heads <= 16 \& heads >= 16)} in order to differentiate the observations where \variable{heads} equals 16.
+Notice the way we defined \argument{groups} as \option{(groups = (heads == 16))} in order to differentiate the observations where \variable{heads} equals 16.  The 
+\verb&==& operator means ``are equal to".
+(We could also have used \option{groups = (heads != 16)}  
+and the colors would be reversed.)
 
 \subsection*{Exploration 1.1: Can Dogs Understand Human Cues?}
 
@@ -53,13 +56,13 @@ dotPlot(~ heads, data = sim.class, width = 1, cex = 0.5)
 <<Exploration1.1.14, cache=TRUE>>=
 sim.harley2 <- do(1000) * rflip(10, 0.5)
 head(sim.harley2, 3)
-dotPlot(~ heads, data = sim.harley2, width = 1, cex = 3, groups = (heads <= 9 & heads >= 9))
+dotPlot(~ heads, data = sim.harley2, width = 1, cex = 3, groups = (heads == 9))
 @
 
 \subsubsection*{Another Study}
 
 <<Exploration1.1.23>>=
-dotPlot(~ heads, data = sim.harley2, width = 1, cex = 3, groups = (heads <= 6 & heads >= 6))
+dotPlot(~ heads, data = sim.harley2, width = 1, cex = 3, groups = (heads == 6))
 @
 
 
