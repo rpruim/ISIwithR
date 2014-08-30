@@ -144,7 +144,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%% title page info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{An R Companion to Introduction to Statistical Investigations}
+\title{An R Companion to Introduction to Statistical Investigations \\
+Preliminary Edition}
 
 \author{Randall Pruim and Lana Park}
 

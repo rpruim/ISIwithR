@@ -377,7 +377,7 @@ observations.  Also, frequency polygons and density plot have the advantage
 that they can be overlaid.
 
 <<>>=
-freqpolygon(~ TimeBetween, groups=EruptionType, data = OldFaithful2, ylim=c(0,0.7))
+freqpolygon(~ TimeBetween, groups=EruptionType, data = OldFaithful2, ylim=c(0,0.07))
 densityplot(~ TimeBetween, groups=EruptionType, data = OldFaithful2)
 @
 
