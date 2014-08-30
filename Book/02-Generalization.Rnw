@@ -150,7 +150,7 @@ binom.test(782, 1421, alt = "greater")
 <<Figure2.5, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
 head(TimeEstimate)
 favstats(~ Estimate, data = TimeEstimate)
-dotPlot(~ Estimate, data = TimeEstimate, width = 1, cex = 0.25)
+dotPlot(~ Estimate, data = TimeEstimate, width = 1, cex = 0.50)
 @
 
 <<Table2.5>>=
@@ -214,7 +214,7 @@ n <- 48
 t <- (xbar - mu) / (s / sqrt(n)); t
 @
 
-<<Figure2.9>>=
+<<Figure2.9, warning=FALSE>>=
 histogram(~ result, data = sim.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10, fit = "t")
 @
 
