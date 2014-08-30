@@ -18,20 +18,24 @@ prop(Perception ~ Wording, data = GoodandBad)
 prop(Perception ~ Wording, level = "positive", data = GoodandBad)
 @
 
-<<Figure5.1>>=
+<<Figure5.1, opts.label="fig4">>=
 bargraph(~ Perception, groups = Wording, data = GoodandBad, stack = TRUE, auto.key = TRUE)
 mosaicplot(~ Perception + Wording, data = GoodandBad, shade=TRUE)
 mosaic(~ Perception + Wording, data = GoodandBad, shade=TRUE)
 @
-%need y-axis perc
 
 \subsubsection*{Summarizing the data}
 
 %relative risk
 
+%<<Example5.1>>=
+%relrisk(tally(~ Perception + Wording, data = GoodandBad))
+%@
+
+
 \subsection*{Exploration 5.1: Murderous Nurse?}
 
-<<tidy=FALSE>>=
+<<Exploration5.1.7, tidy=FALSE>>=
 Nurse <- rbind(
   do(40)   *  data.frame(patient = "Death",    shift = "Gilbert"),
   do(34)   *  data.frame(patient = "Death",    shift = "NoGilbert"),
@@ -40,25 +44,28 @@ Nurse <- rbind(
   )
 @
 
-<<>>=
+<<Exploration5.1.7b>>=
 tally(~ patient + shift, data = Nurse, margins = TRUE)
 tally(patient ~ shift, data = Nurse) # conditional prop 
 @
 
-<<Exploration 5.1.10>>=
-bargraph(~ patient, groups = shift, data = Nurse, stack =TRUE)
+<<Exploration5.1.10, opts.label="fig4">>=
+mosaicplot(shift ~ patient, data = Nurse)
 @
 
-<<Exploration 5.1.14>>=
+<<Exploration5.1.14>>=
 prop(patient ~ shift, data = Nurse)
 diff(prop(patient ~ shift,  data = Nurse))
 @
 
-% relative risk 5.1.15
+%<<Exploration5.1.15>>=
+%relrisk(tally(~ patient + shift, data = Nurse))
+%@
+
 
 \subsubsection*{Further Analysis}
 
-<<tidy=FALSE>>=
+<<Exploration5.1.18, tidy=FALSE>>=
 Nurse2 <- rbind(
   do(100)  *  data.frame(patient = "Death",    shift = "Gilbert"),
   do(357)  *  data.frame(patient = "Death",    shift = "NoGilbert"),
@@ -67,20 +74,11 @@ Nurse2 <- rbind(
    )
 @
 
-<<Exploration 5.1.>>=
+<<Exploration 5.1.18b>>=
 tally(~ patient + shift, data = Nurse2, margin =TRUE)
 tally(patient ~ shift, data = Nurse2) 
 diff(prop(patient ~ shift, data = Nurse2)) # diff in conditional prop
 # relative risk
-@
-
-
-<<Exploration 5.1.19>>=
-
-@
-
-<<Exploration 5.1.20>>=
-
 @
 
 
@@ -94,15 +92,16 @@ tally(~ Response + Swimming, data = Dolphin, margin = TRUE)
 tally(Response ~ Swimming, data = Dolphin)
 @
 
-<<>>=
+<<Figure5.2, opts.label="fig4">>=
 diff(prop(Response ~ Swimming, data = Dolphin))
+mosaic(Response ~ Swimming, data = Dolphin, dir = "v")
 @
 
-<<>>=
-bargraph(~ Swimming, data = Dolphin, groups = Response, stack = TRUE, auto.key = TRUE)
+<<Figure5.4, opts.label="fig4">>=
+mosaic(shuffle(Response) ~ Swimming, data = Dolphin, dir = "v")
 @
 
-<<Figure5.4>>=
+<<Figure5.5>>=
 tally(~ shuffle(Response) + Swimming, data = Dolphin, margins = TRUE)
 tally(~ shuffle(Response) + Swimming, data = Dolphin, margins = TRUE)
 tally(~ shuffle(Response) + Swimming, data = Dolphin, margins = TRUE)
@@ -119,26 +118,21 @@ diff(prop(shuffle(Response) ~ Swimming, data = Dolphin))
     Test statistic:  $\hat p_{dolphins} - \hat p_{control} = 0.4667$ (the difference in the conditional sample proportions)
   \item
 		We simulate a world in which $\pi_{dolphins} - \pi_{control} = 0$:
-<<cache=TRUE>>=
-simulation.dol <- do(1000) * diff(prop(shuffle(Response) ~ Swimming, data = Dolphin))
-head(simulation.dol, 3)
-dotPlot(~Improve.Dolphin, data = simulation.dol, groups = (Improve.Dolphin >= 0.4667),
-        width = 1/15)
+<<Figure5.6, cache=TRUE>>=
+sim.dol <- do(1000) * diff(prop(shuffle(Response) ~ Swimming, data = Dolphin))
+head(sim.dol, 3)
+dotPlot(~Improve.Dolphin, data = sim.dol, groups = (Improve.Dolphin >= 0.4667),
+        width = 1/15, cex = 5)
 @
   \item
     Strength of evidence:
-<<>>=
-favstats(~ Improve.Dolphin, data = simulation.dol)
-prop(~ (Improve.Dolphin >= 0.4667), data = simulation.dol)
-@
-
-Normal approximation:
-<<>>=
-
+<<Figure5.6b>>=
+favstats(~ Improve.Dolphin, data = sim.dol)
+prop(~ (Improve.Dolphin >= 0.4667), data = sim.dol)
 @
 
 Approximate test for difference in proportions:
-<<>>=
+<<Figure5.6c>>=
 prop.test(Response ~ Swimming, data = Dolphin)
 @
 \end{enumerate}
@@ -146,11 +140,11 @@ prop.test(Response ~ Swimming, data = Dolphin)
 \subsubsection*{Estimation}
 
 Determining a 95\% confidence interval using the 2SD Method and simulated standard deviation of the null distribution:
-<<>>=
+<<Example5.2>>=
 # given difference in sample proportions
 diff <- diff(prop(Response ~ Swimming, data = Dolphin))
 # simulated standard deviation
-sd <- sd(~ Improve.Dolphin, data = simulation.dol)
+sd <- sd(~ Improve.Dolphin, data = sim.dol)
 # margin of error for 95% CI
 MoE <- 2 * sd; MoE  
 # lower limit of 95% CI
@@ -160,14 +154,14 @@ diff + MoE
 @
 
 Determining a 95\% confidence interval using the approximate test for proportions:
-<<>>=
+<<Example5.2b>>=
 confint(prop.test(Response ~ Swimming, data = Dolphin))
 @
 
 
 \subsubsection*{Follow-up Analysis}
 
-<<tidy=FALSE>>=
+<<Figure5.7, tidy=FALSE>>=
 Dolphin2 <- rbind(
   do(8)  *  data.frame(Response = "Improve",    Swimming = "Control"),
   do(5)  *  data.frame(Response = "Improve",    Swimming = "Dolphin"),
@@ -176,13 +170,13 @@ Dolphin2 <- rbind(
    )
 @
 
-<<>>=
+<<Figure5.7b>>=
 tally(~ Response + Swimming, data = Dolphin2, margin = TRUE)
 diff(prop(Response ~ Swimming, data =Dolphin2))
 @
 
-<<>>=
-bargraph(~ Swimming, data = Dolphin2, groups = Response, stack = TRUE, auto.key = TRUE)
+<<Figure5.7c, opts.label="fig4">>=
+mosaicplot(Swimming ~ Response, data = Dolphin2)
 @
 
 \begin{enumerate}
@@ -194,29 +188,23 @@ bargraph(~ Swimming, data = Dolphin2, groups = Response, stack = TRUE, auto.key 
     Test statistic:  $\hat p_{dolphins} - \hat p_{control} = 0.20$ (the difference in the conditional sample proportions)
   \item
   	We simulate a world in which $\pi_{dolphins} - \pi_{control} = 0$:
-<<cache=TRUE, tidy=FALSE>>=
-simulation.dol2 <- do(1000) * diff(prop(shuffle(Response) ~ Swimming, data = Dolphin2))
-head(simulation.dol2, 3)
-dotPlot(~Improve.Dolphin, data = simulation.dol2, groups = (Improve.Dolphin >=0.20), 
-        width = 1/15)
+<<Figure5.7d,cache=TRUE, tidy=FALSE>>=
+sim.dol2 <- do(1000) * diff(prop(shuffle(Response) ~ Swimming, data = Dolphin2))
+head(sim.dol2, 3)
+dotPlot(~Improve.Dolphin, data = sim.dol2, groups = (Improve.Dolphin >=0.20), 
+        width = 1/15, cex = 5)
 @
   \item
     Strength of evidence:
-<<>>=
-favstats(~ Improve.Dolphin, data = simulation.dol2)
-prop(~ (Improve.Dolphin >= 0.20), data = simulation.dol2)
+<<Figure5.7e>>=
+favstats(~ Improve.Dolphin, data = sim.dol2)
+prop(~ (Improve.Dolphin >= 0.20), data = sim.dol2)
 @
 
 Approximate test for difference in proportions:
-<<>>=
+<<Figure5.7f>>=
 prop.test(Response ~ Swimming, data = Dolphin2, alt = "greater")
 @
-%why not alt hyp greater?
-or, without having to create a dataframe:
-<<>>=
-prop.test(c(8, 5), c(15, 15), alt = "greater")
-@
-%why CI different?
 \end{enumerate}
 
 \subsubsection*{Relative Risk}
@@ -235,11 +223,11 @@ tally(Response ~ YawnSeed, data = Yawning)
 diff(prop(Response ~ YawnSeed, level = "Yawn", data = Yawning))
 @
 
-<<Exploration5.2.11>>=
-bargraph(~ YawnSeed, data = Yawning, groups = Response, stack = TRUE, auto.key = TRUE)
+<<Exploration5.2.11, opts.label="fig4">>=
+mosaic(Response ~ YawnSeed, data = Yawning, dir = "v")
 @
 
-<<Exloration5.2.14>>=
+<<Exploration5.2.14>>=
 tally(~ shuffle(Response) + YawnSeed, data = Yawning, margins = TRUE)
 @
 
@@ -253,26 +241,25 @@ tally(~ shuffle(Response) + YawnSeed, data = Yawning, margins = TRUE)
   \item
     We simulate a world in which $\pi_{seeded} - \pi_{control} = 0$:
 <<Exploration5.2.16, cache=TRUE, tidy=FALSE>>=
-simulation.yawn <- 
+sim.yawn <- 
   do(1000) * diff(prop(shuffle(Response) ~ YawnSeed, level = "Yawn", data = Yawning))
-head(simulation.yawn, 3)
-dotPlot(~Yawn.Seeded, data = simulation.yawn, groups = (Yawn.Seeded >= 0.136))
+head(sim.yawn, 3)
+dotPlot(~Yawn.Seeded, data = sim.yawn, groups = (Yawn.Seeded >= 0.136), cex = 5)
 @
   \item
     Strength of evidence:
-<<>>=
-favstats(~ Yawn.Seeded, data = simulation.yawn)
-prop(~ (Yawn.Seeded >= 0.136), data = simulation.yawn)
+<<Exploration5.2.16b>>=
+favstats(~ Yawn.Seeded, data = sim.yawn)
+prop(~ (Yawn.Seeded >= 0.136), data = sim.yawn)
 @
 
 Approximate test for difference in proportions:
-<<message=FALSE>>=
+<<Exploration5.2.16c, message=FALSE>>=
 prop.test(Response ~ YawnSeed, data = Yawning, alt = "greater")
 @
-%why alt hyp not greater?
 \end{enumerate}
 
-<<tidy=FALSE>>=
+<<Exploration5.2.21,tidy=FALSE>>=
 Yawning2 <- rbind(
   do(12)  *  data.frame(Response = "NoYawn", YawnSeed = "Control"),
   do(24)  *  data.frame(Response = "NoYawn", YawnSeed = "Seeded"),
@@ -281,12 +268,12 @@ Yawning2 <- rbind(
    )
 @
 
-<<>>=
+<<Exploration5.2.21b>>=
 head(Yawning2, 3)
 tally(~ Response + YawnSeed, data = Yawning2, margin = TRUE)
 @
 
-<<Exploration5.2.21>>=
+<<Exploration5.2.21c>>=
 tally(Response ~ YawnSeed, data = Yawning2)
 diff(prop(Response ~ YawnSeed, level = "Yawn", data = Yawning2))
 @
@@ -301,37 +288,34 @@ diff(prop(Response ~ YawnSeed, level = "Yawn", data = Yawning2))
   \item
     We simulate a world in which $\pi_{seeded} - \pi_{control} = 0$:
 <<Exploration5.2.23, cache=TRUE, tidy=FALSE>>=
-simulation.yawn2 <- 
+sim.yawn2 <- 
   do(1000) * diff(prop(shuffle(Response) ~ YawnSeed, level = "Yawn", data = Yawning2))
-head(simulation.yawn2, 3)
-dotPlot(~Yawn.Seeded, data = simulation.yawn2, groups = (Yawn.Seeded >= 0.0441))
+head(sim.yawn2, 3)
+dotPlot(~Yawn.Seeded, data = sim.yawn2, groups = (Yawn.Seeded >= 0.0441), 
+        cex = 5)
 @
+%graph not correct in pdf
   \item
     Strength of evidence:
-<<>>=
-favstats(~ Yawn.Seeded, data = simulation.yawn2)
-prop(~ (Yawn.Seeded >= 0.0441), data = simulation.yawn2)
+<<Exploration5.2.23b>>=
+favstats(~ Yawn.Seeded, data = sim.yawn2)
+prop(~ (Yawn.Seeded >= 0.0441), data = sim.yawn2)
 @
 
 Approximate test for difference in proportions:
-<<warning=FALSE>>=
+<<Exploration5.2.23c, warning=FALSE>>=
 prop.test(Response ~ YawnSeed, data = Yawning2, alt ="greater")
-@
-%why not doing alt hyp?
-or, without having to create a dataframe:
-<<warning=FALSE>>=
-prop.test(c(4, 10), c(16, 34), alt = "greater")
 @
 \end{enumerate}
 
 \subsubsection*{Estimation}
 
-<<Exploration5.2.24c>>=
-sd <- sd(~Yawn.Seeded, data = simulation.yawn2); sd
+<<Exploration5.2.24>>=
+sd <- sd(~Yawn.Seeded, data = sim.yawn2); sd
 @
 
 Determining a 95\% confidence interval using the 2SD Method and simulated standard deviation of the null distribution:
-<<Exploration5.2.24d>>=
+<<Exploration5.2.24b>>=
 # given difference in sample proportions
 diff <- diff(prop(Response ~ YawnSeed, level = "Yawn", data = Yawning2))
 # previously found simulated standard deviation
@@ -345,13 +329,13 @@ diff + MoE
 @
 
 Determining a 95\% confidence interval using the approximate test for proportions:
-<<warning=FALSE>>=
+<<Exploration5.2.24c,warning=FALSE>>=
 confint(prop.test(Response ~ YawnSeed, data = Yawning2))
 @
 
 \subsubsection*{Effect of Sample Size}
 
-<<tidy=FALSE>>=
+<<Exploration5.2.31,tidy=FALSE>>=
 Yawning3 <- rbind(
   do(240)  *  data.frame(Response = "NoYawn", YawnSeed = "Control"),
   do(120)  *  data.frame(Response = "NoYawn", YawnSeed = "Seeded"),
@@ -360,7 +344,7 @@ Yawning3 <- rbind(
    )
 @
 
-<<>>=
+<<Exploration5.2.31b>>=
 head(Yawning3, 3)
 tally(~ Response + YawnSeed, data = Yawning3, margin = TRUE)
 @
@@ -375,26 +359,21 @@ tally(~ Response + YawnSeed, data = Yawning3, margin = TRUE)
   \item
     We simulate a world in which $\pi_{seeded} - \pi_{control} = 0$:
 <<Exploration5.2.32, cache=TRUE, tidy=FALSE>>=
-simulation.yawn3 <- 
+sim.yawn3 <- 
   do(1000) * diff(prop(shuffle(Response) ~ YawnSeed, level = "Yawn", data = Yawning3))
-head(simulation.yawn3, 3)
-dotPlot(~Yawn.Seeded, data = simulation.yawn3, groups = (Yawn.Seeded >= 0.0441))
+head(sim.yawn3, 3)
+dotPlot(~Yawn.Seeded, data = sim.yawn3, groups = (Yawn.Seeded >= 0.0441), cex = 5)
 @
   \item
     Strength of evidence:
-<<>>=
-favstats(~ Yawn.Seeded, data = simulation.yawn3)
-prop(~ (Yawn.Seeded >= 0.0441), data = simulation.yawn3)
+<<Exploration5.2.32b>>=
+favstats(~ Yawn.Seeded, data = sim.yawn3)
+prop(~ (Yawn.Seeded >= 0.0441), data = sim.yawn3)
 @
 
 Approximate test for difference in proportions:
-<<>>=
+<<Exploration5.2.32c>>=
 prop.test(Response ~ YawnSeed, data = Yawning3, alt = "greater")
-@
-%why not greater than?
-or, without having to create a dataframe:
-<<warning=FALSE>>=
-prop.test(c(40, 100), c(160, 340), alt = "greater")
 @
 \end{enumerate}
 
@@ -406,17 +385,14 @@ prop.test(c(40, 100), c(160, 340), alt = "greater")
 
 \subsection*{Example 5.3: Smoking and Birth Gender}
 
-<<>>=
+<<Figure5.9, opts.label="fig4">>=
 head(Smoking, 3)
 summary(Smoking)
 tally(~ Parents + Child, data = Smoking, margin = TRUE)
+mosaic(Child ~ Parents, data = Smoking, dir = "v")
 @
 
-<<Figure5.9>>=
-bargraph(~ Parents, data = Smoking, groups = Child, stack = TRUE, auto.key = TRUE)
-@
-
-<<>>=
+<<Figure5.10>>=
 tally(Child ~ Parents, data = Smoking)
 diff(prop(Child ~ Parents, data = Smoking))
 @
@@ -430,26 +406,26 @@ diff(prop(Child ~ Parents, data = Smoking))
     Test statistic:  $\hat p_{smoker} - \hat p_{nonsmoker} = - 0.097$ (the difference in the conditional sample proportions)
   \item
     We simulate a world in which $\pi_{smoker} - \pi_{nonsmoker} = 0$:
-<<Example5.3, cache=TRUE>>=
-simulation.smoke <- do(5000) * diff(prop(shuffle(Child) ~ Parents, data = Smoking))
-head(simulation.smoke, 3)
-dotPlot(~ boy.smokers, data = simulation.smoke)
+<<Figure5.10b, cache=TRUE>>=
+sim.smoke <- do(5000) * diff(prop(shuffle(Child) ~ Parents, data = Smoking))
+head(sim.smoke, 3)
+dotPlot(~ boy.smokers, data = sim.smoke, cex = 25)
 @
   \item
     Strength of evidence:
-<<>>=
-favstats(~ boy.smokers, data = simulation.smoke)
-prop(~ (boy.smokers <= -0.097 | boy.smokers >= 0.097), data = simulation.smoke)
+<<Figure5.10c>>=
+favstats(~ boy.smokers, data = sim.smoke)
+prop(~ (boy.smokers <= -0.097 | boy.smokers >= 0.097), data = sim.smoke)
 @
 
 Normal approximation (using simulated standard deviation):
-<<opts.label="fig4">>=
-sd <- sd(~ boy.smokers, data = simulation.smoke)
+<<Figure5.11, opts.label="fig4">>=
+sd <- sd(~ boy.smokers, data = sim.smoke)
 2 * xpnorm(0.097, 0, sd, lower.tail=FALSE) # 2 times because two-sided
 @
 
 Approximate test for difference in proportions:
-<<>>=
+<<Figure5.12>>=
 prop.test(Child ~ Parents, data = Smoking)
 @
 \end{enumerate}
@@ -463,11 +439,10 @@ confint(prop.test(Child ~ Parents, data = Smoking))
 <<Figure5.14>>=
 confint(prop.test(Child ~ Parents, data = Smoking, conf.level = 0.99))
 @
-%why conf.level not changing?
 
 \subsubsection*{Formulas}
 
-<<>>=
+<<Example5.3>>=
 prop(Child ~ Parents, data = Smoking)
 p.1 <- 0.548
 p.2 <- 0.451
@@ -475,13 +450,13 @@ p.hat <- prop(~ Child, data = Smoking); p.hat # pooled prop of success
 n.1 <- 565
 n.2 <- 3602
 @
-<<>>=
+<<Example5.3b>>=
 z <- (p.1 - p.2) / sqrt((p.hat * (1 - p.hat) * (1/n.1 + 1/n.2))); z
 @
-<<>>=
+<<Example5.3c>>=
 SE <-sqrt(p.1 * (1 - p.1) / n.1 + p.2 * (1 - p.2) / n.2); SE
 @
-<<>>=
+<<Example5.3d>>=
 MoE <- 2 * SE; MoE
 @
 
@@ -497,8 +472,8 @@ tally(Response ~ Year, data = Blood)
 diff(prop(Response ~ Year, level = "donated", data = Blood))
 @
 
-<<Exploration5.3.4>>=
-bargraph(~ Year, groups = Response, data = Blood, stack = TRUE, auto.key = TRUE)
+<<Exploration5.3.4, opts.label="fig4">>=
+mosaicplot(Year ~ Response, data = Blood)
 @
 
 \begin{enumerate}
@@ -511,27 +486,27 @@ bargraph(~ Year, groups = Response, data = Blood, stack = TRUE, auto.key = TRUE)
   \item
     We simulate a world in which $\pi_{2004} - \pi_{2002} = 0$:
 <<Exploration5.3.6, cache=TRUE, tidy=FALSE>>=
-simulation.blood <- 
+sim.blood <- 
   do(5000) * diff(prop(shuffle(Response) ~ Year, level = "donated", data = Blood))
-head(simulation.blood, 3)
-dotPlot(~ donated.2004, data = simulation.blood, 
-        groups = (donated.2004 <= -0.018 | donated.2004 >= 0.018), width = 0.0001)
+head(sim.blood, 3)
+dotPlot(~ donated.2004, data = sim.blood, 
+        groups = (donated.2004 <= -0.018 | donated.2004 >= 0.018), width = 0.0001, cex = 2)
 @
   \item
     Strength of evidence:
-<<>>=
-favstats(~ donated.2004, data = simulation.blood)
-prop(~ (donated.2004 <= -0.018 | donated.2004 >= 0.018), data = simulation.blood)
+<<Exploration5.3.6b>>=
+favstats(~ donated.2004, data = sim.blood)
+prop(~ (donated.2004 <= -0.018 | donated.2004 >= 0.018), data = sim.blood)
 @
 
 Normal approximation (using simulated standard deviation):
 <<Exploration5.3.8, opts.label="fig4">>=
-sd <- sd(~ donated.2004, data = simulation.blood)
+sd <- sd(~ donated.2004, data = sim.blood)
 2 * xpnorm(0.018, 0, sd, lower.tail=FALSE) # 2 times because two-sided
 @
 
 Approximate test for difference in proportions:
-<<>>=
+<<Exploration5.3.11>>=
 prop.test(Response ~ Year, data = Blood)
 @
 % include? how to change "success"? but explain that the p and CI stays the same
@@ -539,10 +514,6 @@ prop.test(Response ~ Year, data = Blood)
 
 <<Exploration5.3.10>>=
 confint(prop.test(Response ~ Year, data = Blood))
-@
-
-<<Exploration5.3.11>>=
-prop.test(c(230, 210), c(1336, 1362))
 @
 
 <<Exploration5.3.15, tidy=FALSE>>=
@@ -554,14 +525,14 @@ Blood2 <- rbind(
    )
 @
 
-<<>>=
+<<Exploration5.3.15b>>=
 tally(~ Response + Sex, data = Blood2, margin = TRUE)
 tally(Response ~ Sex, data = Blood2)
 diff(prop(Response ~ Sex, data = Blood2))
 @
 
-<<>>=
-bargraph(~ Sex, data = Blood2, groups = Response, stack = TRUE, auto.key = TRUE)
+<<Exploration5.3.15c, opts.label="fig4">>=
+mosaic(Response ~ Sex, data = Blood2, dir = "v")
 @
 
 \begin{enumerate}
@@ -573,27 +544,27 @@ bargraph(~ Sex, data = Blood2, groups = Response, stack = TRUE, auto.key = TRUE)
     Test statistic:  $\hat p_{female} - \hat p_{male} = -0.0472$ (the difference in the conditional sample proportions)
   \item
     We simulate a world in which $\pi_{female} - \pi_{male} = 0$:
-<<cache=TRUE, tidy=FALSE>>=
-simulation.blood2 <- do(5000) * diff(prop(shuffle(Response) ~ Sex, data = Blood2))
-head(simulation.blood2, 3)
-dotPlot(~ donated.Female, data = simulation.blood2, 
+<<Exploration5.3.15d, cache=TRUE, tidy=FALSE>>=
+sim.blood2 <- do(5000) * diff(prop(shuffle(Response) ~ Sex, data = Blood2))
+head(sim.blood2, 3)
+dotPlot(~ donated.Female, data = sim.blood2, 
         groups = (donated.Female <= -0.0472 | donated.Female >= 0.0472), width = 0.0001)
 @
   \item
     Strength of evidence:
-<<>>=
-favstats(~ donated.Female, data = simulation.blood2)
-prop(~ (donated.Female <= -0.0472 | donated.Female >= 0.0472), data = simulation.blood2)
+<<Exploration5.3.15e>>=
+favstats(~ donated.Female, data = sim.blood2)
+prop(~ (donated.Female <= -0.0472 | donated.Female >= 0.0472), data = sim.blood2)
 @
 
 Normal approximation (using simulated standard deviation):
-<<opts.label="fig4">>=
-sd <- sd(~ donated.Female, data = simulation.blood2)
+<<Exploration5.3.15f, opts.label="fig4">>=
+sd <- sd(~ donated.Female, data = sim.blood2)
 2 * xpnorm(-0.0472, 0, sd, xlim = 0 + c(-5, 5) * sd) # 2 times because two-sided
 @
 
 Approximate test for difference in proportions:
-<<>>=
+<<Exploration5.3.15g>>=
 prop.test(Response ~ Sex, data = Blood2)
 @
 \end{enumerate}
