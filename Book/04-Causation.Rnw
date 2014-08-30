@@ -20,7 +20,6 @@ NightLight <- rbind(
   do(41)  *  data.frame(light = "RoomLight",  nearsight = "Near"),
   do(34)  *  data.frame(light = "RoomLight",  nearsight = "Not")
  )
-head(NightLight)
 @
 
 <<>>=
@@ -34,13 +33,13 @@ tally(~ nearsight + light, data = NightLight, margins = TRUE)
 @
 % include data frame making here?
 
-\subsection*{Exploration 4.1: Home Court Disadvantage?}
+%\subsection*{Exploration 4.1: Home Court Disadvantage?}
 
 % no R
 
 \section{Observational studies versus experiments}
 
-\subsection*{Example 4.2: Lying on the Internet}
+%\subsection*{Example 4.2: Lying on the Internet}
 
 % no R
 
