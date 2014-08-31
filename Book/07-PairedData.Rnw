@@ -32,22 +32,30 @@ dotPlot(~ (narrow - wide), data = FirstBase)
 %Figure 7.5 (skip)
 
 <<Table7.3>>=
-
+swap.base <- swap(FirstBase, c("narrow", "wide")); swap.base
+mean(~ (narrow - wide), data = swap.base)
 @
-%how to simulate difference in pairs
 
 We simulate a world in which $\mu_d = 0$:
 <<Figure7.6, cache=TRUE, tidy=FALSE>>=
-
+sim.base <- do(1000) * mean(~ (narrow - wide), data = swap(FirstBase, c("narrow", "wide")))
+head(sim.base, 3)
+histogram(~ result, data = sim.base, width = 0.005, center = 0.0025)
 @
-%1000 rep of swapped difference in pairs
+
 <<Figure7.7>>=
-
+histogram(~ result, data = sim.base, width = 0.005, center = 0.0025, groups = (result >= 0.075))
+sd <- sd(~ result, data = sim.base);sd
+0.075 - 2 * sd
+0.075 + 2 * sd
 @
-%estimate sd
-%estimate CI
 
 %Figure 7.8 (include difference in two means? how?)
+
+<<Figure7.8>>=
+
+@
+
 
 \subsection*{Exploration 7.2: Exercise and Heart Rate}
 
@@ -62,9 +70,10 @@ mean(JJvsBicycle$JJ - JJvsBicycle$bicycle)
 @
 
 <<Exploration7.2.8>>=
-
+swap.bike <- swap(JJvsBicycle, c("JJ", "bicycle"))
+mean(~ (JJ - bicycle), data = swap.bike)
+sd(~ (JJ - bicycle), data = swap.bike)
 @
-%randomization
 
 \begin{enumerate}
   \item
@@ -72,27 +81,34 @@ mean(JJvsBicycle$JJ - JJvsBicycle$bicycle)
     
     $H_a$: $\mu_d \neq 0$
     
-    Test statistic:  $\bar x_d = $ (the mean difference in sample)
+    Test statistic:  $\bar x_d = -6.773$ (the mean difference in sample)
   \item
     We simulate a world in which $\mu_d = 0$:
 <<Exploration7.2.10, cache=TRUE, tidy=FALSE>>=
-
+sim.bike <- do(1000) * mean(~ (JJ - bicycle), 
+                            data = swap(JJvsBicycle, c("JJ", "bicycle")))
+head(sim.bike, 3)
+dotPlot(~ result, data = sim.bike, width = 1, groups = (result <=-6.773))
 @
-%(1000 rep of swapped difference in pairs)
   \item
     Strength of evidence:
 <<Exploration7.2.12>>=
-
+favstats(~ result, data = sim.bike)
+prop(~ (result <= -6.773), data = sim.bike)
 @
 \end{enumerate}
 
 Standarized statistic:
 <<Exploration7.2.14>>=
-
+sd <- sd(~ result, data = sim.bike)
+xpnorm(-6.773, 0, sd, plot = FALSE)
 @
+
 95\% confidence interval using 2SD Method:
 <<Exploration7.2.15>>=
-
+sd <- sd(~ result, data = sim.bike)
+-6.773 - 2 * sd
+-6.773 + 2 * sd
 @
 
 <<Exploration7.2.17>>=
@@ -114,8 +130,8 @@ favstats(~ Large, data = BowlsMMs)
 favstats(BowlsMMs$Small-BowlsMMs$Large)
 @
 
-<<Figure7.9>>=
-dotPlot(~(Small - Large), data = BowlsMMs, nint = 100, ylim = c(0.75, 1.25),cex = .05)
+<<Figure7.9, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
+dotPlot(~(Small - Large), data = BowlsMMs, width = 1, cex = 0.05)
 @
 
 \begin{enumerate}
@@ -128,13 +144,15 @@ dotPlot(~(Small - Large), data = BowlsMMs, nint = 100, ylim = c(0.75, 1.25),cex 
   \item
     We simulate a world in which $\mu_d = 0$:
 <<Figure7.10, cache=TRUE, tidy=FALSE>>=
-
+sim.mm <- do(1000) * mean(~ (Small - Large), data = swap(BowlsMMs, c("Small", "Large")))
+head(sim.mm, 3)
+dotPlot(~ result, data = sim.mm, width = 2, groups = (result <= -10.88))
 @
-%(1000 rep of swapped difference in pairs)
   \item
     Strength of evidence:
 <<Figure7.11>>=
-
+favstats(~ result, data = sim.mm)
+prop(~ (result <= -10.88), data = sim.mm)
 @
 \end{enumerate}
 
@@ -151,7 +169,7 @@ t.test(BowlsMMs$Small, BowlsMMs$Large, paired = TRUE, alt = "less")
 head(Auction)
 @
 
-<<Exploration7.3.5a>>=
+<<Exploration7.3.5>>=
 summary(Auction)
 favstats(Auction$dutch - Auction$FP)
 @
@@ -166,12 +184,15 @@ favstats(Auction$dutch - Auction$FP)
   \item
     We simulate a world in which $\mu_d = 0$:
 <<Exploration7.3.5b, cache=TRUE, tidy=FALSE>>=
-
+sim.auction <- do(1000) * mean(~ (dutch - FP), data = swap(Auction, c("dutch", "FP")))
+head(sim.auction, 3)
+dotPlot(~ result, data = sim.auction, groups = (result >= 0.384), cex = 5)
 @
   \item
     Strength of evidence:
 <<Exploration7.3.5c>>=
-
+favstats(~ result, data = sim.auction)
+prop(~ (result >= 0.384), data = sim.auction)
 @
   \item
     t-test for paired samples (theory-based approach):
