@@ -12,7 +12,7 @@ head(OldFaithful, 3)
 dotPlot(~time | year, data = OldFaithful)
 @
 
-<<Example6.1a>>=
+<<Example6.1>>=
 fivenum(~time, data = OldFaithful)
 fivenum(time ~ year, data = OldFaithful)
 @
@@ -34,7 +34,7 @@ head(Haircuts)
 @
 
 <<Exploration6.1A.4, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
-dotPlot(~ Cost | Sex, data = Haircuts, width = 1, cex = 0.1)
+dotPlot(~ Cost | Sex, data = Haircuts, width = 1, cex = 0.25)
 @
 
 <<Exploration6.1A.8>>=
@@ -68,13 +68,6 @@ IQR(Cost ~ Sex, data = Haircuts)
 @
 %remove outlier
 
-\subsection*{Exploration 6.1B: Cancer Pamplets}
-
-<<Table6.1>>=
-
-@
-%make table
-
 \section{Comparing Two Means: Simulation-Based Approach}
 
 \subsection*{Example 6.2: Bicycling to Work}
@@ -92,9 +85,9 @@ favstats(Time ~ Frame, data = BikeTimes)
 @
 
 <<Figure6.4>>=
-dotPlot(~Time | Frame, data = BikeTimes, width = 0.05, cex = 0.05, ylim = c(0.9, 1.1))
+dotPlot(~Time | Frame, data = BikeTimes, width = 0.01, cex = 0.1, layout = c(1, 2))
 diff(mean(Time ~ Frame, data = BikeTimes))
-dotPlot(~shuffle(Time) | Frame, data = BikeTimes, width = 0.05, cex = 0.05, ylim = c(0.9, 1.1))
+dotPlot(~shuffle(Time) | Frame, data = BikeTimes, width = 0.01, cex = 0.1, layout = c(1, 2))
 diff(mean(shuffle(Time) ~ Frame, data = BikeTimes))
 @
 
@@ -108,16 +101,16 @@ diff(mean(shuffle(Time) ~ Frame, data = BikeTimes))
   \item
     We simulate a world in which $\mu_{carbon} - \mu_{steel} = 0$:
 <<Figure6.7, cache=TRUE, tidy=FALSE>>=
-simulation.bike <- do(1000) * diff(mean(shuffle(Time) ~ Frame, data = BikeTimes))
-head(simulation.bike, 3)
-histogram(~ steel, data = simulation.bike, 
+sim.bike <- do(1000) * diff(mean(shuffle(Time) ~ Frame, data = BikeTimes))
+head(sim.bike, 3)
+histogram(~ steel, data = sim.bike, 
         groups = (steel <= -0.53 | steel >= 0.53))
 @
   \item
     Strength of evidence:
 <<Figure6.8>>=
-favstats(~ steel, data = simulation.bike)
-prop(~ (steel <= -0.53 | steel >= 0.53), data = simulation.bike)
+favstats(~ steel, data = sim.bike)
+prop(~ (steel <= -0.53 | steel >= 0.53), data = sim.bike)
 @
 \end{enumerate}
 
@@ -126,7 +119,7 @@ prop(~ (steel <= -0.53 | steel >= 0.53), data = simulation.bike)
 Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
 <<Example6.2>>=
 diff <- -diff(mean(Time ~ Frame, data = BikeTimes))  # note the negative sign
-sd <- sd(~ steel, data = simulation.bike)
+sd <- sd(~ steel, data = sim.bike)
 diff - 2 * sd   # lower limit of 95% CI
 diff + 2 * sd   # upper limit of 95% CI
 @
@@ -137,8 +130,8 @@ diff + 2 * sd   # upper limit of 95% CI
 head(Sleep)
 @
 
-<<Exploration6.2.5>>=
-dotPlot(~ time | sleep, data = Sleep, cex = 0.5)
+<<Exploration6.2.5, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
+dotPlot(~ time | sleep, data = Sleep, cex = 0.5, width = 1, layout = c(1, 2))
 favstats(time ~ sleep, data = Sleep)
 diff(mean(time ~ sleep, data = Sleep))
 @
@@ -147,7 +140,7 @@ diff(mean(time ~ sleep, data = Sleep))
 diff(mean(shuffle(time) ~ sleep, data = Sleep))
 sample <- do(30) * diff(mean(shuffle(time) ~ sleep, data = Sleep))
 head(sample, 3)
-dotPlot(~ unrestricted, data = sample, width = 1, cex = .1)
+dotPlot(~ unrestricted, data = sample, width = 1, cex = .25)
 @
 
 \begin{enumerate}
@@ -160,30 +153,30 @@ dotPlot(~ unrestricted, data = sample, width = 1, cex = .1)
   \item
     We simulate a world in which $\mu_{unrestricted} - \mu_{deprived} = 0$:
 <<Exploration6.2.10, cache=TRUE, tidy=FALSE>>=
-simulation.sleep <- do(1000) * diff(mean(shuffle(time) ~ sleep, data = Sleep))
-head(simulation.sleep, 3)
-histogram(~ unrestricted, data = simulation.sleep, 
+sim.sleep <- do(1000) * diff(mean(shuffle(time) ~ sleep, data = Sleep))
+head(sim.sleep, 3)
+histogram(~ unrestricted, data = sim.sleep, 
         groups = (unrestricted >= 15.92))
 @
   \item
     Strength of evidence:
 <<Exploration6.2.10b>>=
-favstats(~ unrestricted, data = simulation.sleep)
-prop(~ (unrestricted >= 15.92), data = simulation.sleep)
+favstats(~ unrestricted, data = sim.sleep)
+prop(~ (unrestricted >= 15.92), data = sim.sleep)
 @
 \end{enumerate}
 
 Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
 <<Exploration6.2.13>>=
 diff <- diff(mean(time ~ sleep, data = Sleep))
-sd <- sd(~ unrestricted, data = simulation.sleep)
+sd <- sd(~ unrestricted, data = sim.sleep)
 diff - 2 * sd   # lower limit of 95% CI
 diff + 2 * sd   # upper limit of 95% CI
 @
 
 \subsubsection*{Another statistic}
 
-<<Exploration6.2.16a>>=
+<<Exploration6.2.16>>=
 median(time ~ sleep, data = Sleep)
 diff(median(time ~ sleep, data = Sleep))
 @
@@ -198,17 +191,17 @@ diff(median(time ~ sleep, data = Sleep))
   \item
     We simulate a world in which median$_{unrestricted}$ - median$_{deprived}$ = 0:
 <<Exploration6.2.16b,cache=TRUE, tidy=FALSE>>=
-simulation.med <- do(1000) * diff(median(shuffle(time) ~ sleep, data = Sleep))
-head(simulation.med, 3)
-histogram(~ unrestricted, data = simulation.med, 
+sim.med <- do(1000) * diff(median(shuffle(time) ~ sleep, data = Sleep))
+head(sim.med, 3)
+histogram(~ unrestricted, data = sim.med, 
         groups = (unrestricted >= 12.05),
         width = 3)
 @
   \item
     Strength of evidence:
 <<Exploration6.2.16c>>=
-favstats(~ unrestricted, data = simulation.med)
-prop(~ (unrestricted >= 12.05), data = simulation.med)
+favstats(~ unrestricted, data = sim.med)
+prop(~ (unrestricted >= 12.05), data = sim.med)
 @
 \end{enumerate}
 
@@ -237,23 +230,24 @@ histogram(~ GCI | Feeding, data = BreastFeedIntell, width = 5)
   \item
     We simulate a world in which $\mu_{breastfed} - \mu_{not} = 0$:
 <<Figure6.11, cache=TRUE, tidy=FALSE>>=
-simulation.GCI <- do(1000) * diff(mean(shuffle(GCI) ~ Feeding, data = BreastFeedIntell))
-head(simulation.GCI, 3)
-histogram(~ NotBreastfed, data = simulation.GCI, 
-        groups = (NotBreastfed <= -4.40 | NotBreastfed >= 4.40), width = 1)
+sim.GCI <- do(1000) * diff(mean(shuffle(GCI) ~ Feeding, data = BreastFeedIntell))
+head(sim.GCI, 3)
+histogram(~ NotBreastfed, data = sim.GCI, width = 0.5,
+        group = cut(NotBreastfed, c(-7, -4.40, 4.40, 7)), 
+        fcol = c("steelblue", "navy", "steelblue"))
 @
   \item
     Strength of evidence:
 <<Figure6.12>>=
-favstats(~ NotBreastfed, data = simulation.GCI)
-prop(~ (NotBreastfed <= -4.40 | NotBreastfed >= 4.40), data = simulation.GCI)
+favstats(~ NotBreastfed, data = sim.GCI)
+prop(~ (NotBreastfed <= -4.40 | NotBreastfed >= 4.40), data = sim.GCI)
 @
 \end{enumerate}
 
 Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
-<<Example6.3a>>=
+<<Example6.3>>=
 diff <- -diff(mean(GCI ~ Feeding, data = BreastFeedIntell))   # note the negative sign
-sd <- sd(~ NotBreastfed, data = simulation.GCI); sd
+sd <- sd(~ NotBreastfed, data = sim.GCI); sd
 diff - 2 * sd   # lower limit of 95% CI
 diff + 2 * sd   # upper limit of 95% CI
 @
@@ -291,16 +285,17 @@ diff(mean(Friends ~ Sex, data = CloseFriends))
   \item
     We simulate a world in which $\mu_{men} - \mu_{women} = 0$:
 <<Exploration6.3.8, cache=TRUE, tidy=FALSE>>=
-simulation.fri <- do(1000) * diff(mean(shuffle(Friends) ~ Sex, data = CloseFriends))
-head(simulation.fri, 3)
-histogram(~ Women, data = simulation.fri, 
-        groups = (Women <= -0.228 | Women >= 0.228), width = 0.05)
+sim.fri <- do(1000) * diff(mean(shuffle(Friends) ~ Sex, data = CloseFriends))
+head(sim.fri, 3)
+histogram(~ Women, data = sim.fri, width = 0.05,
+        group = cut(Women, c(-0.4, -0.228, 0.228, 0.4)), 
+        fcol = c("steelblue", "navy", "steelblue"))
 @
   \item
     Strength of evidence:
 <<Exploration6.3.10>>=
-favstats(~ Women, data = simulation.fri)
-prop(~ (Women <= -0.228 | Women >= 0.228), data = simulation.fri)
+favstats(~ Women, data = sim.fri)
+prop(~ (Women <= -0.228 | Women >= 0.228), data = sim.fri)
 @
 \end{enumerate}
 
