@@ -138,4 +138,4 @@ will not return the correct relative risk. "the proportion with a positive perce
 
 ## Chapter 7
 
-Example and Exploration 7.2 includes simulation in difference in mean by shuffling (not paired). How to do this with data organized for paired? (please see dataset "FirstBase"")
+Example 7.2 and  includes simulation in difference in mean by shuffling (not paired). How to do this with data organized for paired? (please see dataset "FirstBase"")
