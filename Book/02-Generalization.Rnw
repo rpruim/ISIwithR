@@ -283,6 +283,7 @@ favstats(SleepHrs, data = Pop1)
 @
 
 <<Exploration2.2.25>>=
+mean(~ SleepHrs, data = SleepTimes) # test statistic
 sim.pop1 <- do(1000) * mean(~ SleepHrs, data = sample(Pop1, 48))
 head(sim.pop1, 3)
 dotPlot(~ result, data = sim.pop1, width = 0.05)
@@ -317,15 +318,36 @@ prop(~ (t <= 5.981), data = sim.t)
 t.test(~ SleepHrs, data = Pop1)
 @
 
-%<<Exploration2.2.40>>=
-%Pop2 <- data.frame(SleepHrs = round(rt(18000, ncp = 8), 2))
-%head(Pop2)
-%favstats(SleepHrs, data = Pop2)
-%@
+\subsubsection*{Follow-up \# 1}
 
-% cannot do follow-up 1 simulating "Pop2"
-% cannot do follow-up 2 simulating median "Pop1"
+<<Exploration2.2.40>>=
+head(Pop)
+favstats(~ sleep2, data = Pop)
+histogram(~ sleep2, data = Pop)
+@
 
+<<Exploration2.2.40b, cache=TRUE>>=
+mean(~ SleepHrs, data = SleepTimes) # test statistic
+sim.pop2 <- do(1000) * mean(~ sleep2, data = sample(Pop, 48))
+head(sim.pop2, 3)
+dotPlot(~ result, data = sim.pop2, width = 0.05)
+favstats(~ result, data = sim.pop2)
+prop(~ (result <= 6.705), data = sim.pop2)
+@
+
+<<Exploration2.2.41>>=
+t.test(~ sleep2, data = Pop)
+@
+
+\subsubsection*{Follow-up \# 2}
+
+<<Exploration2.2.46, cache=TRUE>>=
+median(~ SleepHrs, data = SleepTimes) # test statistic
+sim.pop1med <- do(1000) * median(~ sleep1, data = sample(Pop, 48))
+head(sim.pop1med, 3)
+histogram(~ result, data = sim.pop1med, width = 0.1)
+prop(~ (result <= 6.5), data = sim.pop1med)
+@
 
 \section{Errors and Significance}
 
