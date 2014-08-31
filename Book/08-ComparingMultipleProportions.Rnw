@@ -1,0 +1,296 @@
+\Sexpr{set_parent('Tintle1.Rnw')}
+
+\setcounter{chapter}{7}
+\Chapter{Comparing More Than Two Proportions}
+
+\section{Simulation-Based Approach to Compare Multiple Proportions}
+
+\subsection*{Example 8.1: Coming to a Stop}
+
+<<Table8.1, opts.label="fig4">>=
+sample(Stop, 5)
+tally(~ stop + position, data = Stop, margins = TRUE)
+tally(stop ~ position, data = Stop)
+mosaic(stop ~ position, data = Stop, direction = "v")
+@
+
+\subsubsection*{Mean Absolute Difference (MAD)}
+
+Now we can input the proportions to compute MAD.
+<<Figure8.1>>=
+MAD(prop(stop ~ position, data = Stop))
+@
+
+Then we can shuffle the response variable:
+<<Figure8.2>>=
+MAD(prop(shuffle(stop) ~ position, data = Stop))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi_{Single} = \pi_{Lead} = \pi_{Follow}$  
+    
+    $H_a$: At least one of the three long-run probabilities of stopping is different from the others
+    
+    Test statistic:  $MAD = 0.086$ (the absolute mean difference)
+  \item
+    We simulate a world in which $MAD = 0$ :
+<<Figure8.3, cache=TRUE>>=
+sim.stop <- do(1000) * MAD(prop(shuffle(stop) ~ position, data=Stop))
+head(sim.stop, 3)
+histogram(~ result, data = sim.stop, width = 0.005, groups = (result >= 0.086))
+@
+  \item
+    Strength of evidence:
+<<Figure8.3b>>=
+favstats(~ result, data = sim.stop)
+prop(~ (result >= 0.086), data = sim.stop)
+@
+\end{enumerate}
+
+
+\subsection*{Exploration 8.1: Recruiting Organ Donors}
+
+<<Exploration8.1.1>>=
+head(OrganDonor)
+@
+
+<<Exploration8.1.5>>=
+tally(~ choice + default, data = OrganDonor)
+tally(choice ~ default, data = OrganDonor)
+mosaic(choice ~ default, data = OrganDonor, direction = "v")
+@
+
+<<Exploration8.1.9>>=
+MAD(prop(choice ~ default, data = OrganDonor))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi_{opt-in} = \pi_{opt-out} = \pi_{neutral}$  
+    
+    $H_a$: At least one of the three long-run probabilities is different from the others
+    
+    Test statistic:  $MAD = 0.268$ (the absolute mean difference)
+  \item
+    We simulate a world in which $MAD = 0$:
+<<Exploration8.1.11, cache=TRUE>>=
+sim.donor <- do(1000) * MAD(prop(shuffle(choice) ~ default, data = OrganDonor))
+head(sim.donor, 3)
+histogram(~ result, data = sim.donor, width = 0.010, groups = (result >= 0.268))
+@
+  \item
+    Strength of evidence:
+<<Exploration8.1.12>>=
+favstats(~ result, data = sim.donor)
+prop(~ (result >= 0.086), data = sim.stop)
+@
+\end{enumerate}
+
+
+\section{Theory-Based Approach to Compare Multiple Proportions}
+
+%chi-sq
+
+\subsection*{Example 8.2: Sham Acupuncture}
+
+<<Table8.2>>=
+sample(Acupuncture, 5)
+tally(~ Improvement + Acupunture, data = Acupuncture, margins = TRUE)
+tally(Improvement ~ Acupunture, data = Acupuncture)
+@
+
+<<Figure8.4>>=
+mosaic(Improvement ~ Acupunture, data = Acupuncture, direction = "v")
+MAD(prop(Improvement ~ Acupunture, data = Acupuncture))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi_{real} = \pi_{sham} = \pi_{none}$  
+    
+    $H_a$: At least one of the three long-run probabilities is different from the others
+    
+    Test statistic:  $MAD = 0.135$ (the absolute mean difference)
+  \item
+    We simulate a world in which $MAD = 0$:
+<<Figure8.5, cache=TRUE>>=
+sim.acu <- do(1000) * MAD(prop(shuffle(Improvement) ~ Acupunture, data = Acupuncture))
+head(sim.acu, 3)
+histogram(~ result, data = sim.acu, groups = (result >= 0.135))
+@
+  \item
+    Strength of evidence:
+<<Figure8.5b>>=
+favstats(~ result, data = sim.acu)
+prop(~ (result >= 0.135), data = sim.acu)
+@
+\end{enumerate}
+
+\subsubsection*{Alternate choice of statistic - chi-square}
+
+%Null distribution of chi-square statistic
+<<Figure8.6>>=
+
+@
+
+\subsubsection*{Theory-based approach: The chi-square test}
+
+For the chi-square test, data must be tabulated.
+<<Figure8.7>>=
+acu.table <- tally(~ Improvement + Acupunture, data = Acupuncture)
+acu.table
+chisq.test(acu.table, simulate = TRUE) # p-value based on simulation
+@
+
+<<Figure8.8>>=
+xchisq.test(acu.table) # with cell contributions and expected counts
+@
+
+% include histogram of shuffled chi-sq?
+
+<<>>=
+chisq.sample <- do(1000) *  chisq.test(tally( ~ resample(toupper(letters[1:5]), 400) ) )$statistic
+histogram(~X.squared, data = chisq.sample, fit = "chi-squared")
+@
+
+
+%95 confint (shuffle)
+
+\subsection*{Exploration 8.2: Conserving Hotel Towels}
+
+<<Exploration8.2.2>>=
+head(Towels)
+@
+Here, we can see that the data set is already in table format.
+
+<<Exploration8.2.5>>=
+prop.table(Towels, margin = 2)
+mosaicplot(Towels, dir = "v")
+@
+% segmented bar graph
+
+<<Exploration8.2.6>>=
+
+@
+% MAD simulation
+
+<<Exploration8.2.7>>=
+
+@
+% pooled proportion
+
+<<Exploration8.2.8>>=
+
+@
+% SE with pooled prop and n
+
+<<Exploration8.2.9>>=
+
+@
+
+<<Exploration8.2.10>>=
+
+@
+
+<<Exploration8.2.13>>=
+chisq.test(Towels, simulate = TRUE)
+@
+
+<<Exploration8.2.15>>=
+xchisq.test(Towels)
+@
+
+\subsubsection*{Follow-up Analysis}
+
+<<Exploration8.2.17>>=
+
+@
+%confint using fisher test
+
+\subsection*{Exploration 8.2b: Near-sightedness and Nighlights revisited}
+
+<<Exploration8.2b>>=
+NightLight1
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi_{darkness} = \pi_{night light} = \pi_{room light}$  
+    
+    $H_a$: At least one of the three long-run probabilities is different from the others
+    
+    Test statistic:  $\hat p_{darkness} = 0.105$
+    
+                     $\hat p_{night light} = 0.336$
+                      
+                     $\hat p_{room light} = 0.547$
+  \item
+    We simulate a world in which $MAD = 0$:
+<<Exploration8.1.11, cache=TRUE>>=
+sim.donor <- do(1000) * MAD(prop(shuffle(choice) ~ default, data = OrganDonor))
+head(sim.donor, 3)
+histogram(~ result, data = sim.donor, width = 0.010, groups = (result >= 0.268))
+@
+  \item
+    Strength of evidence:
+<<Exploration8.1.12>>=
+favstats(~ result, data = sim.donor)
+prop(~ (result >= 0.086), data = sim.stop)
+@
+\end{enumerate}
+
+\subsubsection*{Alternative formul for chi-square statistic}
+
+<<Exploration8.2b.4>>=
+xchisq.test(NightLight1)
+@
+
+<<Exploration8.2b.5, include=FALSE>>=
+<<Exploration8.2b.4>>
+@
+
+<<Exploration8.2b.7, opts.label="fig4">>=
+NightLight2
+mosaicplot(NightLight2)
+@
+% mosaic plot/ segmented bar graph
+
+<<Exploration8.2b.8>>=
+prop.table(NightLight2, margin = 2)
+@
+
+<<Exploration8.2b.10>>=
+chisq.test(NightLight2)
+@
+
+<<Exploration8.2b.11>>=
+
+@
+
+<<Exploration8.2b.12>>=
+xchisq.test(NightLight2)
+@
+
+<<Figure8.9, fig.keep='last'>>=
+plotDist("chisq", params=list(df=1), col = "yellow", ylim = c(0, 0.5), xlim = c(0, 8))
+plotDist("chisq", params=list(df=2), col = "green", add = TRUE)
+plotDist("chisq", params=list(df=3), col = "lightblue", add = TRUE)
+plotDist("chisq", params=list(df=4), col = "blue", add = TRUE)
+plotDist("chisq", params=list(df=6), col = "purple", add = TRUE)
+plotDist("chisq", params=list(df=9), col = "pink", add = TRUE)
+@
+
+%<<Figure8.9, keep="last">>=
+% plotFun(dchisq(x, df = 1) ~ x, col = "yellow", ylim = c(0, 0.5), xlim = c(0, 8))
+% plotFun(dchisq(x, df = 2) ~ x, add = TRUE, col = "green")
+% plotFun(dchisq(x, df = 3) ~ x, add = TRUE, col = "skyblue")
+% plotFun(dchisq(x, df = 4) ~ x, add = TRUE, col = "blue")
+% plotFun(dchisq(x, df = 6) ~ x, add = TRUE, col = "purple")
+% plotFun(dchisq(x, df = 9) ~ x, add = TRUE, col = "pink")
+% @
+
+% <<Figure7.02>>=
+% chisq.sample <- do(1000) *  chisq.test(tally( ~ resample(toupper(letters[1:5]), 400) ) )$statistic
+% histogram(~X.squared, data = chisq.sample)
+% @
