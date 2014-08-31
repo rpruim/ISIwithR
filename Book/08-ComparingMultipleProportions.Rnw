@@ -16,7 +16,7 @@ mosaic(stop ~ position, data = Stop, direction = "v")
 
 \subsubsection*{Mean Absolute Difference (MAD)}
 
-Now we can input the proportions to compute MAD.
+We can input the proportions to compute MAD:
 <<Figure8.1>>=
 MAD(prop(stop ~ position, data = Stop))
 @
@@ -30,7 +30,7 @@ MAD(prop(shuffle(stop) ~ position, data = Stop))
   \item
     $H_0$: $\pi_{Single} = \pi_{Lead} = \pi_{Follow}$  
     
-    $H_a$: At least one of the three long-run probabilities of stopping is different from the others
+    $H_a$: At least one of the three long-run probabilities is different from the others
     
     Test statistic:  $MAD = 0.086$ (the absolute mean difference)
   \item
@@ -55,7 +55,7 @@ prop(~ (result >= 0.086), data = sim.stop)
 head(OrganDonor)
 @
 
-<<Exploration8.1.5>>=
+<<Exploration8.1.5, opts.label="fig4">>=
 tally(~ choice + default, data = OrganDonor)
 tally(choice ~ default, data = OrganDonor)
 mosaic(choice ~ default, data = OrganDonor, direction = "v")
@@ -100,7 +100,7 @@ tally(~ Improvement + Acupunture, data = Acupuncture, margins = TRUE)
 tally(Improvement ~ Acupunture, data = Acupuncture)
 @
 
-<<Figure8.4>>=
+<<Figure8.4, opts.label="fig4">>=
 mosaic(Improvement ~ Acupunture, data = Acupuncture, direction = "v")
 MAD(prop(Improvement ~ Acupunture, data = Acupuncture))
 @
@@ -149,12 +149,6 @@ xchisq.test(acu.table) # with cell contributions and expected counts
 
 % include histogram of shuffled chi-sq?
 
-<<>>=
-chisq.sample <- do(1000) *  chisq.test(tally( ~ resample(toupper(letters[1:5]), 400) ) )$statistic
-histogram(~X.squared, data = chisq.sample, fit = "chi-squared")
-@
-
-
 %95 confint (shuffle)
 
 \subsection*{Exploration 8.2: Conserving Hotel Towels}
@@ -164,9 +158,9 @@ head(Towels)
 @
 Here, we can see that the data set is already in table format.
 
-<<Exploration8.2.5>>=
+<<Exploration8.2.5, opts.label="fig4">>=
 prop.table(Towels, margin = 2)
-mosaicplot(Towels, dir = "v")
+mosaicplot(Towels)
 @
 % segmented bar graph
 
@@ -214,33 +208,7 @@ xchisq.test(Towels)
 NightLight1
 @
 
-\begin{enumerate}
-  \item
-    $H_0$: $\pi_{darkness} = \pi_{night light} = \pi_{room light}$  
-    
-    $H_a$: At least one of the three long-run probabilities is different from the others
-    
-    Test statistic:  $\hat p_{darkness} = 0.105$
-    
-                     $\hat p_{night light} = 0.336$
-                      
-                     $\hat p_{room light} = 0.547$
-  \item
-    We simulate a world in which $MAD = 0$:
-<<Exploration8.1.11, cache=TRUE>>=
-sim.donor <- do(1000) * MAD(prop(shuffle(choice) ~ default, data = OrganDonor))
-head(sim.donor, 3)
-histogram(~ result, data = sim.donor, width = 0.010, groups = (result >= 0.268))
-@
-  \item
-    Strength of evidence:
-<<Exploration8.1.12>>=
-favstats(~ result, data = sim.donor)
-prop(~ (result >= 0.086), data = sim.stop)
-@
-\end{enumerate}
-
-\subsubsection*{Alternative formul for chi-square statistic}
+\subsubsection*{Alternative formula for chi-square statistic}
 
 <<Exploration8.2b.4>>=
 xchisq.test(NightLight1)
