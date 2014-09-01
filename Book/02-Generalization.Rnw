@@ -326,7 +326,7 @@ favstats(~ sleep2, data = Pop)
 histogram(~ sleep2, data = Pop)
 @
 
-<<Exploration2.2.40b, cache=TRUE>>=
+<<Exploration2.2.40b>>=
 mean(~ SleepHrs, data = SleepTimes) # test statistic
 sim.pop2 <- do(1000) * mean(~ sleep2, data = sample(Pop, 48))
 head(sim.pop2, 3)
@@ -341,7 +341,7 @@ t.test(~ sleep2, data = Pop)
 
 \subsubsection*{Follow-up \# 2}
 
-<<Exploration2.2.46, cache=TRUE>>=
+<<Exploration2.2.46>>=
 median(~ SleepHrs, data = SleepTimes) # test statistic
 sim.pop1med <- do(1000) * median(~ sleep1, data = sample(Pop, 48))
 head(sim.pop1med, 3)
