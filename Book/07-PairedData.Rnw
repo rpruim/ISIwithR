@@ -9,43 +9,46 @@
 
 \subsection*{Example 7.2: Rounding First Base (continued)}
 
+Let's begin by creating a data frame that organizes this data differently.
+We'll call the new data frame \dataframe{FirstBase2}.
+
+
+
 <<Table7.1>>=
 head(FirstBase, 10)
 @
 
 <<Figure7.3>>=
-dotPlot(~ narrow, data = FirstBase, nint = 40, xlim = c(4.50, 6.50), cex = 0.25)
-dotPlot(~ wide, data = FirstBase, nint = 40, xlim = c(4.50, 6.50), cex = 0.15)
+dotPlot(~ narrow, data = FirstBase, nint = 40, xlim = c(4.50, 6.50))
+dotPlot(~ wide, data = FirstBase, nint = 40, xlim = c(4.50, 6.50))
+densityplot( ~ time, groups= angle, data=FirstBase2)
 @
 
 <<Table7.2>>=
-FirstBase$narrow - FirstBase$wide
-favstats(FirstBase$narrow - FirstBase$wide)
 favstats(~ (narrow - wide), data = FirstBase)
 @
 
 <<Figure7.4>>=
-dotPlot(FirstBase$narrow - FirstBase$wide)
 dotPlot(~ (narrow - wide), data = FirstBase)
 @
 
 %Figure 7.5 (skip)
 
 <<Table7.3>>=
-swap.base <- swap(FirstBase, c("narrow", "wide")); swap.base
-mean(~ (narrow - wide), data = swap.base)
+Swap.Base <- swap(FirstBase, c("narrow", "wide")); Swap.Base
+mean(~ (narrow - wide), data = Swap.Base)
 @
 
 We simulate a world in which $\mu_d = 0$:
 <<Figure7.6, cache=TRUE, tidy=FALSE>>=
-sim.base <- do(1000) * mean(~ (narrow - wide), data = swap(FirstBase, c("narrow", "wide")))
-head(sim.base, 3)
-histogram(~ result, data = sim.base, width = 0.005, center = 0.0025)
+Sim.Base <- do(1000) * mean(~ (narrow - wide), data = swap(FirstBase, c("narrow", "wide")))
+head(Sim.Base, 3)
+histogram(~ result, data = Sim.Base, width = 0.005, center = 0.0025)
 @
 
 <<Figure7.7>>=
-histogram(~ result, data = sim.base, width = 0.005, center = 0.0025, groups = (result >= 0.075))
-sd <- sd(~ result, data = sim.base);sd
+histogram(~ result, data = Sim.Base, width = 0.005, center = 0.0025, groups = (result >= 0.075))
+sd <- sd(~ result, data = Sim.Base);sd
 0.075 - 2 * sd
 0.075 + 2 * sd
 @
@@ -53,8 +56,13 @@ sd <- sd(~ result, data = sim.base);sd
 %Figure 7.8 (include difference in two means? how?)
 
 <<Figure7.8>>=
-
+require(tidyr)
+FirstBase2 <- FirstBase %>% gather(angle, time)
+head(FirstBase2)
+FirstBase.Null <- do(1000) * diffmean( time ~ shuffle(angle), data=FirstBase2 )
+dotPlot( ~diffmean, data=FirstBase.Null, nint=50 )
 @
+
 
 
 \subsection*{Exploration 7.2: Exercise and Heart Rate}
