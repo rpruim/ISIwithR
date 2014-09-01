@@ -128,6 +128,11 @@ type = "l"
 
 - Exploration 2.2: Sleepless Nights? This was the question that needed Pop1, Pop2, and Pop3. I ended up making a file with all three because Pop2 and Pop3 are not normal distributions. I put "Pop" in the DataFiles folder but could you put it into the data package? When I compile the pdf, Pop cannot be found and there is an error message.
 
+To get it into the package, it needs to go into Package/data/.  I've added it:
+```{r}
+head(Pop)
+```
+
 ## Chapter 5
 
 ```
@@ -136,6 +141,26 @@ relrisk(tally(~ Perception + Wording, data = GoodandBad))
 
 will not return the correct relative risk. "the proportion with a positive perception is 2.49 times higher in the 'good year' group than the 'bad year' group" (Example 5.1). I can't figure out what value the function is returning because no conditional proportion ratio matches the one give by the function. Am I doing this incorrectly?
 
+```{r}
+tally(~ Perception + Wording, data = GoodandBad, margins=TRUE)
+4/19 / (8/11)
+relrisk(tally(~ Perception + Wording, data = GoodandBad))
+3/18 / (8/12)
+relrisk(tally(~ Wording + Perception, data = GoodandBad))
+relrisk(tally( Wording ~ Perception, data=GoodandBad, format="count") )
+```
+
 ## Chapter 7
 
 Example 7.2 and  includes simulation in difference in mean by shuffling (not paired). How to do this with data organized for paired? (please see dataset "FirstBase"")
+
+Two solutions:
+```{r}
+require(tidyr)
+FirstBase %>% gather(angle, time) %>% head()
+t.test(time ~ angle, data = FirstBase %>% gather(angle, time))
+t.test(FirstBase$narrow, FirstBase$wide)
+```
+
+I guess I like the first one better.
+
