@@ -1,0 +1,436 @@
+\Sexpr{set_parent('Tintle1.Rnw')}
+
+\setcounter{chapter}{9}
+\Chapter{Two Quantitative Variables}
+
+\section{Summarizing the Relationship Between Two Quantitative Variables Using the Correlation Coefficient}
+
+\subsection*{Example 10.1: Exam Times and Exam Scores}
+
+\subsubsection*{Exploring the Data: Graphical Summary}
+
+Figure 10.1 plots data that have been modified to exclude 3 observations, so we will take the subset of \dataframe{ExamTimesScores.}
+<<Figure10.1>>=
+scores <- subset(ExamTimesScores, time < 90)
+xyplot(score ~ time, data = scores)
+@
+
+\subsubsection*{Exploring the Data: Numerical Summary}
+
+<<Example10.1>>=
+cor(score ~ time, data = scores)
+cor(score ~ time, data = ExamTimesScores)
+@
+
+\subsubsection*{Caution: Influential Observations}
+
+<<Figure10.2>>=
+xyplot(score ~ time, data = ExamTimesScores)
+cor(score ~ time, data = ExamTimesScores)
+@
+
+\subsubsection*{Exploration 10.1: Are Dinner Plates Getting Larger?}
+
+<<Exploration10.1.2>>=
+head(PlateSize)
+@
+
+<<Table10.1>>=
+PlateSize
+@
+
+\subsubsection*{Graphical summary of two-quantitative variables: Scatterplots}
+
+<<Exploration10.1.7>>=
+cor(size ~ year, data = PlateSize)
+@
+
+<<Exploration10.1.8>>=
+xyplot(size ~ year, data = PlateSize)
+@
+
+\subsubsection*{Numerical Summaries}
+
+<<Exploration10.1.15>>=
+cor(size ~ year, data = PlateSize)
+@
+
+Here is one way to add a new observation to an existing data frame: 
+<<Exploration10.1.16>>=
+PlateSize2 <- PlateSize # make a copy of data with different name
+PlateSize2[21,] <- c(1950, 11.5) # assigning values to the 21st row of data frame
+PlateSize2
+xyplot(size ~ year, data = PlateSize2)
+cor(size ~ year, data = PlateSize2)
+@
+
+\section{Inference for the Correlation Coefficient: A Simulation-based Approach}
+
+\subsection*{Example 10.2: Exercise Intensity and Mood Changes}
+
+<<Table10.2>>=
+ExerciseMood
+@
+
+<<Figure10.4>>=
+xyplot(change_mood ~ exercise_intensity, data = ExerciseMood)
+cor(change_mood ~ exercise_intensity, data = ExerciseMood)
+@
+
+
+\begin{enumerate}
+  \item
+    $H_0$: $\rho = 0$  
+    
+    $H_a$: \rho \neq 0$ 
+    
+    Test statistic:  $r = 0.187$ (the sample correlation)
+  \item
+    We simulate a world in which $\rho = 0$  :
+<<Figure10.5, cache=TRUE>>=
+sim.mood <- do(1000) * cor(shuffle(change_mood) ~ exercise_intensity, data = ExerciseMood)
+head(sim.mood, 3)
+dotPlot(~ result, data = sim.mood, n = 50, groups = (result <= -0.187 | result >= 0.187))
+@
+  \item
+    Strength of evidence:
+<<Figure10.5b>>=
+favstats(~ result, data = sim.mood)
+prop(~ (result <= -0.187 | result >= 0.187), data = sim.mood)
+@
+\end{enumerate}
+
+\subsubsection*{Exploration 10.2: Draft Lottery}
+
+<<Figure10.6>>=
+head(DraftLottery)
+xyplot(draft_number ~ sequential_date, data = DraftLottery)
+@
+
+You can identify the specific row in a data set to examine a specific observation like so:
+<<Exploration10.2.3>>=
+DraftLottery[32, ] # draft number for Feb 1
+@
+
+<<Exploration10.2.4>>=
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 1 & sequential_date <= 31)) # Jan median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 32 & sequential_date <= 60)) # Feb median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 61 & sequential_date <= 91)) # Mar median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 92 & sequential_date <= 121)) # Apr median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 122 & sequential_date <= 152)) # May median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 153 & sequential_date <= 182)) # Jun median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 183 & sequential_date <= 213)) # Jul median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 214 & sequential_date <= 243)) # Aug median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 244 & sequential_date <= 274)) # Sep median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 275 & sequential_date <= 304)) # Oct median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 305 & sequential_date <= 335)) # Nov median
+median(~ draft_number, data = subset(DraftLottery, sequential_date >= 336 & sequential_date <= 366)) # Dec median
+@
+
+<<Exploration10.2.5>>=
+cor(draft_number ~ sequential_date, data = DraftLottery)
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\rho = 0$  
+    
+    $H_a$: $\rho \neq 0$ 
+    
+    Test statistic:  $r = -0.226$ (the sample correlation)
+  \item
+    We simulate a world in which $\rho = 0$  :
+<<Exploration10.2.7, cache=TRUE>>=
+sim.draft <- do(1000) * cor(shuffle(draft_number) ~ sequential_date, data = DraftLottery)
+head(sim.draft, 3)
+dotPlot(~ result, data = sim.draft, n = 50, groups = (result <= -0.226 | result >= 0.226))
+@
+  \item
+    Strength of evidence:
+<<Exploration10.2.7b>>=
+favstats(~ result, data = sim.draft)
+prop(~ (result <= -0.226 | result >= 0.226), data = sim.draft)
+@
+\end{enumerate}
+
+\section{Least Squares Regression}
+
+\R\ provides the simple command \function{lm()} to find the least squares line.
+<<Figure10.7>>=
+xyplot(size ~ year, data = PlateSize, type = c("p", "r"))
+lm(size ~ year, data = PlateSize)
+@
+Note that \argument{type = c("p", "r")} adds the least squares regression line to the scatterplot.
+
+For just the coeffients:
+<<Figure10.7b>>=
+coef(lm(size ~ year, data = PlateSize))
+@
+
+<<Figure10.8>>=
+xyplot(size ~ year, data = PlateSize, type = c("p", "r"))
+resid(lm(size ~ year, data = PlateSize)) # residuals for each point
+@
+% fit residual
+
+For more information, including the \term{coefficient of determination,} use the \function{summary} function on the linear model.
+<<Figure10.8b>>=
+summary(lm(size ~ year, data = PlateSize))
+rsquared(lm(size ~ year, data = PlateSize)) # just the r-squared
+@
+
+<<Figure10.9, fig.height=2>>=
+dotPlot(~ size, data = PlateSize, width = 0.005, cex = 0.25)
+dotPlot(~ resid(lm(size ~ year, data = PlateSize)), width = .001, cex = .05)
+@
+
+<<Exploration10.3.1>>=
+head(FootHeight, 3)
+@
+
+<<Exploration10.3.2>>=
+xyplot(height ~ footlength, data = FootHeight)
+@
+
+<<Exploration10.3.4>>=
+xyplot(height ~ footlength, data = FootHeight, type = c("p", "r"))
+@
+
+<<Exploration10.3.6>>=
+# sum of the absolute values of the residuals of the linear model
+sum(abs(resid(lm(height ~ footlength, data = FootHeight))))
+@
+
+<<Exploration10.3.7>>=
+# sum of the squared residuals
+deviance(lm(height ~ footlength, data = FootHeight))
+@
+
+<<Exploration10.3.8>>=
+coef(lm(height ~ footlength, data = FootHeight))
+@
+
+To make predictions, we can make a function out of the linear model by using the \function{makeFun()} function. 
+<<Exploration10.3.9>>=
+# assigning function of the linear model the name fh
+fh <- makeFun(lm(height ~ footlength, data = FootHeight))
+fh(footlength = 28) # predicted height for foot length 28
+fh(footlength = 29) # predicted height for foot length 29
+@
+
+<<Exploration10.3.10>>=
+fh(footlength = 0) # predicted height for foot length 0
+@
+
+<<Exploration10.3.11>>=
+fh(footlength = 32)
+subset(FootHeight, footlength == "32")
+subset(FootHeight, footlength == "32")$footlength - fh(footlength = 32)
+@
+
+<<Exploration10.3.13>>=
+
+@
+% how to fit average
+
+\subsubsection*{Coefficient of Determination (r^2)}
+
+% include SSE of average line
+<<Exploration10.3.15>>=
+cor(height ~ footlength, data = FootHeight)^2
+rsquared(lm(height ~ footlength, data = FootHeight))
+@
+
+\section{Inference for Regression Slope: Simulation-Based Approach}
+
+\subsection*{Example 10.4: Do students who spend more time in non-academic activities, tend to have lower GPAs?}
+
+<<Figure10.10>>=
+xyplot(gpa ~ hours, data = GPA, type = c("p", "r"))
+cor(gpa ~ hours, data = GPA)
+coef(lm(gpa ~ hours, data = GPA))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $slope = 0$  
+    
+    $H_a$: $slope < 0$ 
+    
+    Test statistic:  $slope = -0.00588$ (the sample slope coefficient)
+  \item
+    We simulate a world in which $slope = 0$:
+<<Figure10.11, cache=TRUE>>=
+sim.gpa <- do(1000) * coef(lm(shuffle(gpa) ~ hours, data = GPA))
+head(sim.gpa, 3)
+dotPlot(~ hours, data = sim.gpa, n = 50, groups = (hours <= -0.00588))
+@
+  \item
+    Strength of evidence:
+<<Figure10.11b>>=
+favstats(~ hours, data = sim.gpa)
+prop(~ (hours <= -0.00588), data = sim.gpa)
+@
+\end{enumerate}
+
+\subsection*{Exploration 10.4: Perceptions of Heaviness}
+
+<<Table10.4>>=
+head(Handwidth, 10)
+@
+
+<<Exploration10.4.2>>=
+xyplot(perceived_weight ~ hand_width, data = Handwidth, type = c("p", "r"))
+@
+
+<<Exploration10.4.3>>=
+coef(lm(perceived_weight ~ hand_width, data = Handwidth))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $slope = 0$  
+    
+    $H_a$: $slope < 0$ 
+    
+    Test statistic:  $slope = -3.756$ (the sample slope coefficient)
+  \item
+    We simulate a world in which $slope = 0$  :
+<<Exploration10.4.5, cache=TRUE>>=
+sim.hand <- do(1000) * coef(lm(shuffle(perceived_weight) ~ hand_width, data = Handwidth))
+head(sim.hand, 3)
+dotPlot(~ hand_width, data = sim.hand, n = 50, groups = (hand_width <= -3.756))
+@
+  \item
+    Strength of evidence:
+<<Exploration10.4.6>>=
+favstats(~ hand_width, data = sim.hand)
+prop(~ (hand_width <= -6.756), data = sim.hand)
+@
+\end{enumerate}
+
+
+\section{Inference for the Regression Slope: Theory-Based Approach}
+
+\subsection*{Example 10.5A: Predicting Heart Rate from Body Temperature}
+
+<<Figure10.13>>=
+head(TempHeart)
+xyplot(HeartRate ~ BodyTemp, data = TempHeart, type = c("p", "r"))
+@
+
+<<Figure10.14>>=
+coef(lm(HeartRate ~ BodyTemp, data = TempHeart))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $slope = 0$  
+    
+    $H_a$: $slope \neq 0$ 
+    
+    Test statistic:  $slope = 2.443$ (the sample slope coefficient)
+  \item
+    We simulate a world in which $slope = 0$:
+<<Figure10.14b, cache=TRUE>>=
+sim.rate <- do(1000) * coef(lm(shuffle(HeartRate) ~ BodyTemp, data = TempHeart))
+head(sim.rate, 3)
+dotPlot(~ BodyTemp, data = sim.rate, n = 50, groups = (BodyTemp <= -2.443 | BodyTemp >= 2.443))
+@
+  \item
+    Strength of evidence:
+<<Figure10.14c>>=
+favstats(~ BodyTemp, data = sim.rate)
+prop(~ (BodyTemp <= -2.443 | BodyTemp >= 2.443), data = sim.rate)
+@
+\end{enumerate}
+
+<<Figure10.15, cache=TRUE>>=
+sim.ratet <- do(1000) * coef(summary(lm(shuffle(HeartRate) ~ BodyTemp, data = TempHeart)))
+head(sim.ratet, 10)
+@
+% t-stat simulation
+
+<<Figure10.16>>=
+coef(summary(lm(HeartRate ~ BodyTemp, data = TempHeart)))
+@
+
+<<Figure10.17>>=
+confint(lm(HeartRate ~ BodyTemp, data = TempHeart))
+@
+
+\subsection*{Example 10.5B: Smoking and Drinking}
+
+<<Figure10.18>>=
+xyplot(Smoked ~ Alcohol_Drinks, data = AlcoholSmoke, type = c("p", "r"))
+@
+
+\subsubsection*{Caution: Outliers and Influential Observations}
+<<Example10.5B>>=
+cor(Smoked ~ Alcohol_Drinks, data = AlcoholSmoke)
+cor(Smoked ~ Alcohol_Drinks, data = subset(AlcoholSmoke, Smoked < 125))
+@
+% t-stat simulation
+
+\subsection*{Exploration 10.5: Predicting Brain Density from Number of Facebook Friends}
+
+<<Table10.5>>=
+head(Facebook)
+@
+
+<<Exploration10.5.2>>=
+xyplot(density ~ friends, data = Facebook, type = c("p", "r"))
+@
+
+<<Exploration10.5.3>>=
+coef(lm(density ~ friends, data = Facebook))
+@
+\begin{enumerate}
+  \item
+    $H_0$: $slope = 0$  
+    
+    $H_a$: $slope \neq 0$ 
+    
+    Test statistic:  $slope = 0.201$ (the sample slope coefficient)
+  \item
+    We simulate a world in which $slope = 0$:
+<<Exploration10.5.4, cache=TRUE>>=
+sim.face <- do(1000) * coef(lm(shuffle(density) ~ friends, data = Facebook))
+head(sim.face, 3)
+dotPlot(~ friends, data = sim.face, n = 50, groups = (friends <= -0.201 | friends >= 0.201))
+@
+  \item
+    Strength of evidence:
+<<Exploration10.5.4b>>=
+favstats(~ friends, data = sim.face)
+prop(~ (friends <= -0.201 | friends >= 0.201), data = sim.face)
+@
+\end{enumerate}
+
+<<Exploration10.5.6>>=
+cor(density ~ friends, data = Facebook)
+@
+
+<<Exploration10.5.11>>=
+coef(summary(lm(density ~ friends, data = Facebook)))
+@
+
+<<Exploration10.5.12>>=
+summary(lm(density ~ friends, data = Facebook))
+@
+
+<<Exploration10.5.15>>=
+confint(lm(density ~ friends, data = Facebook))
+@
+
+<<Exploration10.5.16>>=
+Facebook2 <- Facebook # make a copy of data with different name
+Facebook2[41,] <- c(50, -10) # assigning values to the 41st row of data frame
+xyplot(density ~ friends, data = Facebook2)
+cor(density ~ friends, data = Facebook2)
+@
+
+<<Exploration10.5.16b, cache=TRUE>>=
+summary(lm(density ~ friends, data = Facebook2))
+@
+% shuffle t-stat
