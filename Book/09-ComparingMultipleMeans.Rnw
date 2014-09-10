@@ -1,0 +1,178 @@
+\Sexpr{set_parent('Tintle1.Rnw')}
+
+\setcounter{chapter}{8}
+\Chapter{Comparing More than Two Means}
+
+
+\section{Simulation-Based Approach for Comparing More than Two Groups with a Quantitative Response}
+
+\subsection*{Example 9.1: Comprehending Ambiguous Prose}
+
+<<Figure9.2>>=
+bwplot(Condition ~ Comprehension, data = Comprehension, horizontal = TRUE)
+@
+
+<<Table9.1>>=
+favstats(Comprehension ~ Condition, data = Comprehension)
+@
+
+<<Figure9.3>>=
+MAD(mean(Comprehension ~ Condition, data = Comprehension))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi_{After} = \pi_{Before} = \pi_{None}$  
+    
+    $H_a$: At least one of the three long-run probabilities is different from the others
+    
+    Test statistic:  $MAD = 1.16$ (the mean absolute difference)
+  \item
+    We simulate a world in which $MAD = 0$ :
+<<Figure9.3b, cache=TRUE>>=
+sim.comp <- do(1000) * MAD(mean(shuffle(Comprehension) ~ Condition, data = Comprehension))
+head(sim.comp, 3)
+dotPlot(~ result, data = sim.comp, width = 0.005, groups = (result >= 1.16))
+@
+  \item
+    Strength of evidence:
+<<Figure9.3c>>=
+favstats(~ result, data = sim.comp)
+prop(~ (result >= 1.16), data = sim.comp)
+@
+\end{enumerate}
+
+\subsection*{Exploration 9.1: Exercise and Brain Volume}
+
+<<Exploration9.1.3>>=
+head(Brain)
+@
+
+<<Exploration9.1.6>>=
+favstats(BrainChange ~ Treatment, data = Brain)
+@
+
+<<Exploration9.1.13>>=
+MAD(mean(BrainChange ~ Treatment, data = Brain))
+@
+% incorrect MAD
+
+<<Exploration9.1.16>>=
+MAD(mean(shuffle(BrainChange) ~ Treatment, data = Brain))
+@
+% should be incorrect
+
+<<Exploration9.1.19, cache=TRUE>>=
+sim.brain <- do(1000) * MAD(mean(shuffle(BrainChange) ~ Treatment, data = Brain))
+head(sim.brain, 3)
+dotPlot(~ result, data = sim.brain, n = 50, groups = (result >= 0.672))
+@
+
+<<Exploration9.1.20>>=
+prop(~ (result >= 0.672), data = sim.brain)
+@
+
+<<Exploration9.1.20b, cache=TRUE>>=
+sim.10000 <- do(10000) * MAD(mean(shuffle(BrainChange) ~ Treatment, data = Brain))
+head(sim.10000, 3)
+prop(~ (result >= 0.672), data = sim.10000)
+@
+
+\section{Theory-based Approach to Comparing More than Two Groups with a Quantitative Response}
+
+\subsection*{Example 9.2: Recalling Ambiguous Prose}
+
+<<Figure9.4>>=
+bwplot(Condition ~ Recall, data = Recall, horizontal = TRUE)
+favstats(Recall ~ Condition, data = Recall)
+MAD(mean(Recall ~ Condition, data = Recall))
+@
+
+\begin{enumerate}
+  \item
+    $H_0$: $\pi_{After} = \pi_{Before} = \pi_{None}$  
+    
+    $H_a$: At least one of the three long-run probabilities is different from the others
+    
+    Test statistic:  $MAD = 1.93$ (the mean absolute difference)
+  \item
+    We simulate a world in which $MAD = 0$ :
+<<Figure9.5, cache=TRUE>>=
+sim.recall <- do(1000) * MAD(mean(shuffle(Recall) ~ Condition, data = Recall))
+head(sim.recall, 3)
+dotPlot(~ result, data = sim.recall, width = 0.005, groups = (result >= 1.93))
+@
+  \item
+    Strength of evidence:
+<<Figure9.5b>>=
+favstats(~ result, data = sim.recall)
+prop(~ (result >= 1.93), data = sim.recall)
+@
+\end{enumerate}
+
+<<Figure9.8, cache=TRUE>>=
+sim.recallF <- do(1000) * anova(lm(shuffle(Recall) ~ Condition, data = Recall))
+head(sim.recallF, 3)
+histogram(~ F, data = sim.recallF, n = 25)
+prop(~ (F >= 12.67), data = sim.recallF)
+@
+
+<<Figure9.9, fig.keep='last'>>=
+histogram(~ F, data = sim.recallF, n = 25)
+plotDist("f", df1 = 2, df2 = 52, add = TRUE)
+@
+
+<<Figure9.10>>=
+anova(lm(Recall ~ Condition, data = Recall))
+@
+
+<<Figure9.11, fig.height=4, fig.width=8>>=
+dotPlot(~ Recall | Condition, data = Recall, cex = 0.5, width = 1, layout = c(1,2))
+@
+
+<<Example9.2>>=
+confint(lm(Recall ~ Condition, data = Recall))
+@
+% not finding one of the confint
+
+<<Figure9.12>>=
+sim.compF <- do(1000) * anova(lm(shuffle(Comprehension) ~ Condition, data = Comprehension))
+head(sim.compF, 3)
+histogram(~ F, data = sim.compF, n = 25)
+@
+
+\subsection*{Exploration 9.2: Comparing Popular Diets}
+
+<<Exploration9.2.2>>=
+head(Diets)
+@
+
+<<Exploration8.2.5, opts.label="fig1">>=
+favstats( BMI ~ Diet, data = Diets)
+dotPlot(~ BMI | Diet, data = Diets, width = 1)
+@
+
+<<Exploration8.2.6>>=
+MAD(mean(BMI ~ Diet, data = Diets))
+sim.diet <- do(1000) * MAD(mean(shuffle(BMI) ~ Diet, data = Diets))
+head(sim.diet, 3)
+dotPlot(~ result, data = sim.diet, n = 50, groups = (result >= 0.747))
+prop(~ (result >= 0.747), data = sim.diet)
+@
+
+<<Exploration8.2.8>>=
+anova(lm(BMI ~ Diet, data = Diets))
+sim.dietF <- do(1000) * anova(lm(shuffle(BMI) ~ Diet, data = Diets))
+head(sim.dietF, 3)
+prop(~ (F >= 5.392), data = sim.dietF)
+@
+
+<<Exploration8.2.9, keep='last'>>=
+histogram(~ F, data = sim.dietF, n = 25)
+plotDist("f", df1 = 2, df2 = 229, add = TRUE)
+@
+
+<<Exploration8.2.15>>=
+confint(lm(BMI ~ Diet, data = Diets))
+@
+% fix confint
