@@ -148,6 +148,7 @@ relrisk(tally(~ Perception + Wording, data = GoodandBad))
 3/18 / (8/12)
 relrisk(tally(~ Wording + Perception, data = GoodandBad))
 relrisk(tally( Wording ~ Perception, data=GoodandBad, format="count") )
+15/18 / (4/12)
 ```
 
 ## Chapter 7
@@ -164,3 +165,54 @@ t.test(FirstBase$narrow, FirstBase$wide)
 
 I guess I like the first one better.
 
+# Questions on Chapter 8-10
+
+## Chapter 8
+
+- For some of the data sets in this section (`Towels` and `NightLight2`) because they were in table format I made data frames out of them in order to do the shuffling for the simulations. (See Exploration 8.2 and Exploration 8.2b)
+
+- Example 8.2: How do you find the confidence interval for the difference in proportions for the three pairs of groups (last section of Example 8.2)?
+```{r}
+acu.table <- tally(~ Improvement + Acupunture, data = Acupuncture)
+acu.table
+chisq.test(acu.table)
+```
+
+- Exploration 8.2.17: Again, how do you find the confidence interval for the pairwise differences in proportions.
+```{r}
+xchisq.test(Towels)
+```
+
+## Chapter 9
+
+- Exploration 9.1.13: The MAD calculated by the online applet is 0.448 while the MAD function is returning 0.672. MAD for other data sets have been correct and the only difference between those data sets and this data set is that other data sets have four categories for its qualitative variable and "Brain" has four categories. (subsequent simualation of null dist of MAD should also then be incorrect)
+```{r}
+MAD(mean(BrainChange ~ Treatment, data = Brain))
+```
+
+- Follow-up analysis to Example 9.2: I'm trying to compute the confidence intervals for the differences in means
+```{r}
+confint(lm(Recall ~ Condition, data = Recall))
+```
+results in the CI of Before-After and None-After. Is there any way to get the CI of Before-None?
+
+## Chapter 10
+
+- Figure 10.8: How do you replicate Figure 10.8, plotting residuals for best-fit line?
+```{r}
+xyplot(size ~ year, data = PlateSize, type = c("p", "r"))
+resid(lm(size ~ year, data = PlateSize))
+```
+
+- Exploration 10.3.13: How do you find the the SSE if we were to use the average of the response (y bar) as the predicted vale for every x? 
+I know that the SSE of the least squares line is:
+```{r}
+deviance(lm(height ~ footlength, data = FootHeight))
+```
+
+- Figure 10.15: I am trying to simulate a null distribution of t-statistics
+```{r}
+sim.ratet <- do(1000) * coef(summary(lm(shuffle(HeartRate) ~ BodyTemp, data = TempHeart)))
+head(sim.ratet, 10)
+```
+This is what I tried but the problem is that R is also giving me the t-stat for the interval. Is there any other way to simulate the t-stat or to do analysis (make a dotplot and find the p-val) with the t-stat of just the slope?
