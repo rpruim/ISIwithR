@@ -127,12 +127,7 @@ prop(~ (result >= 0.135), data = sim.acu)
 @
 \end{enumerate}
 
-\subsubsection*{Alternate choice of statistic - chi-square}
-
-%Null distribution of chi-square statistic
-<<Figure8.6>>=
-
-@
+% Figure 8.6 (skip)
 
 \subsubsection*{Theory-based approach: The chi-square test}
 
@@ -140,55 +135,70 @@ For the chi-square test, data must be tabulated.
 <<Figure8.7>>=
 acu.table <- tally(~ Improvement + Acupunture, data = Acupuncture)
 acu.table
-chisq.test(acu.table, simulate = TRUE) # p-value based on simulation
+chisq.test(acu.table)
+@
+
+<<Figure8.7b, fig.keep='last'>>=
+sim.acuX2 <- do(1000) * chisq.test(tally(~ shuffle(Improvement) + Acupunture, data = Acupuncture))$statistic
+head(sim.acuX2, 3)
+histogram(~ X.squared, data = sim.acuX2, width = 1, center = 0.5, groups = X.squared >= 38.05)
+plotDist("chisq", df = 2, add=TRUE)
 @
 
 <<Figure8.8>>=
 xchisq.test(acu.table) # with cell contributions and expected counts
 @
 
-% include histogram of shuffled chi-sq?
-
 %95 confint (shuffle)
+
 
 \subsection*{Exploration 8.2: Conserving Hotel Towels}
 
 <<Exploration8.2.2>>=
 head(Towels)
 @
-Here, we can see that the data set is already in table format.
+Here, we can see that the data set is already in table format. But let's also store it as a data frame for future use.
+
+<<tidy=FALSE>>=
+Towels
+Towels1 <- rbind(
+  do(113)  *  data.frame(treatment = "none",     towel = "reuse"),
+  do(192)  *  data.frame(treatment = "none",     towel = "not"),
+  do(151)  *  data.frame(treatment = "samerm",   towel = "reuse"),
+  do(155)  *  data.frame(treatment = "samerm",   towel = "not"),
+  do(145)  *  data.frame(treatment = "citizen",  towel = "reuse"),
+  do(189)  *  data.frame(treatment = "citizen",  towel = "not"),
+  do(127)  *  data.frame(treatment = "gender",   towel = "reuse"),
+  do(183)  *  data.frame(treatment = "gender",   towel = "not"),
+  do(150)  *  data.frame(treatment = "guest",    towel = "reuse"),
+  do(190)  *  data.frame(treatment = "guest",    towel = "not")
+ )
+@
 
 <<Exploration8.2.5, opts.label="fig4">>=
 prop.table(Towels, margin = 2)
-mosaicplot(Towels)
+tally(towel ~ treatment, data = Towels1)
+mosaic(towel ~ treatment, data = Towels1)
 @
-% segmented bar graph
 
-<<Exploration8.2.6>>=
-
+<<Exploration8.2.6, cache=TRUE>>=
+MAD(prop(towel ~ treatment, data = Towels1))
+sim.towel <- do(1000) * MAD(prop(shuffle(towel) ~ treatment, data = Towels1))
+head(sim.towel, 3)
+histogram(~ result, data = sim.towel, groups = (result >= 0.111))
+prop(~ (result >= 0.111), data = sim.towel)
 @
-% MAD simulation
 
 <<Exploration8.2.7>>=
-
-@
-% pooled proportion
-
-<<Exploration8.2.8>>=
-
-@
-% SE with pooled prop and n
-
-<<Exploration8.2.9>>=
-
+prop(~ towel, data = Towels1)
 @
 
-<<Exploration8.2.10>>=
-
-@
-
-<<Exploration8.2.13>>=
-chisq.test(Towels, simulate = TRUE)
+<<Exploration8.2.13, fig.keep='last'>>=
+chisq.test(Towels)
+sim.towelX2 <- do(1000) * chisq.test(tally(~ shuffle(towel) + treatment, data = Towels1))$statistic
+head(sim.towelX2, 3)
+histogram(~ X.squared, data = sim.towelX2, width = 1, center = 0.5, groups = X.squared >= 10.153)
+plotDist("chisq", df = 4, add=TRUE)
 @
 
 <<Exploration8.2.15>>=
@@ -200,7 +210,7 @@ xchisq.test(Towels)
 <<Exploration8.2.17>>=
 
 @
-%confint using fisher test
+%confint for pairwise differences
 
 \subsection*{Exploration 8.2b: Near-sightedness and Nighlights revisited}
 
@@ -218,22 +228,35 @@ xchisq.test(NightLight1)
 <<Exploration8.2b.4>>
 @
 
-<<Exploration8.2b.7, opts.label="fig4">>=
+We can see that \dataframe{NightLight1} is in table format. Let's create new data frame it for some easier analysis. 
+<<tidy=FALSE>>=
 NightLight2
-mosaicplot(NightLight2)
+NightLight <- rbind(
+  do(18)  *  data.frame(light = "Darkness",   sight = "Near"),
+  do(114) *  data.frame(light = "Darkness",   sight = "Normal"),
+  do(40)  *  data.frame(light = "Darkness",   sight = "Far"),
+  do(78)  *  data.frame(light = "NightLight", sight = "Near"),
+  do(115) *  data.frame(light = "NightLight", sight = "Normal"),
+  do(39)  *  data.frame(light = "NightLight", sight = "Far"),
+  do(41)  *  data.frame(light = "RoomLight",  sight = "Near"),
+  do(22)  *  data.frame(light = "RoomLight",  sight = "Normal"),
+  do(12)  *  data.frame(light = "RoomLight",  sight = "Far")
+ )
 @
-% mosaic plot/ segmented bar graph
 
-<<Exploration8.2b.8>>=
-prop.table(NightLight2, margin = 2)
+<<Exploration8.2b.7, opts.label="fig4">>=
+mosaicplot(light ~ sight, data = NightLight)
 @
 
 <<Exploration8.2b.10>>=
-chisq.test(NightLight2)
+chisq.test(tally(~ sight + light, data = NightLight))
 @
 
-<<Exploration8.2b.11>>=
-
+<<Exploration8.2b.11, cache=TRUE, fig.keep='last'>>=
+sim.nightX2 <- do(1000) * chisq.test(tally(~ shuffle(light) + sight, data = NightLight))$statistic
+head(sim.nightX2, 3)
+histogram(~ X.squared, data = sim.nightX2, width = 1, center = 0.5, groups = X.squared >= 56.514)
+plotDist("chisq", df = 4, add=TRUE)
 @
 
 <<Exploration8.2b.12>>=
