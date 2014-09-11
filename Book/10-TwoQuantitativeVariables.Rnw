@@ -82,7 +82,7 @@ cor(change_mood ~ exercise_intensity, data = ExerciseMood)
   \item
     $H_0$: $\rho = 0$  
     
-    $H_a$: \rho \neq 0$ 
+    $H_a$: $\rho \neq 0$ 
     
     Test statistic:  $r = 0.187$ (the sample correlation)
   \item
@@ -233,7 +233,7 @@ subset(FootHeight, footlength == "32")$footlength - fh(footlength = 32)
 @
 % how to fit average
 
-\subsubsection*{Coefficient of Determination (r^2)}
+\subsubsection*{Coefficient of Determination ($r^2$)}
 
 % include SSE of average line
 <<Exploration10.3.15>>=

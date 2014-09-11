@@ -147,12 +147,12 @@ histogram(~ F, data = sim.compF, n = 25)
 head(Diets)
 @
 
-<<Exploration8.2.5, opts.label="fig1">>=
+<<Exploration9.2.5, opts.label="fig1">>=
 favstats( BMI ~ Diet, data = Diets)
 dotPlot(~ BMI | Diet, data = Diets, width = 1)
 @
 
-<<Exploration8.2.6>>=
+<<Exploration9.2.6>>=
 MAD(mean(BMI ~ Diet, data = Diets))
 sim.diet <- do(1000) * MAD(mean(shuffle(BMI) ~ Diet, data = Diets))
 head(sim.diet, 3)
@@ -160,19 +160,19 @@ dotPlot(~ result, data = sim.diet, n = 50, groups = (result >= 0.747))
 prop(~ (result >= 0.747), data = sim.diet)
 @
 
-<<Exploration8.2.8>>=
+<<Exploration9.2.8>>=
 anova(lm(BMI ~ Diet, data = Diets))
 sim.dietF <- do(1000) * anova(lm(shuffle(BMI) ~ Diet, data = Diets))
 head(sim.dietF, 3)
 prop(~ (F >= 5.392), data = sim.dietF)
 @
 
-<<Exploration8.2.9, keep='last'>>=
+<<Exploration9.2.9, keep='last'>>=
 histogram(~ F, data = sim.dietF, n = 25)
 plotDist("f", df1 = 2, df2 = 229, add = TRUE)
 @
 
-<<Exploration8.2.15>>=
+<<Exploration9.2.15>>=
 confint(lm(BMI ~ Diet, data = Diets))
 @
 % fix confint
