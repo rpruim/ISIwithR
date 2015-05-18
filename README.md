@@ -20,7 +20,8 @@ provides
 
  The campanion text is available 
  [as a PDF](https://github.com/rpruim/Tintle1/blob/master/Book/Tintle1.pdf) 
- * The authors are Randall Pruim and Lana Park.  
+ 
+  * The authors are Randall Pruim and Lana Park.  
  
 ## R Package
 
@@ -33,7 +34,7 @@ devtools::install_github("rpruim/Tintle1")
 
 This package contains 
 
-  * all of the data sets used in the package and 
+  * all of the data sets used in the book, and 
   * the `isa_snippet()` function which can be used to run any of 
 463 code chunks from the campanion.  
 
