@@ -2,6 +2,17 @@
 dataFiles <- dir() %>% grep("\\.txt$", ., val=TRUE)
 dataNames <- gsub("\\.txt$", "", dataFiles)
 
+saveToRda <- 
+  function(file, name) {
+    rdaFile <- paste0(name, ".rda")
+    message("Saving ", name, " from ", file, " to ", rdaFile)
+    assign(name, read.file(file), envir=environment())
+    save(list = c(name), file=rdaFile, envir=environment())
+  } 
+
+Map( saveToRda, file = dataFiles, name = dataNames )
+
+
 # create a documentation string
 doc_data <- function(name, file) {
   dataset <- read.file(file)
