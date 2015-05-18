@@ -34,33 +34,33 @@ head(Haircuts)
 @
 
 <<Exploration6.1A.4, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
-dotPlot(~ Cost | Sex, data = Haircuts, width = 1, cex = 0.25)
+dotPlot(~ cost | sex, data = Haircuts, width = 1, cex = 0.25)
 @
 
 <<Exploration6.1A.8>>=
-favstats(~ Cost | Sex, data = Haircuts)
+favstats(~ cost | sex, data = Haircuts)
 @
 
 <<Exploration6.1A.10>>=
-diff(mean(Cost ~ Sex, data = Haircuts))
+diffmean(cost ~ sex, data = Haircuts)
 @
 
 \subsubsection*{Further Analyses}
 <<Exploration6.1A.14>>=
-median(Cost ~ Sex, data = Haircuts)
+median(cost ~ sex, data = Haircuts)
 @
 
 <<Exploration6.1A.16>>=
-fivenum(~ Cost, data = Haircuts)
-fivenum(~ Cost | Sex, data = Haircuts)
+fivenum(~ cost, data = Haircuts)
+fivenum(~ cost | sex, data = Haircuts)
 @
 
 <<Exploration6.1A.17>>=
-bwplot(Sex ~ Cost, data = Haircuts, horizontal = TRUE)
+bwplot(sex ~ cost, data = Haircuts, horizontal = TRUE)
 @
 
 <<Exploration6.1A.18>>=
-IQR(Cost ~ Sex, data = Haircuts)
+IQR(cost ~ sex, data = Haircuts)
 @
 
 <<Exploration6.1A.19>>=
@@ -77,18 +77,18 @@ head(BikeTimes)
 @
 
 <<Figure6.3>>=
-bwplot(Frame ~ Time, data = BikeTimes, horizontal = TRUE)
+bwplot(frame ~ time, data = BikeTimes, horizontal = TRUE)
 @
 
 <<Table6.3>>=
-favstats(Time ~ Frame, data = BikeTimes)
+favstats(time ~ frame, data = BikeTimes)
 @
 
 <<Figure6.4>>=
-dotPlot(~Time | Frame, data = BikeTimes, width = 0.01, cex = 0.1, layout = c(1, 2))
-diff(mean(Time ~ Frame, data = BikeTimes))
-dotPlot(~shuffle(Time) | Frame, data = BikeTimes, width = 0.01, cex = 0.1, layout = c(1, 2))
-diff(mean(shuffle(Time) ~ Frame, data = BikeTimes))
+dotPlot(~time | frame, data = BikeTimes, width = 0.01, cex = 0.1, layout = c(1, 2))
+diffmean(time ~ frame, data = BikeTimes)
+dotPlot(~shuffle(time) | frame, data = BikeTimes, width = 0.01, cex = 0.1, layout = c(1, 2))
+diffmean(shuffle(time) ~ frame, data = BikeTimes)
 @
 
 \begin{enumerate}
@@ -101,16 +101,16 @@ diff(mean(shuffle(Time) ~ Frame, data = BikeTimes))
   \item
     We simulate a world in which $\mu_{carbon} - \mu_{steel} = 0$:
 <<Figure6.7, cache=TRUE, tidy=FALSE>>=
-sim.bike <- do(1000) * diff(mean(shuffle(Time) ~ Frame, data = BikeTimes))
+sim.bike <- do(1000) * diffmean(shuffle(time) ~ frame, data = BikeTimes)
 head(sim.bike, 3)
-histogram(~ steel, data = sim.bike, 
-        groups = (steel <= -0.53 | steel >= 0.53))
+histogram(~ diffmean, data = sim.bike, 
+        groups = (diffmean <= -0.53 | diffmean >= 0.53))
 @
   \item
     Strength of evidence:
 <<Figure6.8>>=
-favstats(~ steel, data = sim.bike)
-prop(~ (steel <= -0.53 | steel >= 0.53), data = sim.bike)
+favstats(~ diffmean, data = sim.bike)
+prop(~ (diffmean <= -0.53 | diffmean >= 0.53), data = sim.bike)
 @
 \end{enumerate}
 
@@ -118,8 +118,8 @@ prop(~ (steel <= -0.53 | steel >= 0.53), data = sim.bike)
 
 Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
 <<Example6.2>>=
-diff <- -diff(mean(Time ~ Frame, data = BikeTimes))  # note the negative sign
-sd <- sd(~ steel, data = sim.bike)
+diff <- -diffmean(time ~ frame, data = BikeTimes)  # note the negative sign
+sd <- sd(~ diffmean, data = sim.bike)
 diff - 2 * sd   # lower limit of 95% CI
 diff + 2 * sd   # upper limit of 95% CI
 @
@@ -211,13 +211,13 @@ prop(~ (unrestricted >= 12.05), data = sim.med)
 
 <<Table6.4>>=
 head(BreastFeedIntell)
-favstats(GCI ~ Feeding, data = BreastFeedIntell)
-diff(mean(GCI ~ Feeding, data = BreastFeedIntell))
+favstats(GCI ~ feeding, data = BreastFeedIntell)
+diffmean(GCI ~ feeding, data = BreastFeedIntell)
 @
 
 <<Figure6.10>>=
-bwplot(Feeding ~ GCI, horizontal = TRUE, data = BreastFeedIntell)
-histogram(~ GCI | Feeding, data = BreastFeedIntell, width = 5)
+bwplot(feeding ~ GCI, horizontal = TRUE, data = BreastFeedIntell)
+histogram(~ GCI | feeding, data = BreastFeedIntell, width = 5)
 @
 
 \begin{enumerate}
@@ -230,31 +230,31 @@ histogram(~ GCI | Feeding, data = BreastFeedIntell, width = 5)
   \item
     We simulate a world in which $\mu_{breastfed} - \mu_{not} = 0$:
 <<Figure6.11, cache=TRUE, tidy=FALSE>>=
-sim.GCI <- do(1000) * diff(mean(shuffle(GCI) ~ Feeding, data = BreastFeedIntell))
+sim.GCI <- do(1000) * diffmean(shuffle(GCI) ~ feeding, data = BreastFeedIntell)
 head(sim.GCI, 3)
-histogram(~ NotBreastfed, data = sim.GCI, width = 0.5,
-        group = cut(NotBreastfed, c(-7, -4.40, 4.40, 7)), 
+histogram(~ diffmean, data = sim.GCI, width = 0.5,
+        group = cut(diffmean, c(-7, -4.40, 4.40, 7)), 
         fcol = c("steelblue", "navy", "steelblue"))
 @
   \item
     Strength of evidence:
 <<Figure6.12>>=
-favstats(~ NotBreastfed, data = sim.GCI)
-prop(~ (NotBreastfed <= -4.40 | NotBreastfed >= 4.40), data = sim.GCI)
+favstats(~ diffmean, data = sim.GCI)
+prop(~ (diffmean <= -4.40 | diffmean >= 4.40), data = sim.GCI)
 @
 \end{enumerate}
 
 Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
 <<Example6.3>>=
-diff <- -diff(mean(GCI ~ Feeding, data = BreastFeedIntell))   # note the negative sign
-sd <- sd(~ NotBreastfed, data = sim.GCI); sd
+diff <- -diffmean(GCI ~ feeding, data = BreastFeedIntell)   # note the negative sign
+sd <- sd(~ diffmean, data = sim.GCI); sd
 diff - 2 * sd   # lower limit of 95% CI
 diff + 2 * sd   # upper limit of 95% CI
 @
 
 <<Figure6.13>>=
-t.test(GCI ~ Feeding, data = BreastFeedIntell)
-stat(t.test(GCI ~ Feeding, data = BreastFeedIntell))
+t.test(GCI ~ feeding, data = BreastFeedIntell)
+stat(t.test(GCI ~ feeding, data = BreastFeedIntell))
 @
 
 %Figure 6.14 (skip)
@@ -263,7 +263,7 @@ stat(t.test(GCI ~ Feeding, data = BreastFeedIntell))
 
 <<Exploration6.3.1>>=
 head(CloseFriends)
-tally(~ Friends + Sex, data = CloseFriends, margin = TRUE)
+tally(~ friends + sex, data = CloseFriends, margin = TRUE)
 @
 
 <<Table6.5, include=FALSE>>=
@@ -271,8 +271,8 @@ tally(~ Friends + Sex, data = CloseFriends, margin = TRUE)
 @
 
 <<Exploration6.3.7>>=
-favstats(Friends ~ Sex, data = CloseFriends)
-diff(mean(Friends ~ Sex, data = CloseFriends))
+favstats(friends ~ sex, data = CloseFriends)
+diffmean(friends ~ sex, data = CloseFriends)
 @
 
 \begin{enumerate}
@@ -285,31 +285,31 @@ diff(mean(Friends ~ Sex, data = CloseFriends))
   \item
     We simulate a world in which $\mu_{men} - \mu_{women} = 0$:
 <<Exploration6.3.8, cache=TRUE, tidy=FALSE>>=
-sim.fri <- do(1000) * diff(mean(shuffle(Friends) ~ Sex, data = CloseFriends))
+sim.fri <- do(1000) * diffmean(friends ~ shuffle(sex), data = CloseFriends)
 head(sim.fri, 3)
-histogram(~ Women, data = sim.fri, width = 0.05,
-        group = cut(Women, c(-0.4, -0.228, 0.228, 0.4)), 
+histogram(~ diffmean, data = sim.fri, width = 0.05,
+        group = cut(diffmean, c(-0.4, -0.228, 0.228, 0.4)), 
         fcol = c("steelblue", "navy", "steelblue"))
 @
   \item
     Strength of evidence:
 <<Exploration6.3.10>>=
-favstats(~ Women, data = sim.fri)
-prop(~ (Women <= -0.228 | Women >= 0.228), data = sim.fri)
+favstats(~ diffmean, data = sim.fri)
+prop(~ (diffmean <= -0.228 | diffmean >= 0.228), data = sim.fri)
 @
 \end{enumerate}
 
 <<Exploration6.3.13>>=
-t.test(Friends ~ Sex, data = CloseFriends)
-stat(t.test(Friends ~ Sex, data = CloseFriends))
+t.test(friends ~ sex, data = CloseFriends)
+stat(t.test(friends ~ sex, data = CloseFriends))
 @
 
 <<Exploration6.3.17>>=
-pval(t.test(Friends ~ Sex, data = CloseFriends))
+pval(t.test(friends ~ sex, data = CloseFriends))
 @
 
 \subsubsection*{Validity Conditions}
 
 <<Exploration6.3.20>>=
-confint(t.test(Friends ~ Sex, data = CloseFriends))
+confint(t.test(friends ~ sex, data = CloseFriends))
 @

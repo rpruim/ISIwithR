@@ -8,6 +8,7 @@
 \subsection*{Example 8.1: Coming to a Stop}
 
 <<Table8.1, opts.label="fig4">>=
+require(vcd)
 sample(Stop, 5)
 tally(~ stop + position, data = Stop, margins = TRUE)
 tally(stop ~ position, data = Stop)
@@ -36,7 +37,7 @@ MAD(prop(shuffle(stop) ~ position, data = Stop))
   \item
     We simulate a world in which $MAD = 0$ :
 <<Figure8.3, cache=TRUE>>=
-sim.stop <- do(1000) * MAD(prop(shuffle(stop) ~ position, data=Stop))
+sim.stop <- do(1000) * MAD(prop(shuffle(stop) ~ position, data=Stop, quiet=TRUE))
 head(sim.stop, 3)
 histogram(~ result, data = sim.stop, width = 0.005, groups = (result >= 0.086))
 @
@@ -75,7 +76,7 @@ MAD(prop(choice ~ default, data = OrganDonor))
   \item
     We simulate a world in which $MAD = 0$:
 <<Exploration8.1.11, cache=TRUE>>=
-sim.donor <- do(1000) * MAD(prop(shuffle(choice) ~ default, data = OrganDonor))
+sim.donor <- do(1000) * MAD(prop(shuffle(choice) ~ default, data = OrganDonor, quiet=TRUE))
 head(sim.donor, 3)
 histogram(~ result, data = sim.donor, width = 0.010, groups = (result >= 0.268))
 @
@@ -96,13 +97,13 @@ prop(~ (result >= 0.086), data = sim.stop)
 
 <<Table8.2>>=
 sample(Acupuncture, 5)
-tally(~ Improvement + Acupunture, data = Acupuncture, margins = TRUE)
-tally(Improvement ~ Acupunture, data = Acupuncture)
+tally(~ improvement + acupuncture, data = Acupuncture, margins = TRUE)
+tally(improvement ~ acupuncture, data = Acupuncture)
 @
 
 <<Figure8.4, opts.label="fig4">>=
-mosaic(Improvement ~ Acupunture, data = Acupuncture, direction = "v")
-MAD(prop(Improvement ~ Acupunture, data = Acupuncture))
+mosaic(improvement ~ acupuncture, data = Acupuncture, direction = "v")
+MAD(prop(improvement ~ acupuncture, data = Acupuncture))
 @
 
 \begin{enumerate}
@@ -115,7 +116,9 @@ MAD(prop(Improvement ~ Acupunture, data = Acupuncture))
   \item
     We simulate a world in which $MAD = 0$:
 <<Figure8.5, cache=TRUE>>=
-sim.acu <- do(1000) * MAD(prop(shuffle(Improvement) ~ Acupunture, data = Acupuncture))
+sim.acu <- 
+  do(1000) * 
+    MAD(prop(shuffle(improvement) ~ acupuncture, data = Acupuncture, quiet=TRUE))
 head(sim.acu, 3)
 histogram(~ result, data = sim.acu, groups = (result >= 0.135))
 @
@@ -133,13 +136,13 @@ prop(~ (result >= 0.135), data = sim.acu)
 
 For the chi-square test, data must be tabulated.
 <<Figure8.7>>=
-acu.table <- tally(~ Improvement + Acupunture, data = Acupuncture)
+acu.table <- tally(~ improvement + acupuncture, data = Acupuncture)
 acu.table
 chisq.test(acu.table)
 @
 
 <<Figure8.7b, fig.keep='last'>>=
-sim.acuX2 <- do(1000) * chisq.test(tally(~ shuffle(Improvement) + Acupunture, data = Acupuncture))$statistic
+sim.acuX2 <- do(1000) * chisq.test(tally(~ shuffle(improvement) + acupuncture, data = Acupuncture))$statistic
 head(sim.acuX2, 3)
 histogram(~ X.squared, data = sim.acuX2, width = 1, center = 0.5, groups = X.squared >= 38.05)
 plotDist("chisq", df = 2, add=TRUE)
@@ -183,7 +186,7 @@ mosaic(towel ~ treatment, data = Towels1)
 
 <<Exploration8.2.6, cache=TRUE>>=
 MAD(prop(towel ~ treatment, data = Towels1))
-sim.towel <- do(1000) * MAD(prop(shuffle(towel) ~ treatment, data = Towels1))
+sim.towel <- do(1000) * MAD(prop(shuffle(towel) ~ treatment, data = Towels1, quiet=TRUE))
 head(sim.towel, 3)
 histogram(~ result, data = sim.towel, groups = (result >= 0.111))
 prop(~ (result >= 0.111), data = sim.towel)

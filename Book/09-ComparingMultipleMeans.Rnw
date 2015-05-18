@@ -9,15 +9,15 @@
 \subsection*{Example 9.1: Comprehending Ambiguous Prose}
 
 <<Figure9.2>>=
-bwplot(Condition ~ Comprehension, data = Comprehension, horizontal = TRUE)
+bwplot(condition ~ comprehension, data = Comprehension, horizontal = TRUE)
 @
 
 <<Table9.1>>=
-favstats(Comprehension ~ Condition, data = Comprehension)
+favstats(comprehension ~ condition, data = Comprehension)
 @
 
 <<Figure9.3>>=
-MAD(mean(Comprehension ~ Condition, data = Comprehension))
+MAD(mean(comprehension ~ condition, data = Comprehension))
 @
 
 \begin{enumerate}
@@ -30,7 +30,7 @@ MAD(mean(Comprehension ~ Condition, data = Comprehension))
   \item
     We simulate a world in which $MAD = 0$ :
 <<Figure9.3b, cache=TRUE>>=
-sim.comp <- do(1000) * MAD(mean(shuffle(Comprehension) ~ Condition, data = Comprehension))
+sim.comp <- do(1000) * MAD(mean(shuffle(comprehension) ~ condition, data = Comprehension))
 head(sim.comp, 3)
 dotPlot(~ result, data = sim.comp, width = 0.005, groups = (result >= 1.16))
 @
@@ -49,21 +49,21 @@ head(Brain)
 @
 
 <<Exploration9.1.6>>=
-favstats(BrainChange ~ Treatment, data = Brain)
+favstats(brain_change ~ treatment, data = Brain)
 @
 
 <<Exploration9.1.13>>=
-MAD(mean(BrainChange ~ Treatment, data = Brain))
+MAD(mean(brain_change ~ treatment, data = Brain))
 @
 % incorrect MAD
 
 <<Exploration9.1.16>>=
-MAD(mean(shuffle(BrainChange) ~ Treatment, data = Brain))
+MAD(mean(shuffle(brain_change) ~ treatment, data = Brain))
 @
 % should be incorrect
 
 <<Exploration9.1.19, cache=TRUE>>=
-sim.brain <- do(1000) * MAD(mean(shuffle(BrainChange) ~ Treatment, data = Brain))
+sim.brain <- do(1000) * MAD(mean(shuffle(brain_change) ~ treatment, data = Brain))
 head(sim.brain, 3)
 dotPlot(~ result, data = sim.brain, n = 50, groups = (result >= 0.672))
 @
@@ -73,7 +73,7 @@ prop(~ (result >= 0.672), data = sim.brain)
 @
 
 <<Exploration9.1.20b, cache=TRUE>>=
-sim.10000 <- do(10000) * MAD(mean(shuffle(BrainChange) ~ Treatment, data = Brain))
+sim.10000 <- do(10000) * MAD(mean(shuffle(brain_change) ~ treatment, data = Brain))
 head(sim.10000, 3)
 prop(~ (result >= 0.672), data = sim.10000)
 @
@@ -83,9 +83,9 @@ prop(~ (result >= 0.672), data = sim.10000)
 \subsection*{Example 9.2: Recalling Ambiguous Prose}
 
 <<Figure9.4>>=
-bwplot(Condition ~ Recall, data = Recall, horizontal = TRUE)
-favstats(Recall ~ Condition, data = Recall)
-MAD(mean(Recall ~ Condition, data = Recall))
+bwplot(condition ~ recall, data = Recall, horizontal = TRUE)
+favstats(recall ~ condition, data = Recall)
+MAD(mean(recall ~ condition, data = Recall))
 @
 
 \begin{enumerate}
@@ -98,7 +98,7 @@ MAD(mean(Recall ~ Condition, data = Recall))
   \item
     We simulate a world in which $MAD = 0$ :
 <<Figure9.5, cache=TRUE>>=
-sim.recall <- do(1000) * MAD(mean(shuffle(Recall) ~ Condition, data = Recall))
+sim.recall <- do(1000) * MAD(mean(shuffle(recall) ~ condition, data = Recall))
 head(sim.recall, 3)
 dotPlot(~ result, data = sim.recall, width = 0.005, groups = (result >= 1.93))
 @
@@ -111,7 +111,7 @@ prop(~ (result >= 1.93), data = sim.recall)
 \end{enumerate}
 
 <<Figure9.8, cache=TRUE>>=
-sim.recallF <- do(1000) * anova(lm(shuffle(Recall) ~ Condition, data = Recall))
+sim.recallF <- do(1000) * anova(lm(shuffle(recall) ~ condition, data = Recall))
 head(sim.recallF, 3)
 histogram(~ F, data = sim.recallF, n = 25)
 prop(~ (F >= 12.67), data = sim.recallF)
@@ -123,20 +123,20 @@ plotDist("f", df1 = 2, df2 = 52, add = TRUE)
 @
 
 <<Figure9.10>>=
-anova(lm(Recall ~ Condition, data = Recall))
+anova(lm(recall ~ condition, data = Recall))
 @
 
 <<Figure9.11, fig.height=4, fig.width=8>>=
-dotPlot(~ Recall | Condition, data = Recall, cex = 0.5, width = 1, layout = c(1,2))
+dotPlot(~ recall | condition, data = Recall, cex = 0.5, width = 1, layout = c(1,2))
 @
 
 <<Example9.2>>=
-confint(lm(Recall ~ Condition, data = Recall))
+confint(lm(recall ~ condition, data = Recall))
 @
 % not finding one of the confint
 
 <<Figure9.12>>=
-sim.compF <- do(1000) * anova(lm(shuffle(Comprehension) ~ Condition, data = Comprehension))
+sim.compF <- do(1000) * anova(lm(shuffle(comprehension) ~ condition, data = Comprehension))
 head(sim.compF, 3)
 histogram(~ F, data = sim.compF, n = 25)
 @
@@ -144,25 +144,25 @@ histogram(~ F, data = sim.compF, n = 25)
 \subsection*{Exploration 9.2: Comparing Popular Diets}
 
 <<Exploration9.2.2>>=
-head(Diets)
+head(Diets1)
 @
 
 <<Exploration9.2.5, opts.label="fig1">>=
-favstats( BMI ~ Diet, data = Diets)
-dotPlot(~ BMI | Diet, data = Diets, width = 1)
+favstats( BMI ~ diet, data = Diets1)
+dotPlot(~ BMI | diet, data = Diets1, width = 1)
 @
 
 <<Exploration9.2.6>>=
-MAD(mean(BMI ~ Diet, data = Diets))
-sim.diet <- do(1000) * MAD(mean(shuffle(BMI) ~ Diet, data = Diets))
+MAD(mean(BMI ~ diet, data = Diets1))
+sim.diet <- do(1000) * MAD(mean(shuffle(BMI) ~ diet, data = Diets1))
 head(sim.diet, 3)
 dotPlot(~ result, data = sim.diet, n = 50, groups = (result >= 0.747))
 prop(~ (result >= 0.747), data = sim.diet)
 @
 
 <<Exploration9.2.8>>=
-anova(lm(BMI ~ Diet, data = Diets))
-sim.dietF <- do(1000) * anova(lm(shuffle(BMI) ~ Diet, data = Diets))
+anova(lm(BMI ~ diet, data = Diets1))
+sim.dietF <- do(1000) * anova(lm(shuffle(BMI) ~ diet, data = Diets1))
 head(sim.dietF, 3)
 prop(~ (F >= 5.392), data = sim.dietF)
 @
@@ -173,6 +173,6 @@ plotDist("f", df1 = 2, df2 = 229, add = TRUE)
 @
 
 <<Exploration9.2.15>>=
-confint(lm(BMI ~ Diet, data = Diets))
+confint(lm(BMI ~ diet, data = Diets1))
 @
 % fix confint

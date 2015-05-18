@@ -145,13 +145,13 @@ head(BowlsMMs)
 @
 
 <<Table7.5>>=
-favstats(~ Small, data = BowlsMMs)
-favstats(~ Large, data = BowlsMMs)
-favstats(BowlsMMs$Small-BowlsMMs$Large)
+favstats(~ small, data = BowlsMMs)
+favstats(~ large, data = BowlsMMs)
+favstats( ~(small - large), data = BowlsMMs)
 @
 
 <<Figure7.9, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
-dotPlot(~(Small - Large), data = BowlsMMs, width = 1, cex = 0.05)
+dotPlot(~(small - large), data = BowlsMMs, width = 1, cex = 0.05)
 @
 
 \begin{enumerate}
@@ -164,7 +164,7 @@ dotPlot(~(Small - Large), data = BowlsMMs, width = 1, cex = 0.05)
   \item
     We simulate a world in which $\mu_d = 0$:
 <<Figure7.10, cache=TRUE, tidy=FALSE>>=
-sim.mm <- do(1000) * mean(~ (Small - Large), data = swap(BowlsMMs, c("Small", "Large")))
+sim.mm <- do(1000) * mean(~ (small - large), data = swap(BowlsMMs, c("small", "large")))
 head(sim.mm, 3)
 dotPlot(~ result, data = sim.mm, nint = 50, groups = (result <= -10.88))
 @
@@ -179,7 +179,7 @@ prop(~ (result <= -10.88), data = sim.mm)
 \subsubsection*{Theory-based approach}
 
 <<Figure7.12>>=
-t.test(BowlsMMs$Small, BowlsMMs$Large, paired = TRUE, alt = "less")
+t.test(small, large, data=BowlsMMs, paired = TRUE, alt = "less")
 @
 %include t-dist?
 
@@ -191,7 +191,7 @@ head(Auction)
 
 <<Exploration7.3.5>>=
 summary(Auction)
-favstats(Auction$dutch - Auction$FP)
+favstats( ~(dutch - FP), data=Auction)
 @
 
 \begin{enumerate}

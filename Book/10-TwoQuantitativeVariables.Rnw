@@ -316,11 +316,11 @@ prop(~ (hand_width <= -6.756), data = sim.hand)
 
 <<Figure10.13>>=
 head(TempHeart)
-xyplot(HeartRate ~ BodyTemp, data = TempHeart, type = c("p", "r"))
+xyplot(heartRate ~ bodyTemp, data = TempHeart, type = c("p", "r"))
 @
 
 <<Figure10.14>>=
-coef(lm(HeartRate ~ BodyTemp, data = TempHeart))
+coef(lm(heartRate ~ bodyTemp, data = TempHeart))
 @
 
 \begin{enumerate}
@@ -333,42 +333,42 @@ coef(lm(HeartRate ~ BodyTemp, data = TempHeart))
   \item
     We simulate a world in which $slope = 0$:
 <<Figure10.14b, cache=TRUE>>=
-sim.rate <- do(1000) * coef(lm(shuffle(HeartRate) ~ BodyTemp, data = TempHeart))
+sim.rate <- do(1000) * coef(lm(shuffle(heartRate) ~ bodyTemp, data = TempHeart))
 head(sim.rate, 3)
-dotPlot(~ BodyTemp, data = sim.rate, n = 50, groups = (BodyTemp <= -2.443 | BodyTemp >= 2.443))
+dotPlot(~ bodyTemp, data = sim.rate, n = 50, groups = (bodyTemp <= -2.443 | bodyTemp >= 2.443))
 @
   \item
     Strength of evidence:
 <<Figure10.14c>>=
-favstats(~ BodyTemp, data = sim.rate)
-prop(~ (BodyTemp <= -2.443 | BodyTemp >= 2.443), data = sim.rate)
+favstats(~ bodyTemp, data = sim.rate)
+prop(~ (bodyTemp <= -2.443 | bodyTemp >= 2.443), data = sim.rate)
 @
 \end{enumerate}
 
 <<Figure10.15, cache=TRUE>>=
-sim.ratet <- do(1000) * coef(summary(lm(shuffle(HeartRate) ~ BodyTemp, data = TempHeart)))
+sim.ratet <- do(1000) * coef(summary(lm(shuffle(heartRate) ~ bodyTemp, data = TempHeart)))
 head(sim.ratet, 10)
 @
 % t-stat simulation
 
 <<Figure10.16>>=
-coef(summary(lm(HeartRate ~ BodyTemp, data = TempHeart)))
+coef(summary(lm(heartRate ~ bodyTemp, data = TempHeart)))
 @
 
 <<Figure10.17>>=
-confint(lm(HeartRate ~ BodyTemp, data = TempHeart))
+confint(lm(heartRate ~ bodyTemp, data = TempHeart))
 @
 
 \subsection*{Example 10.5B: Smoking and Drinking}
 
 <<Figure10.18>>=
-xyplot(Smoked ~ Alcohol_Drinks, data = AlcoholSmoke, type = c("p", "r"))
+xyplot(smoked ~ alcohol_drinks, data = AlcoholSmoke, type = c("p", "r"))
 @
 
 \subsubsection*{Caution: Outliers and Influential Observations}
 <<Example10.5B>>=
-cor(Smoked ~ Alcohol_Drinks, data = AlcoholSmoke)
-cor(Smoked ~ Alcohol_Drinks, data = subset(AlcoholSmoke, Smoked < 125))
+cor(smoked ~ alcohol_drinks, data = AlcoholSmoke)
+cor(smoked ~ alcohol_drinks, data = subset(AlcoholSmoke, smoked < 125))
 @
 % t-stat simulation
 
