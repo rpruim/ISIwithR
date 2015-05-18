@@ -1,4 +1,4 @@
-NoDelay   Delay
+noDelay   delay
 12	8
 9	10
 9	7

@@ -1,4 +1,4 @@
-MusicType	Amount
+musicType	amount
 Classical	22
 Classical	26.25
 Classical	25

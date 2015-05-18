@@ -1,4 +1,4 @@
-Words	Memorized
+words	memorized
 Recognizable	1
 Recognizable	3
 Recognizable	3

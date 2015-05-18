@@ -1,4 +1,4 @@
-OnCampus	CumGpa
+onCampus	cumGPA
 N	2.92
 N	3.59
 N	3.36

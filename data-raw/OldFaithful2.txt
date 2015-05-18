@@ -1,4 +1,4 @@
-EruptionType	TimeBetween
+eruptionType	timeBetween
 short	55
 short	58
 short	56

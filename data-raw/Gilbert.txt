@@ -1,4 +1,4 @@
-GilbertWorked?	Patient
+GilbertWorked	patient
 Yes	Death
 Yes	Death
 Yes	Death

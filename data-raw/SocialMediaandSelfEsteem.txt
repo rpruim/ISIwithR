@@ -1,4 +1,4 @@
-Media	Score
+media	score
 ENews	24
 FB	25
 ENews	24

@@ -1,4 +1,4 @@
-Sex	Pre_flexibility
+sex	pre_flexibility
 male	21
 male	21
 male	21.5

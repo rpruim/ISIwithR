@@ -1,4 +1,4 @@
-MomHeight	Height
+momHeight	height
 66	67.0
 61	65.0
 59	72.0

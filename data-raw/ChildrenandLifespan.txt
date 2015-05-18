@@ -1,4 +1,4 @@
-Children	Age
+children	age
 Had	91
 Had	96
 Had	89

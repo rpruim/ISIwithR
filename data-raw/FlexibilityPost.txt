@@ -1,4 +1,4 @@
-Sex	Post_flexibility
+sex	post_flexibility
 male	21.5
 male	21.25
 male	20

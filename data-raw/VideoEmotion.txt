@@ -1,4 +1,4 @@
-type_of_video	Emotion
+type_of_video	emotion
 sad	5
 sad	3
 sad	2

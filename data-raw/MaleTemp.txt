@@ -1,4 +1,4 @@
-MaleTemp
+maleTemp
 96.3
 96.7
 96.9

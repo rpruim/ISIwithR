@@ -1,4 +1,4 @@
-Book	Words
+book	words
 Confession	2
 Confession	2
 Confession	3

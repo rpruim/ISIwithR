@@ -1,4 +1,4 @@
-Treatment  BrainChange
+treatment  brain_change
 TaiChi	0.987
 TaiChi	1.96
 TaiChi	0.304

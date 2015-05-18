@@ -1,4 +1,4 @@
-Location	Collision
+location	collision
 outside	yes
 outside	yes
 outside	yes

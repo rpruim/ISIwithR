@@ -1,4 +1,4 @@
-State	Donation
+state	donation
 California	20
 California	0
 California	20

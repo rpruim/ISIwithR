@@ -1,4 +1,4 @@
-age	Price
+age	price
 2	21990
 2	21990
 2	21987

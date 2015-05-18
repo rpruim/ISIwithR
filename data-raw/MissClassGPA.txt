@@ -1,4 +1,4 @@
-MissClass  GPA
+missClass  GPA
 1	4
 0	3.08
 0	3.7

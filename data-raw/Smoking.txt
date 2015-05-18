@@ -1,4 +1,4 @@
-Parents	Child
+parents	child
 smokers	girl
 smokers	girl
 smokers	girl

@@ -1,4 +1,4 @@
-Level	Deaths
+level	deaths
 1	17
 1	19
 1	19

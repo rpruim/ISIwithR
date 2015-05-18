@@ -1,4 +1,4 @@
-Pre_Weight	Post_Weight
+pre_weight	post_weight
 70.5	75.6
 71.3	70.7
 64.5	66.6

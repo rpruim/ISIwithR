@@ -1,4 +1,4 @@
-ScrabbleScore	Ratio
+scrabbleScore	ratio
 14	1.27273
 26	2.16667
 26	1.73333

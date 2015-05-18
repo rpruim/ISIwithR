@@ -1,4 +1,4 @@
-Year	Response
+year	response
 2002	donated
 2002	donated
 2002	donated

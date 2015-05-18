@@ -1,4 +1,4 @@
-LifeExpectancy	TVsperK
+lifeExpectancy	TVsperK
 38.45	15
 80.45	716
 59.00	9

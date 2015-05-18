@@ -1,4 +1,4 @@
-Diet	BMI
+diet	BMI
 Atkins	0.1
 Atkins	-1
 Atkins	-5.4

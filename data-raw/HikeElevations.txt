@@ -1,4 +1,4 @@
-ElevationGain	Time
+elevationGain	time
 150	20
 300	30
 50	60

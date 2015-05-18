@@ -1,4 +1,4 @@
-Diff(H-W)
+diff
 1
 -4
 -4

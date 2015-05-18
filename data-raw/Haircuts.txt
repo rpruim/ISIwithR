@@ -1,4 +1,4 @@
-Sex	Cost
+sex	cost
 Female	50
 Male	20
 Female	60

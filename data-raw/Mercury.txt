@@ -1,4 +1,4 @@
-Fish	MercuryLevel
+fish	mercuryLevel
 orangeroughy	0.7063
 orangeroughy	0.7762
 orangeroughy	0.8537

@@ -1,4 +1,4 @@
-Condition	Recall
+condition	recall
 After	7
 After	5
 After	5

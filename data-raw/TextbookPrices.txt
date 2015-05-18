@@ -1,4 +1,4 @@
-Price	Pages
+price	pages
 95	600
 19.95	91
 51.5	200

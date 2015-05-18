@@ -1,4 +1,4 @@
-Level	Kills
+level	kills
 1	15
 1	29
 1	14

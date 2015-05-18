@@ -1,4 +1,4 @@
-Condition	Comprehension
+condition	comprehension
 After	6
 After	5
 After	4

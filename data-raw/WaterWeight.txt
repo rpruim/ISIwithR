@@ -1,4 +1,4 @@
-Pre_Water_Weight	Post_Water_Weight
+pre_water_weight	post_water_weight
 3.3	3.7
 3.2	3.6
 4.1	4

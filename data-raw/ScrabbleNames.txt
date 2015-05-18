@@ -1,4 +1,4 @@
-Letters	ScrabbleScore
+letters	scrabbleScore
 11	14
 12	26
 15	26

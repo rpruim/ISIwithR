@@ -1,4 +1,4 @@
-WingLength	FlightTime
+wingLength	flightTime
 3	2.27
 3	3.57
 2	2.59

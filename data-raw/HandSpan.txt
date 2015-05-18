@@ -1,4 +1,4 @@
-TootsieRolls	HandSpan
+TootsieRolls	handSpan
 16	19.0
 15	22.0
 14	19.5

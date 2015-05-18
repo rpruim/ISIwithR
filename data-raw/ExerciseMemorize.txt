@@ -1,4 +1,4 @@
-Exercising	NotExercising
+exercising	notExercising
 5	4
 6	2
 3	5

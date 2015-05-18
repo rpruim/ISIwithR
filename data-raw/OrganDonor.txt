@@ -1,4 +1,4 @@
-Default	Choice
+default	choice
 opt-in	donor
 opt-in	donor
 opt-in	donor

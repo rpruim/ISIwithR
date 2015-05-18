@@ -1,4 +1,4 @@
-Frame	Time
+frame	time
 steel	115.75
 steel	115.666667
 steel	108.733333

@@ -1,4 +1,4 @@
-Tuna	Mercury
+tuna	mercury
 albacore 	0
 albacore 	0.41
 albacore 	0.82

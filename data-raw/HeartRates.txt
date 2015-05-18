@@ -1,4 +1,4 @@
-Gender	HeartRate
+gender	heartRate
 male	70
 male	71
 male	74

@@ -1,4 +1,4 @@
-BodyTemp	HeartRate
+bodyTemp	heartRate
 96.3	70
 96.7	71
 96.9	74

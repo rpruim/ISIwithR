@@ -1,4 +1,4 @@
-Shelves	Sugar
+shelves	sugar
 High	6
 High	14
 High	6

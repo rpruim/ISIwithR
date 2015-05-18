@@ -1,4 +1,4 @@
-Diet	WeightLoss
+diet	weightLoss
 Atkins	16.7
 Atkins	7.2
 Atkins	-7.5

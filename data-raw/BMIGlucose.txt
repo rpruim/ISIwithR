@@ -1,4 +1,4 @@
-bmi	Glucose
+bmi	glucose
 22.3	77
 24.5	86
 24	74

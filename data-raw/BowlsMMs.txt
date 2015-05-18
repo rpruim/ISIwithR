@@ -1,4 +1,4 @@
-Small	Large
+small	large
 33	41
 24	92
 35	61

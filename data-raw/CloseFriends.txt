@@ -1,4 +1,4 @@
-Sex	Friends
+sex	friends
 Men	0
 Men	0
 Men	0

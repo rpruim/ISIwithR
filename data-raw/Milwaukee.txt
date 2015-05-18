@@ -1,4 +1,4 @@
-City	Estimate
+city	estimate
 GreenBay	500
 GreenBay	148
 GreenBay	170

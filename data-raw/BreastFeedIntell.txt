@@ -1,4 +1,4 @@
-Feeding	GCI
+feeding	GCI
 Breastfed	126.701
 Breastfed	124.692
 Breastfed	99.787

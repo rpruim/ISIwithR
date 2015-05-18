@@ -1,4 +1,4 @@
-Wording	Perception
+wording	perception
 "goodyear" positive
 "goodyear" negative
 "badyear" positive

@@ -1,4 +1,4 @@
-Relationship	Number_Correct
+relationship	number_correct
 Strangers	5
 Strangers	4
 Strangers	4

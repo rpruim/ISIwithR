@@ -1,4 +1,4 @@
-Heart_Disease	Baldness
+heart_disease	baldness
 no	none
 no	none
 no	none

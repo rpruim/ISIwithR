@@ -1,4 +1,4 @@
-FemaleTemp
+femaleTemp
 96.4
 96.7
 96.8

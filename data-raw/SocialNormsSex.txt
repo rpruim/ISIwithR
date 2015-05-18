@@ -1,4 +1,4 @@
-Experimenter	Collision
+experimenter	collision
 male	yes
 male	yes
 male	yes

@@ -1,4 +1,4 @@
-Finger	Height
+finger	height
 5.80	64.0
 7.00	67.0
 7.00	65.0

@@ -1,4 +1,4 @@
-ReplacementRefs?	Duration
+refs	duration
 replacement	173
 replacement	215
 replacement	180

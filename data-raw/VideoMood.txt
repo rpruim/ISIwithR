@@ -1,4 +1,4 @@
-type_of_video	Mood
+type_of_video	mood
 sad	6
 sad	2
 sad	2

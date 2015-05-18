@@ -1,4 +1,4 @@
-type_of_video	Stress
+type_of_video	stress
 sad	3
 sad	4
 sad	2

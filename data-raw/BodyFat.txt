@@ -1,4 +1,4 @@
-Pre_Body_Fat	Post_Body_Fat
+pre_body_fat	post_body_fat
 14.58	14.17
 16.79	13.95
 6.6	8.98
