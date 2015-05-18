@@ -14,8 +14,8 @@ head(CollegeMidwest, 8)
 
 In chapter one, we used \term{histograms} a few times instead of dotplots and changed their widths. You can also control the number of bins by defining \argument{nint,} or \argument{n} for short.
 <<Figure2.1>>=
-histogram(~ CumGpa, data = CollegeMidwest, n =  24)
-bargraph(~ OnCampus, data = CollegeMidwest)
+histogram(~ cumGPA, data = CollegeMidwest, n =  24)
+bargraph(~ onCampus, data = CollegeMidwest)
 @
 
 \subsubsection*{Simple Random Samples}
@@ -29,30 +29,31 @@ sample4 <- sample(CollegeMidwest, 30)
 sample5 <- sample(CollegeMidwest, 30)
 @
 <<Table2.3>>=
-mean(~ CumGpa, data = sample1)
-mean(~ CumGpa, data = sample2)
-mean(~ CumGpa, data = sample3)
-mean(~ CumGpa, data = sample4)
-mean(~ CumGpa, data = sample5)
+mean(~ cumGPA, data = sample1)
+mean(~ cumGPA, data = sample2)
+mean(~ cumGPA, data = sample3)
+mean(~ cumGPA, data = sample4)
+mean(~ cumGPA, data = sample5)
 
-prop(~ OnCampus, level = "Y", data = sample1)
-prop(~ OnCampus, level = "Y", data = sample2)
-prop(~ OnCampus, level = "Y", data = sample3)
-prop(~ OnCampus, level = "Y", data = sample4)
-prop(~ OnCampus, level = "Y", data = sample5)
+prop(~ onCampus, level = "Y", data = sample1)
+prop(~ onCampus, level = "Y", data = sample2)
+prop(~ onCampus, level = "Y", data = sample3)
+prop(~ onCampus, level = "Y", data = sample4)
+prop(~ onCampus, level = "Y", data = sample5)
 @
 Notice the \argument{level} in order to find the proportion of students who said ``yes" instead of the default ``no".
 
 Similar to the simulation of random processes in chapter one, we can repeat taking different simple random samples. Conveniently, \R\ will let you set \argument{data=} to a simple random sample so we can repeat finding the mean or the proportion of a different simple random sample many times.
 <<Figure2.2, cache=TRUE>>=
-sample.gpa <- do(1000) * mean(~ CumGpa, data = sample(CollegeMidwest, 30))
+sample.gpa <- do(1000) * mean(~ cumGPA, data = sample(CollegeMidwest, 30))
 head(sample.gpa)
 favstats(~ result, data = sample.gpa)
 histogram(~ result, data = sample.gpa)
 @
 
 <<Figure2.2b, cache=TRUE>>=
-sample.campus <- do(1000) * prop(~ OnCampus, level = "Y", data = sample(CollegeMidwest, 30))
+sample.campus <- do(1000) * prop(~ onCampus, level = "Y", quiet=TRUE,
+                                 data = sample(CollegeMidwest, 30))
 head(sample.campus)
 favstats(~ Y, data = sample.campus)
 histogram(~ Y, data = sample.campus)
@@ -62,8 +63,8 @@ histogram(~ Y, data = sample.campus)
 
 <<>>=
 head(GettysburgAddress)
-words <- sample(GettysburgAddress, 10)
-nchar(words[1:10])
+Words <- sample(GettysburgAddress, 10)
+Words %>% mutate(length = nchar(word))
 @
 
 %for Prof. Prium
@@ -149,32 +150,32 @@ binom.test(782, 1421, alt = "greater")
 
 <<Figure2.5, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
 head(TimeEstimate)
-favstats(~ Estimate, data = TimeEstimate)
-dotPlot(~ Estimate, data = TimeEstimate, width = 1, cex = 0.50)
+favstats(~ estimate, data = TimeEstimate)
+dotPlot(~ estimate, data = TimeEstimate, width = 1, cex = 0.50)
 @
 
 <<Table2.5>>=
-TimeEstimate %>% mutate(Rank=rank(Estimate, ties.method = "random")) %>% arrange(Rank)
+TimeEstimate %>% mutate(Rank=rank(estimate, ties.method = "random")) %>% arrange(Rank)
 @
 
 %<<results='asis'>>=
 %require(xtable)
-%TimeEstimate %>% mutate(Rank=rank(Estimate, ties.method = "random")) %>% arrange(Rank) %>% t() %>% %xtable()
+%TimeEstimate %>% mutate(Rank=rank(estimate, ties.method = "random")) %>% arrange(Rank) %>% t() %>% %xtable()
 %@
 
 %outliers?
 
 <<Figure2.6>>=
 head(TimePopulation, 3)
-favstats(~ Estimate, data = TimePopulation)
-histogram(~ Estimate, data = TimePopulation, type = "count", nint = 20)
+favstats(~ estimate, data = TimePopulation)
+histogram(~ estimate, data = TimePopulation, type = "count", nint = 20)
 @
 
 <<Figure2.7, cache=TRUE>>=
 sample1 <- sample(TimePopulation, 48)
 head(sample1, 3)
-favstats(~ Estimate, data = sample1)
-dotPlot(~ Estimate, data = sample1, width = 1, cex = 0.3)
+favstats(~ estimate, data = sample1)
+dotPlot(~ estimate, data = sample1, width = 1, cex = 0.3)
 @
 
 \begin{enumerate}
@@ -187,7 +188,7 @@ dotPlot(~ Estimate, data = sample1, width = 1, cex = 0.3)
   \item
     We simulate random samples from a finite population:
 <<Figure2.8, cache=TRUE>>=
-sim.time <- do(1000) * mean(~ Estimate, data = sample(TimePopulation, 48))
+sim.time <- do(1000) * mean(~ estimate, data = sample(TimePopulation, 48))
 head(sim.time, 3)
 histogram(~ result, data = sim.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10)
 @
@@ -233,7 +234,7 @@ histogram(~ result, data = sim.time, groups = (result <= 6.29 | result >= 13.71)
 \subsubsection*{Alternative Analysis: What about the median?}
 
 <<Figure2.11, cache=TRUE>>=
-sim.median <- do(1000) * median(~ Estimate, data = sample(TimePopulation, 48))
+sim.median <- do(1000) * median(~ estimate, data = sample(TimePopulation, 48))
 head(sim.median, 3)
 histogram(~ result, data = sim.median, groups = (result < 8 | result > 12), width = 0.5, type = "count")
 prop(~ (result < 8 | result > 12), data = sim.median)

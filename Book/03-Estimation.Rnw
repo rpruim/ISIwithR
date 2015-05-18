@@ -352,15 +352,15 @@ Note that the specified $\pi$, the \option{p = 0.775}, only matters in calculati
 
 <<Figure3.9>>=
 head(UsedCars)
-favstats(~ Price, data = UsedCars)
-histogram(~ Price, data = UsedCars, type="count", width = 2000)
+favstats(~ price, data = UsedCars)
+histogram(~ price, data = UsedCars, type="count", width = 2000)
 @
 
 Determining a 95\% confidence interval using the 2SD Method and standard error of the sample population:
 <<Example3.3,tidy=FALSE>>=
 n <- nrow(UsedCars); n
-mean <- mean(~ Price, data = UsedCars); mean
-sd <- sd(~ Price, data = UsedCars); sd
+mean <- mean(~ price, data = UsedCars); mean
+sd <- sd(~ price, data = UsedCars); sd
 SE <- sd / sqrt(n)
 MoE <- 2 * SE; MoE    # margin of error for 95% CI
 mean - MoE            # lower limit of 95% CI
@@ -370,26 +370,26 @@ mean + MoE            # upper limit of 95% CI
 \subsubsection*{Theory-based approach}
 
 <<Figure3.10>>=
-confint(t.test(~ Price, data = UsedCars))
+confint(t.test(~ price, data = UsedCars))
 @
 
 <<Figure3.11>>=
-confint(t.test(~ Price, data = UsedCars, conf.level = 0.90))
-confint(t.test(~ Price, data = UsedCars, conf.level = 0.99))
+confint(t.test(~ price, data = UsedCars, conf.level = 0.90))
+confint(t.test(~ price, data = UsedCars, conf.level = 0.99))
 @
 
 \subsection*{Exploration 3.3: Sleepless Nights? (continued)}
 
 <<Exploration3.3.1>>=
 head(SleepTimes)
-favstats(~SleepHrs, data = SleepTimes)
+favstats(~sleepHrs, data = SleepTimes)
 @
 
 Determining a 95\% confidence interval using the 2SD Method and standard error of the sample population:
 <<Exploration3.3.6,tidy=FALSE>>=
 n <- nrow(SleepTimes); n
-mean <- mean(~ SleepHrs, data = SleepTimes); mean
-sd <- sd(~ SleepHrs, data = SleepTimes); sd 
+mean <- mean(~ sleepHrs, data = SleepTimes); mean
+sd <- sd(~ sleepHrs, data = SleepTimes); sd 
 SE <- sd / sqrt(n)
 MoE <- 2 * SE; MoE    # margin of error for 95% CI
 mean - MoE            # lower limit of 95% CI
@@ -399,11 +399,11 @@ mean + MoE            # upper limit of 95% CI
 \subsubsection{Theory-based approach}
 
 <<Exploration3.3.8>>=
-confint(t.test(~ SleepHrs, data = SleepTimes))
+confint(t.test(~ sleepHrs, data = SleepTimes))
 @
 
 <<Exploration3.3.9>>=
-dotPlot(~SleepHrs, data = SleepTimes, width = 1)    # to check the distribution
+dotPlot(~sleepHrs, data = SleepTimes, width = 1)    # to check the distribution
 @
 
 \section{Factors That Affect the Width of a Confidence Interval}

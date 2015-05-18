@@ -229,7 +229,7 @@ summary(OldFaithful1)
 
 Another useful graph for examining the \term{shape}, \term{center}, and \term{variability} is the \term{dotplot}:
 <<>>=
-dotPlot(~ Time, data = OldFaithful1)
+dotPlot(~ time, data = OldFaithful1)
 @
 The dots in this plot are a bit small.  The defaults for \function{dotPlot()} may not be the best way to examine a particular data set.  We can increase the size of the
 dots using the \option{cex} argument.  (\option{cex} stands for ``character 
@@ -237,12 +237,12 @@ expansion" and is used to scale up or down the size of plotting characters -- in
 case the dots.)
 
 <<>>=
-dotPlot(~ Time, data = OldFaithful1, cex=2)
+dotPlot(~ time, data = OldFaithful1, cex=2)
 @
 
 Or we can change the distance between columns of dots
 <<>>=
-dotPlot(~ Time, data = OldFaithful1, width = 2)
+dotPlot(~ time, data = OldFaithful1, width = 2)
 @
 Notice that the dots have been automatically resized when we do this.
 
@@ -260,8 +260,8 @@ Further, we can change can control the increment width of the plotted data so th
 The appropriate choice may depend on the intended size and shape of the plot.  The plots below are much wider, allowing us to present a finer view of the data.  In the 
 second plot, we have also added a more informative label.
 <<FigureP.3, tidy=FALSE, fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
-dotPlot(~ Time, data = OldFaithful1, width = 1)
-dotPlot(~ Time, data = OldFaithful1, width = 1, 
+dotPlot(~ time, data = OldFaithful1, width = 1)
+dotPlot(~ time, data = OldFaithful1, width = 1, 
         xlab = "time until next eruption (min)")
 @
 
@@ -272,7 +272,7 @@ head(OldFaithful2)
 summary(OldFaithful2)
 @
 <<fig.height=2, fig.width=8, out.width=".95\\textwidth">>=
-dotPlot(~ TimeBetween, groups = EruptionType, data = OldFaithful2, width = 1)
+dotPlot(~ timeBetween, groups = eruptionType, data = OldFaithful2, width = 1)
 @
 
 
@@ -282,7 +282,7 @@ plotname( ~ variable | condition, data=dataName )
 @
 
 <<fig.height=3.5, fig.width=8, out.width=".95\\textwidth">>=
-dotPlot(~ TimeBetween | EruptionType, 
+dotPlot(~ timeBetween | eruptionType, 
         data = OldFaithful2, width = 1,
         layout = c(1,2) 
         )
@@ -290,22 +290,22 @@ dotPlot(~ TimeBetween | EruptionType,
 
 For more key numerical summaries of the data set, we can use the \function{favestats} for ``favorite" statistics.
 <<TableP.1>>=
-favstats(~ TimeBetween, data = OldFaithful2)
-favstats(TimeBetween ~ EruptionType, data = OldFaithful2)
+favstats(~ timeBetween, data = OldFaithful2)
+favstats(timeBetween ~ eruptionType, data = OldFaithful2)
 @
 
 Here are ways to find the mean and the standard deviation separately:
 <<>>=
-mean(~ TimeBetween, data = OldFaithful2)
-sd(~ TimeBetween, data = OldFaithful2)
+mean(~ timeBetween, data = OldFaithful2)
+sd(~ timeBetween, data = OldFaithful2)
 @
 <<>>=
-mean(TimeBetween ~ EruptionType, data = OldFaithful2)
-sd(TimeBetween ~ EruptionType, data = OldFaithful2)
+mean(timeBetween ~ eruptionType, data = OldFaithful2)
+sd(timeBetween ~ eruptionType, data = OldFaithful2)
 @
 <<>>=
-mean(~ TimeBetween | EruptionType, data = OldFaithful2)
-sd(~ TimeBetween | EruptionType, data = OldFaithful2)
+mean(~ timeBetween | eruptionType, data = OldFaithful2)
+sd(~ timeBetween | eruptionType, data = OldFaithful2)
 @
 
 
@@ -377,8 +377,8 @@ observations.  Also, frequency polygons and density plot have the advantage
 that they can be overlaid.
 
 <<>>=
-freqpolygon(~ TimeBetween, groups=EruptionType, data = OldFaithful2, ylim=c(0,0.07))
-densityplot(~ TimeBetween, groups=EruptionType, data = OldFaithful2)
+freqpolygon(~ timeBetween, groups=eruptionType, data = OldFaithful2, ylim=c(0,0.07))
+densityplot(~ timeBetween, groups=eruptionType, data = OldFaithful2)
 @
 
 (The current version of \function{freqpolygon()} is not too clever about choosing the
