@@ -1,0 +1,2 @@
+median(~ SleepHrs, data = SleepTimes)
+

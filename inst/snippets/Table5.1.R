@@ -1,0 +1,2 @@
+head(GoodandBad, 30)
+

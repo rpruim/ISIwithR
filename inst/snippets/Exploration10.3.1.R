@@ -1,0 +1,2 @@
+head(FootHeight, 3)
+
