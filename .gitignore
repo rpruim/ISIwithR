@@ -3,14 +3,24 @@
 
 # Example code in package build process
 *-Ex.R
+.DS_Store
 
 # R data files from past sessions
 .Rdata
 .Rproj.user
 Tintle1.Rproj
 
+# data stuff not needed in github
+data-raw/*.rda
+data-raw/TabulatedData/*.rda
+RBuildIgnore/DataFiles
+
 # purl file
 Book/Tintle1.R
+
+# knitr generated
+Book/cache
+Book/figure
 
 # tex clutter
 *.tex
