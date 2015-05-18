@@ -6,8 +6,8 @@
 \title{RestaurantMusic}
 \format{A dataset with 393 observations on the following 2 variables.
 \describe{
-  \item{MusicType}{character}
-  \item{Amount}{numeric}
+  \item{musicType}{character}
+  \item{amount}{numeric}
 }}
 \description{
 A data set

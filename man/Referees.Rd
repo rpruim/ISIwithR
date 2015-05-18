@@ -6,8 +6,8 @@
 \title{Referees}
 \format{A dataset with 91 observations on the following 2 variables.
 \describe{
-  \item{ReplacementRefs.}{character}
-  \item{Duration}{integer}
+  \item{refs}{character}
+  \item{duration}{integer}
 }}
 \description{
 A data set

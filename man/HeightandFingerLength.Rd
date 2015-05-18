@@ -6,8 +6,8 @@
 \title{HeightandFingerLength}
 \format{A dataset with 34 observations on the following 2 variables.
 \describe{
-  \item{Finger}{numeric}
-  \item{Height}{numeric}
+  \item{finger}{numeric}
+  \item{height}{numeric}
 }}
 \description{
 A data set

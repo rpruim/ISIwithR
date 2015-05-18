@@ -6,8 +6,8 @@
 \title{BowlsMMs}
 \format{A dataset with 17 observations on the following 2 variables.
 \describe{
-  \item{Small}{integer}
-  \item{Large}{integer}
+  \item{small}{integer}
+  \item{large}{integer}
 }}
 \description{
 A data set

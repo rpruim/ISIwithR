@@ -6,8 +6,8 @@
 \title{SocialNormsSpeed}
 \format{A dataset with 181 observations on the following 2 variables.
 \describe{
-  \item{Speed}{character}
-  \item{Collision}{character}
+  \item{speed}{character}
+  \item{collision}{character}
 }}
 \description{
 A data set

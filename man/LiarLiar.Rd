@@ -6,8 +6,8 @@
 \title{LiarLiar}
 \format{A dataset with 86 observations on the following 2 variables.
 \describe{
-  \item{Relationship}{character}
-  \item{Number_Correct}{integer}
+  \item{relationship}{character}
+  \item{number_correct}{integer}
 }}
 \description{
 A data set

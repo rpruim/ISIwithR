@@ -6,8 +6,8 @@
 \title{Brain}
 \format{A dataset with 107 observations on the following 2 variables.
 \describe{
-  \item{Treatment}{character}
-  \item{BrainChange}{numeric}
+  \item{treatment}{character}
+  \item{brain_change}{numeric}
 }}
 \description{
 A data set

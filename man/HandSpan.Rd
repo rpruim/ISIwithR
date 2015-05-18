@@ -7,7 +7,7 @@
 \format{A dataset with 45 observations on the following 2 variables.
 \describe{
   \item{TootsieRolls}{integer}
-  \item{HandSpan}{numeric}
+  \item{handSpan}{numeric}
 }}
 \description{
 A data set

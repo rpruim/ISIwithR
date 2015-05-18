@@ -6,8 +6,8 @@
 \title{TextbookPrices}
 \format{A dataset with 30 observations on the following 2 variables.
 \describe{
-  \item{Price}{numeric}
-  \item{Pages}{integer}
+  \item{price}{numeric}
+  \item{pages}{integer}
 }}
 \description{
 A data set

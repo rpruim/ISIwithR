@@ -6,8 +6,8 @@
 \title{Blood}
 \format{A dataset with 2698 observations on the following 2 variables.
 \describe{
-  \item{Year}{integer}
-  \item{Response}{character}
+  \item{year}{integer}
+  \item{response}{character}
 }}
 \description{
 A data set

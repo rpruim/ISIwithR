@@ -6,8 +6,8 @@
 \title{RollerCoasters}
 \format{A dataset with 129 observations on the following 2 variables.
 \describe{
-  \item{Speed}{integer}
-  \item{Height}{integer}
+  \item{speed}{integer}
+  \item{height}{integer}
 }}
 \description{
 A data set

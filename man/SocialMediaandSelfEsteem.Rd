@@ -6,8 +6,8 @@
 \title{SocialMediaandSelfEsteem}
 \format{A dataset with 81 observations on the following 2 variables.
 \describe{
-  \item{Media}{character}
-  \item{Score}{integer}
+  \item{media}{character}
+  \item{score}{integer}
 }}
 \description{
 A data set

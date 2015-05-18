@@ -6,7 +6,7 @@
 \title{MissClassGPA}
 \format{A dataset with 95 observations on the following 2 variables.
 \describe{
-  \item{MissClass}{integer}
+  \item{missClass}{integer}
   \item{GPA}{numeric}
 }}
 \description{

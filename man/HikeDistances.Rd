@@ -6,8 +6,8 @@
 \title{HikeDistances}
 \format{A dataset with 72 observations on the following 2 variables.
 \describe{
-  \item{Distance}{numeric}
-  \item{Time}{integer}
+  \item{distance}{numeric}
+  \item{time}{integer}
 }}
 \description{
 A data set

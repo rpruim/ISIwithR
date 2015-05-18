@@ -6,8 +6,8 @@
 \title{Weight}
 \format{A dataset with 180 observations on the following 2 variables.
 \describe{
-  \item{Pre_Weight}{numeric}
-  \item{Post_Weight}{numeric}
+  \item{pre_weight}{numeric}
+  \item{post_weight}{numeric}
 }}
 \description{
 A data set

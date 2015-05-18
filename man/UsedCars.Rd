@@ -6,7 +6,7 @@
 \title{UsedCars}
 \format{A dataset with 102 observations on the following 1 variables.
 \describe{
-  \item{Price}{integer}
+  \item{price}{integer}
 }}
 \description{
 A data set

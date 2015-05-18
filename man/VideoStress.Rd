@@ -7,7 +7,7 @@
 \format{A dataset with 45 observations on the following 2 variables.
 \describe{
   \item{type_of_video}{character}
-  \item{Stress}{integer}
+  \item{stress}{integer}
 }}
 \description{
 A data set

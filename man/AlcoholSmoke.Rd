@@ -6,8 +6,8 @@
 \title{AlcoholSmoke}
 \format{A dataset with 863 observations on the following 2 variables.
 \describe{
-  \item{Alcohol_Drinks}{integer}
-  \item{Smoked}{integer}
+  \item{alcohol_drinks}{integer}
+  \item{smoked}{integer}
 }}
 \description{
 A data set

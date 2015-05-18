@@ -6,8 +6,8 @@
 \title{ScrabbleRatio}
 \format{A dataset with 16 observations on the following 2 variables.
 \describe{
-  \item{ScrabbleScore}{integer}
-  \item{Ratio}{numeric}
+  \item{scrabbleScore}{integer}
+  \item{ratio}{numeric}
 }}
 \description{
 A data set

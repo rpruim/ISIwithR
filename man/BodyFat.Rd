@@ -6,8 +6,8 @@
 \title{BodyFat}
 \format{A dataset with 177 observations on the following 2 variables.
 \describe{
-  \item{Pre_Body_Fat}{numeric}
-  \item{Post_Body_Fat}{numeric}
+  \item{pre_body_fat}{numeric}
+  \item{post_body_fat}{numeric}
 }}
 \description{
 A data set

@@ -6,8 +6,8 @@
 \title{Donation}
 \format{A dataset with 44 observations on the following 2 variables.
 \describe{
-  \item{State}{character}
-  \item{Donation}{integer}
+  \item{state}{character}
+  \item{donation}{integer}
 }}
 \description{
 A data set

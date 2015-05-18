@@ -6,8 +6,8 @@
 \title{Milwaukee}
 \format{A dataset with 69 observations on the following 2 variables.
 \describe{
-  \item{City}{character}
-  \item{Estimate}{integer}
+  \item{city}{character}
+  \item{estimate}{integer}
 }}
 \description{
 A data set

@@ -6,8 +6,8 @@
 \title{EcoliTime}
 \format{A dataset with 14 observations on the following 2 variables.
 \describe{
-  \item{Day_1}{numeric}
-  \item{Day_2}{integer}
+  \item{day_1}{numeric}
+  \item{day_2}{integer}
 }}
 \description{
 A data set

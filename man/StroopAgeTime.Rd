@@ -6,7 +6,7 @@
 \title{StroopAgeTime}
 \format{A dataset with 50 observations on the following 2 variables.
 \describe{
-  \item{Age}{integer}
+  \item{age}{integer}
   \item{time}{numeric}
 }}
 \description{

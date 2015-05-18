@@ -6,8 +6,8 @@
 \title{CerealSugar}
 \format{A dataset with 80 observations on the following 2 variables.
 \describe{
-  \item{Shelves}{character}
-  \item{Sugar}{integer}
+  \item{shelves}{character}
+  \item{sugar}{integer}
 }}
 \description{
 A data set

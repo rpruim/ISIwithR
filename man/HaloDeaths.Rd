@@ -6,8 +6,8 @@
 \title{HaloDeaths}
 \format{A dataset with 92 observations on the following 2 variables.
 \describe{
-  \item{Level}{integer}
-  \item{Deaths}{integer}
+  \item{level}{integer}
+  \item{deaths}{integer}
 }}
 \description{
 A data set

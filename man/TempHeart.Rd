@@ -6,8 +6,8 @@
 \title{TempHeart}
 \format{A dataset with 130 observations on the following 2 variables.
 \describe{
-  \item{BodyTemp}{numeric}
-  \item{HeartRate}{integer}
+  \item{bodyTemp}{numeric}
+  \item{heartRate}{integer}
 }}
 \description{
 A data set

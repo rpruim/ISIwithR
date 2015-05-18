@@ -6,8 +6,8 @@
 \title{HaloAssists}
 \format{A dataset with 92 observations on the following 2 variables.
 \describe{
-  \item{Level}{integer}
-  \item{Assissts}{integer}
+  \item{level}{integer}
+  \item{assissts}{integer}
 }}
 \description{
 A data set

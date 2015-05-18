@@ -6,8 +6,8 @@
 \title{OrganDonor}
 \format{A dataset with 161 observations on the following 2 variables.
 \describe{
-  \item{Default}{character}
-  \item{Choice}{character}
+  \item{default}{character}
+  \item{choice}{character}
 }}
 \description{
 A data set

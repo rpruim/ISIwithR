@@ -6,8 +6,8 @@
 \title{Comprehension}
 \format{A dataset with 57 observations on the following 2 variables.
 \describe{
-  \item{Condition}{character}
-  \item{Comprehension}{integer}
+  \item{condition}{character}
+  \item{comprehension}{integer}
 }}
 \description{
 A data set

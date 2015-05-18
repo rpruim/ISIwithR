@@ -6,7 +6,7 @@
 \title{MaleTemp}
 \format{A dataset with 65 observations on the following 1 variables.
 \describe{
-  \item{MaleTemp}{numeric}
+  \item{maleTemp}{numeric}
 }}
 \description{
 A data set

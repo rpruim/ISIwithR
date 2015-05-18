@@ -6,8 +6,8 @@
 \title{HeartRates}
 \format{A dataset with 130 observations on the following 2 variables.
 \describe{
-  \item{Gender}{character}
-  \item{HeartRate}{integer}
+  \item{gender}{character}
+  \item{heartRate}{integer}
 }}
 \description{
 A data set

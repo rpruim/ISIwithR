@@ -6,8 +6,8 @@
 \title{Yawning}
 \format{A dataset with 50 observations on the following 2 variables.
 \describe{
-  \item{YawnSeed}{character}
-  \item{Response}{character}
+  \item{yawnSeed}{character}
+  \item{response}{character}
 }}
 \description{
 A data set

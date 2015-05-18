@@ -6,8 +6,8 @@
 \title{BikeTimes}
 \format{A dataset with 56 observations on the following 2 variables.
 \describe{
-  \item{Frame}{character}
-  \item{Time}{numeric}
+  \item{frame}{character}
+  \item{time}{numeric}
 }}
 \description{
 A data set

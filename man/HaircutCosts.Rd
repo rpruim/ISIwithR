@@ -6,7 +6,7 @@
 \title{HaircutCosts}
 \format{A dataset with 50 observations on the following 1 variables.
 \describe{
-  \item{Cost}{integer}
+  \item{cost}{integer}
 }}
 \description{
 A data set

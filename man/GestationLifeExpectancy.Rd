@@ -6,8 +6,8 @@
 \title{GestationLifeExpectancy}
 \format{A dataset with 10 observations on the following 2 variables.
 \describe{
-  \item{Gest}{integer}
-  \item{LifeExpct}{integer}
+  \item{gest}{integer}
+  \item{lifeExpct}{integer}
 }}
 \description{
 A data set

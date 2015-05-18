@@ -6,8 +6,8 @@
 \title{GoodandBad}
 \format{A dataset with 30 observations on the following 2 variables.
 \describe{
-  \item{Wording}{character}
-  \item{Perception}{character}
+  \item{wording}{character}
+  \item{perception}{character}
 }}
 \description{
 A data set

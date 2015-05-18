@@ -6,8 +6,8 @@
 \title{Tuna}
 \format{A dataset with 274 observations on the following 2 variables.
 \describe{
-  \item{Tuna}{character}
-  \item{Mercury}{numeric}
+  \item{tuna}{character}
+  \item{mercury}{numeric}
 }}
 \description{
 A data set

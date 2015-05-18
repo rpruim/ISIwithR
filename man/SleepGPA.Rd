@@ -6,7 +6,7 @@
 \title{SleepGPA}
 \format{A dataset with 805 observations on the following 2 variables.
 \describe{
-  \item{Sleep}{numeric}
+  \item{sleep}{numeric}
   \item{GPA}{numeric}
 }}
 \description{

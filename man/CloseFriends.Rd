@@ -6,8 +6,8 @@
 \title{CloseFriends}
 \format{A dataset with 1467 observations on the following 2 variables.
 \describe{
-  \item{Sex}{character}
-  \item{Friends}{integer}
+  \item{sex}{character}
+  \item{friends}{integer}
 }}
 \description{
 A data set

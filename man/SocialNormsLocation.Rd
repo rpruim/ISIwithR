@@ -6,8 +6,8 @@
 \title{SocialNormsLocation}
 \format{A dataset with 181 observations on the following 2 variables.
 \describe{
-  \item{Location}{character}
-  \item{Collision}{character}
+  \item{location}{character}
+  \item{collision}{character}
 }}
 \description{
 A data set

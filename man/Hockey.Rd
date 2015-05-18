@@ -6,7 +6,7 @@
 \title{Hockey}
 \format{A dataset with 44 observations on the following 1 variables.
 \describe{
-  \item{Goals}{integer}
+  \item{goals}{integer}
 }}
 \description{
 A data set

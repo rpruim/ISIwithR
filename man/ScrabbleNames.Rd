@@ -6,8 +6,8 @@
 \title{ScrabbleNames}
 \format{A dataset with 16 observations on the following 2 variables.
 \describe{
-  \item{Letters}{integer}
-  \item{ScrabbleScore}{integer}
+  \item{letters}{integer}
+  \item{scrabbleScore}{integer}
 }}
 \description{
 A data set

@@ -6,8 +6,8 @@
 \title{ChildrenandLifespan}
 \format{A dataset with 90 observations on the following 2 variables.
 \describe{
-  \item{Children}{character}
-  \item{Age}{integer}
+  \item{children}{character}
+  \item{age}{integer}
 }}
 \description{
 A data set

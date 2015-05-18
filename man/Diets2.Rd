@@ -6,8 +6,8 @@
 \title{Diets2}
 \format{A dataset with 93 observations on the following 2 variables.
 \describe{
-  \item{Diet}{character}
-  \item{WeightLoss}{numeric}
+  \item{diet}{character}
+  \item{weightLoss}{numeric}
 }}
 \description{
 A data set

@@ -6,8 +6,8 @@
 \title{Acupuncture}
 \format{A dataset with 1162 observations on the following 2 variables.
 \describe{
-  \item{Acupunture}{character}
-  \item{Improvement}{character}
+  \item{acupunture}{character}
+  \item{improvement}{character}
 }}
 \description{
 A data set

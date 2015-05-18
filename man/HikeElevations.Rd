@@ -6,8 +6,8 @@
 \title{HikeElevations}
 \format{A dataset with 72 observations on the following 2 variables.
 \describe{
-  \item{ElevationGain}{integer}
-  \item{Time}{integer}
+  \item{elevationGain}{integer}
+  \item{time}{integer}
 }}
 \description{
 A data set

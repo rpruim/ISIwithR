@@ -6,8 +6,8 @@
 \title{Smoking}
 \format{A dataset with 4167 observations on the following 2 variables.
 \describe{
-  \item{Parents}{character}
-  \item{Child}{character}
+  \item{parents}{character}
+  \item{child}{character}
 }}
 \description{
 A data set

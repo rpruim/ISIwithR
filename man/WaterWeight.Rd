@@ -6,8 +6,8 @@
 \title{WaterWeight}
 \format{A dataset with 178 observations on the following 2 variables.
 \describe{
-  \item{Pre_Water_Weight}{numeric}
-  \item{Post_Water_Weight}{numeric}
+  \item{pre_water_weight}{numeric}
+  \item{post_water_weight}{numeric}
 }}
 \description{
 A data set

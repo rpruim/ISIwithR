@@ -6,8 +6,8 @@
 \title{MemorizationDelay}
 \format{A dataset with 20 observations on the following 2 variables.
 \describe{
-  \item{NoDelay}{integer}
-  \item{Delay}{integer}
+  \item{noDelay}{integer}
+  \item{delay}{integer}
 }}
 \description{
 A data set

@@ -6,8 +6,8 @@
 \title{Ch6Inv}
 \format{A dataset with 51 observations on the following 2 variables.
 \describe{
-  \item{Words}{character}
-  \item{Memorized}{integer}
+  \item{words}{character}
+  \item{memorized}{integer}
 }}
 \description{
 A data set

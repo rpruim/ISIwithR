@@ -6,7 +6,7 @@
 \title{TVLife}
 \format{A dataset with 22 observations on the following 2 variables.
 \describe{
-  \item{LifeExpectancy}{numeric}
+  \item{lifeExpectancy}{numeric}
   \item{TVsperK}{integer}
 }}
 \description{

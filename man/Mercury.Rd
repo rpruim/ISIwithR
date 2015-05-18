@@ -6,8 +6,8 @@
 \title{Mercury}
 \format{A dataset with 912 observations on the following 2 variables.
 \describe{
-  \item{Fish}{character}
-  \item{MercuryLevel}{numeric}
+  \item{fish}{character}
+  \item{mercuryLevel}{numeric}
 }}
 \description{
 A data set

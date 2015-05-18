@@ -6,8 +6,8 @@
 \title{Recall}
 \format{A dataset with 57 observations on the following 2 variables.
 \describe{
-  \item{Condition}{character}
-  \item{Recall}{integer}
+  \item{condition}{character}
+  \item{recall}{integer}
 }}
 \description{
 A data set

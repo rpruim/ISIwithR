@@ -6,8 +6,8 @@
 \title{HaloWins}
 \format{A dataset with 92 observations on the following 2 variables.
 \describe{
-  \item{Level}{integer}
-  \item{Won}{integer}
+  \item{level}{integer}
+  \item{won}{integer}
 }}
 \description{
 A data set

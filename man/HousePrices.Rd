@@ -6,8 +6,8 @@
 \title{HousePrices}
 \format{A dataset with 20 observations on the following 2 variables.
 \describe{
-  \item{SqFt}{integer}
-  \item{Price}{integer}
+  \item{sqFt}{integer}
+  \item{price}{integer}
 }}
 \description{
 A data set

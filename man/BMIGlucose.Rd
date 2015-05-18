@@ -7,7 +7,7 @@
 \format{A dataset with 38 observations on the following 2 variables.
 \describe{
   \item{bmi}{numeric}
-  \item{Glucose}{integer}
+  \item{glucose}{integer}
 }}
 \description{
 A data set

@@ -6,7 +6,7 @@
 \title{OldFaithful1}
 \format{A dataset with 222 observations on the following 1 variables.
 \describe{
-  \item{Time}{integer}
+  \item{time}{integer}
 }}
 \description{
 A data set

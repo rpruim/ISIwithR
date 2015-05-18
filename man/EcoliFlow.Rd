@@ -6,7 +6,7 @@
 \title{EcoliFlow}
 \format{A dataset with 23 observations on the following 1 variables.
 \describe{
-  \item{Flow_ratio}{integer}
+  \item{flow_ratio}{integer}
 }}
 \description{
 A data set

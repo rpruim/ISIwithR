@@ -6,7 +6,7 @@
 \title{SleepTimes}
 \format{A dataset with 22 observations on the following 1 variables.
 \describe{
-  \item{SleepHrs}{numeric}
+  \item{sleepHrs}{numeric}
 }}
 \description{
 A data set

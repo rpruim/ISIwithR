@@ -6,8 +6,8 @@
 \title{ExerciseMemorize}
 \format{A dataset with 31 observations on the following 2 variables.
 \describe{
-  \item{Exercising}{integer}
-  \item{NotExercising}{integer}
+  \item{exercising}{integer}
+  \item{notExercising}{integer}
 }}
 \description{
 A data set

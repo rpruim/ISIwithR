@@ -6,7 +6,7 @@
 \title{AgeBMI}
 \format{A dataset with 39 observations on the following 2 variables.
 \describe{
-  \item{Age}{integer}
+  \item{age}{integer}
   \item{bmi}{numeric}
 }}
 \description{

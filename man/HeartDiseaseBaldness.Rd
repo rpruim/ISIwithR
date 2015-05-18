@@ -6,8 +6,8 @@
 \title{HeartDiseaseBaldness}
 \format{A dataset with 1435 observations on the following 2 variables.
 \describe{
-  \item{Heart_Disease}{character}
-  \item{Baldness}{character}
+  \item{heart_disease}{character}
+  \item{baldness}{character}
 }}
 \description{
 A data set

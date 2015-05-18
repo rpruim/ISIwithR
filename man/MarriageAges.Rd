@@ -6,7 +6,7 @@
 \title{MarriageAges}
 \format{A dataset with 100 observations on the following 1 variables.
 \describe{
-  \item{Diff.H.W.}{integer}
+  \item{diff}{integer}
 }}
 \description{
 A data set

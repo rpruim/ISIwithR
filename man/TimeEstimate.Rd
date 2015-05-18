@@ -6,7 +6,7 @@
 \title{TimeEstimate}
 \format{A dataset with 48 observations on the following 1 variables.
 \describe{
-  \item{Estimate}{integer}
+  \item{estimate}{integer}
 }}
 \description{
 A data set

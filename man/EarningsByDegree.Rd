@@ -6,8 +6,8 @@
 \title{EarningsByDegree}
 \format{A dataset with 250 observations on the following 2 variables.
 \describe{
-  \item{Degree}{character}
-  \item{Earnings..K.}{numeric}
+  \item{degree}{character}
+  \item{earnings}{numeric}
 }}
 \description{
 A data set

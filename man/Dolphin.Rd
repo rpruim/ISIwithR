@@ -6,8 +6,8 @@
 \title{Dolphin}
 \format{A dataset with 30 observations on the following 2 variables.
 \describe{
-  \item{Swimming}{character}
-  \item{Response}{character}
+  \item{swimming}{character}
+  \item{response}{character}
 }}
 \description{
 A data set

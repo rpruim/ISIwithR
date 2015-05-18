@@ -6,8 +6,8 @@
 \title{Gilbert}
 \format{A dataset with 1641 observations on the following 2 variables.
 \describe{
-  \item{GilbertWorked.}{character}
-  \item{Patient}{character}
+  \item{GilbertWorked}{character}
+  \item{patient}{character}
 }}
 \description{
 A data set

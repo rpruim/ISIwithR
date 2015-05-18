@@ -6,8 +6,8 @@
 \title{Haircuts}
 \format{A dataset with 50 observations on the following 2 variables.
 \describe{
-  \item{Sex}{character}
-  \item{Cost}{integer}
+  \item{sex}{character}
+  \item{cost}{integer}
 }}
 \description{
 A data set

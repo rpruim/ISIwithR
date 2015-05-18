@@ -6,8 +6,8 @@
 \title{OldFaithful2}
 \format{A dataset with 222 observations on the following 2 variables.
 \describe{
-  \item{EruptionType}{character}
-  \item{TimeBetween}{integer}
+  \item{eruptionType}{character}
+  \item{timeBetween}{integer}
 }}
 \description{
 A data set

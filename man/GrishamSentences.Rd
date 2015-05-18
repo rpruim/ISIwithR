@@ -6,8 +6,8 @@
 \title{GrishamSentences}
 \format{A dataset with 84 observations on the following 2 variables.
 \describe{
-  \item{Book}{character}
-  \item{Words}{integer}
+  \item{book}{character}
+  \item{words}{integer}
 }}
 \description{
 A data set

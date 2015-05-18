@@ -6,8 +6,8 @@
 \title{ReactionTimes}
 \format{A dataset with 20 observations on the following 2 variables.
 \describe{
-  \item{Dominant}{numeric}
-  \item{Non.dominant}{numeric}
+  \item{dominant}{numeric}
+  \item{non_dominant}{numeric}
 }}
 \description{
 A data set

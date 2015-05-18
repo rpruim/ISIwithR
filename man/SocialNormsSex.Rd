@@ -6,8 +6,8 @@
 \title{SocialNormsSex}
 \format{A dataset with 181 observations on the following 2 variables.
 \describe{
-  \item{Experimenter}{character}
-  \item{Collision}{character}
+  \item{experimenter}{character}
+  \item{collision}{character}
 }}
 \description{
 A data set

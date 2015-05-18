@@ -6,8 +6,8 @@
 \title{DadandChildHeights}
 \format{A dataset with 25 observations on the following 2 variables.
 \describe{
-  \item{DadHeight}{integer}
-  \item{Height}{numeric}
+  \item{dadHeight}{integer}
+  \item{height}{numeric}
 }}
 \description{
 A data set

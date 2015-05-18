@@ -6,8 +6,8 @@
 \title{FlexibilityPost}
 \format{A dataset with 179 observations on the following 2 variables.
 \describe{
-  \item{Sex}{character}
-  \item{Post_flexibility}{numeric}
+  \item{sex}{character}
+  \item{post_flexibility}{numeric}
 }}
 \description{
 A data set

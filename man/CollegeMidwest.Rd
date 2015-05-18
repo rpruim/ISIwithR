@@ -6,8 +6,8 @@
 \title{CollegeMidwest}
 \format{A dataset with 2919 observations on the following 2 variables.
 \describe{
-  \item{OnCampus}{character}
-  \item{CumGpa}{numeric}
+  \item{onCampus}{character}
+  \item{cumGPA}{numeric}
 }}
 \description{
 A data set

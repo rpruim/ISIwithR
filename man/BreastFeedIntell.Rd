@@ -6,7 +6,7 @@
 \title{BreastFeedIntell}
 \format{A dataset with 322 observations on the following 2 variables.
 \describe{
-  \item{Feeding}{character}
+  \item{feeding}{character}
   \item{GCI}{numeric}
 }}
 \description{

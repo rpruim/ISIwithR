@@ -6,8 +6,8 @@
 \title{FlightTimes}
 \format{A dataset with 32 observations on the following 2 variables.
 \describe{
-  \item{WingLength}{integer}
-  \item{FlightTime}{numeric}
+  \item{wingLength}{integer}
+  \item{flightTime}{numeric}
 }}
 \description{
 A data set

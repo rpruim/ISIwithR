@@ -7,7 +7,7 @@
 \format{A dataset with 90 observations on the following 2 variables.
 \describe{
   \item{age}{integer}
-  \item{Price}{integer}
+  \item{price}{integer}
 }}
 \description{
 A data set
