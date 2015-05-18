@@ -9,6 +9,9 @@
 .Rproj.user
 Tintle1.Rproj
 
+# purl file
+Book/Tintle1.R
+
 # tex clutter
 *.tex
 *.notes
@@ -18,6 +21,7 @@ Tintle1.Rproj
 *.idx
 *.synctex.gz
 Book/0*-*.pdf
+*.toc
 
 # vim work files
 *~
