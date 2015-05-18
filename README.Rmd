@@ -1,0 +1,22 @@
+---
+output:
+  html_document:
+    keep_md: true
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+Tintle1
+=======
+
+Companion to Introduction to Statistical Investigations by Tintle et al
