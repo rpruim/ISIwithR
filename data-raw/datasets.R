@@ -6,8 +6,8 @@
 #' @name Acupuncture
 #' @format A dataset with 1162 observations on the following 2 variables.
 #' \describe{
-#'   \item{Acupunture}{character}
-#'   \item{Improvement}{character}
+#'   \item{acupunture}{character}
+#'   \item{improvement}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -20,7 +20,7 @@ NULL
 #' @name AgeBMI
 #' @format A dataset with 39 observations on the following 2 variables.
 #' \describe{
-#'   \item{Age}{integer}
+#'   \item{age}{integer}
 #'   \item{bmi}{numeric}
 #' }
 #' @keywords datasets
@@ -34,8 +34,8 @@ NULL
 #' @name AlcoholSmoke
 #' @format A dataset with 863 observations on the following 2 variables.
 #' \describe{
-#'   \item{Alcohol_Drinks}{integer}
-#'   \item{Smoked}{integer}
+#'   \item{alcohol_drinks}{integer}
+#'   \item{smoked}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -76,8 +76,8 @@ NULL
 #' @name BikeTimes
 #' @format A dataset with 56 observations on the following 2 variables.
 #' \describe{
-#'   \item{Frame}{character}
-#'   \item{Time}{numeric}
+#'   \item{frame}{character}
+#'   \item{time}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -90,8 +90,8 @@ NULL
 #' @name Blood
 #' @format A dataset with 2698 observations on the following 2 variables.
 #' \describe{
-#'   \item{Year}{integer}
-#'   \item{Response}{character}
+#'   \item{year}{integer}
+#'   \item{response}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -105,7 +105,7 @@ NULL
 #' @format A dataset with 38 observations on the following 2 variables.
 #' \describe{
 #'   \item{bmi}{numeric}
-#'   \item{Glucose}{integer}
+#'   \item{glucose}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -118,8 +118,8 @@ NULL
 #' @name BodyFat
 #' @format A dataset with 177 observations on the following 2 variables.
 #' \describe{
-#'   \item{Pre_Body_Fat}{numeric}
-#'   \item{Post_Body_Fat}{numeric}
+#'   \item{pre_body_fat}{numeric}
+#'   \item{post_body_fat}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -132,8 +132,8 @@ NULL
 #' @name BowlsMMs
 #' @format A dataset with 17 observations on the following 2 variables.
 #' \describe{
-#'   \item{Small}{integer}
-#'   \item{Large}{integer}
+#'   \item{small}{integer}
+#'   \item{large}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -146,8 +146,8 @@ NULL
 #' @name Brain
 #' @format A dataset with 107 observations on the following 2 variables.
 #' \describe{
-#'   \item{Treatment}{character}
-#'   \item{BrainChange}{numeric}
+#'   \item{treatment}{character}
+#'   \item{brain_change}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -160,7 +160,7 @@ NULL
 #' @name BreastFeedIntell
 #' @format A dataset with 322 observations on the following 2 variables.
 #' \describe{
-#'   \item{Feeding}{character}
+#'   \item{feeding}{character}
 #'   \item{GCI}{numeric}
 #' }
 #' @keywords datasets
@@ -227,21 +227,6 @@ NULL
 #' @keywords datasets
 NULL
 
-#' CellphoneRace
-#' 
-#' A data set
-#' 
-#' @docType data
-#' @name CellphoneRace
-#' @format A dataset with 2 observations on the following 3 variables.
-#' \describe{
-#'   \item{White}{integer}
-#'   \item{Black}{integer}
-#'   \item{Hispanic}{integer}
-#' }
-#' @keywords datasets
-NULL
-
 #' CerealSugar
 #' 
 #' A data set
@@ -250,8 +235,8 @@ NULL
 #' @name CerealSugar
 #' @format A dataset with 80 observations on the following 2 variables.
 #' \describe{
-#'   \item{Shelves}{character}
-#'   \item{Sugar}{integer}
+#'   \item{shelves}{character}
+#'   \item{sugar}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -264,8 +249,8 @@ NULL
 #' @name Ch6Inv
 #' @format A dataset with 51 observations on the following 2 variables.
 #' \describe{
-#'   \item{Words}{character}
-#'   \item{Memorized}{integer}
+#'   \item{words}{character}
+#'   \item{memorized}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -292,8 +277,8 @@ NULL
 #' @name ChildrenandLifespan
 #' @format A dataset with 90 observations on the following 2 variables.
 #' \describe{
-#'   \item{Children}{character}
-#'   \item{Age}{integer}
+#'   \item{children}{character}
+#'   \item{age}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -362,8 +347,8 @@ NULL
 #' @name CloseFriends
 #' @format A dataset with 1467 observations on the following 2 variables.
 #' \describe{
-#'   \item{Sex}{character}
-#'   \item{Friends}{integer}
+#'   \item{sex}{character}
+#'   \item{friends}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -390,8 +375,8 @@ NULL
 #' @name CollegeMidwest
 #' @format A dataset with 2919 observations on the following 2 variables.
 #' \describe{
-#'   \item{OnCampus}{character}
-#'   \item{CumGpa}{numeric}
+#'   \item{onCampus}{character}
+#'   \item{cumGPA}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -404,8 +389,8 @@ NULL
 #' @name Comprehension
 #' @format A dataset with 57 observations on the following 2 variables.
 #' \describe{
-#'   \item{Condition}{character}
-#'   \item{Comprehension}{integer}
+#'   \item{condition}{character}
+#'   \item{comprehension}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -418,8 +403,8 @@ NULL
 #' @name DadandChildHeights
 #' @format A dataset with 25 observations on the following 2 variables.
 #' \describe{
-#'   \item{DadHeight}{integer}
-#'   \item{Height}{numeric}
+#'   \item{dadHeight}{integer}
+#'   \item{height}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -432,7 +417,7 @@ NULL
 #' @name Diets1
 #' @format A dataset with 232 observations on the following 2 variables.
 #' \describe{
-#'   \item{Diet}{character}
+#'   \item{diet}{character}
 #'   \item{BMI}{numeric}
 #' }
 #' @keywords datasets
@@ -446,8 +431,8 @@ NULL
 #' @name Diets2
 #' @format A dataset with 93 observations on the following 2 variables.
 #' \describe{
-#'   \item{Diet}{character}
-#'   \item{WeightLoss}{numeric}
+#'   \item{diet}{character}
+#'   \item{weightLoss}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -460,8 +445,8 @@ NULL
 #' @name Dolphin
 #' @format A dataset with 30 observations on the following 2 variables.
 #' \describe{
-#'   \item{Swimming}{character}
-#'   \item{Response}{character}
+#'   \item{swimming}{character}
+#'   \item{response}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -474,8 +459,8 @@ NULL
 #' @name Donation
 #' @format A dataset with 44 observations on the following 2 variables.
 #' \describe{
-#'   \item{State}{character}
-#'   \item{Donation}{integer}
+#'   \item{state}{character}
+#'   \item{donation}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -502,8 +487,8 @@ NULL
 #' @name EarningsByDegree
 #' @format A dataset with 250 observations on the following 2 variables.
 #' \describe{
-#'   \item{Degree}{character}
-#'   \item{Earnings..K.}{numeric}
+#'   \item{degree}{character}
+#'   \item{earnings}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -516,7 +501,7 @@ NULL
 #' @name EcoliFlow
 #' @format A dataset with 23 observations on the following 1 variables.
 #' \describe{
-#'   \item{Flow_ratio}{integer}
+#'   \item{flow_ratio}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -543,8 +528,8 @@ NULL
 #' @name EcoliTime
 #' @format A dataset with 14 observations on the following 2 variables.
 #' \describe{
-#'   \item{Day_1}{numeric}
-#'   \item{Day_2}{integer}
+#'   \item{day_1}{numeric}
+#'   \item{day_2}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -571,8 +556,8 @@ NULL
 #' @name ExerciseMemorize
 #' @format A dataset with 31 observations on the following 2 variables.
 #' \describe{
-#'   \item{Exercising}{integer}
-#'   \item{NotExercising}{integer}
+#'   \item{exercising}{integer}
+#'   \item{notExercising}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -613,7 +598,7 @@ NULL
 #' @name FemaleTemp
 #' @format A dataset with 65 observations on the following 1 variables.
 #' \describe{
-#'   \item{FemaleTemp}{numeric}
+#'   \item{femaleTemp}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -655,8 +640,8 @@ NULL
 #' @name FlexibilityPost
 #' @format A dataset with 179 observations on the following 2 variables.
 #' \describe{
-#'   \item{Sex}{character}
-#'   \item{Post_flexibility}{numeric}
+#'   \item{sex}{character}
+#'   \item{post_flexibility}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -669,8 +654,8 @@ NULL
 #' @name FlexibilityPre
 #' @format A dataset with 179 observations on the following 2 variables.
 #' \describe{
-#'   \item{Sex}{character}
-#'   \item{Pre_flexibility}{numeric}
+#'   \item{sex}{character}
+#'   \item{pre_flexibility}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -683,8 +668,8 @@ NULL
 #' @name FlexibilityPrePost
 #' @format A dataset with 179 observations on the following 2 variables.
 #' \describe{
-#'   \item{Pre}{numeric}
-#'   \item{Post}{numeric}
+#'   \item{pre}{numeric}
+#'   \item{post}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -697,8 +682,8 @@ NULL
 #' @name FlightTimes
 #' @format A dataset with 32 observations on the following 2 variables.
 #' \describe{
-#'   \item{WingLength}{integer}
-#'   \item{FlightTime}{numeric}
+#'   \item{wingLength}{integer}
+#'   \item{flightTime}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -725,8 +710,8 @@ NULL
 #' @name GestationLifeExpectancy
 #' @format A dataset with 10 observations on the following 2 variables.
 #' \describe{
-#'   \item{Gest}{integer}
-#'   \item{LifeExpct}{integer}
+#'   \item{gest}{integer}
+#'   \item{lifeExpct}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -752,8 +737,8 @@ NULL
 #' @name Gilbert
 #' @format A dataset with 1641 observations on the following 2 variables.
 #' \describe{
-#'   \item{GilbertWorked.}{character}
-#'   \item{Patient}{character}
+#'   \item{GilbertWorked}{character}
+#'   \item{patient}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -780,8 +765,8 @@ NULL
 #' @name GoodandBad
 #' @format A dataset with 30 observations on the following 2 variables.
 #' \describe{
-#'   \item{Wording}{character}
-#'   \item{Perception}{character}
+#'   \item{wording}{character}
+#'   \item{perception}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -808,8 +793,8 @@ NULL
 #' @name GrishamSentences
 #' @format A dataset with 84 observations on the following 2 variables.
 #' \describe{
-#'   \item{Book}{character}
-#'   \item{Words}{integer}
+#'   \item{book}{character}
+#'   \item{words}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -822,7 +807,7 @@ NULL
 #' @name HaircutCosts
 #' @format A dataset with 50 observations on the following 1 variables.
 #' \describe{
-#'   \item{Cost}{integer}
+#'   \item{cost}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -835,8 +820,8 @@ NULL
 #' @name Haircuts
 #' @format A dataset with 50 observations on the following 2 variables.
 #' \describe{
-#'   \item{Sex}{character}
-#'   \item{Cost}{integer}
+#'   \item{sex}{character}
+#'   \item{cost}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -849,8 +834,8 @@ NULL
 #' @name HaloAssists
 #' @format A dataset with 92 observations on the following 2 variables.
 #' \describe{
-#'   \item{Level}{integer}
-#'   \item{Assissts}{integer}
+#'   \item{level}{integer}
+#'   \item{assissts}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -863,8 +848,8 @@ NULL
 #' @name HaloDeaths
 #' @format A dataset with 92 observations on the following 2 variables.
 #' \describe{
-#'   \item{Level}{integer}
-#'   \item{Deaths}{integer}
+#'   \item{level}{integer}
+#'   \item{deaths}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -877,8 +862,8 @@ NULL
 #' @name HaloKills
 #' @format A dataset with 92 observations on the following 2 variables.
 #' \describe{
-#'   \item{Level}{integer}
-#'   \item{Kills}{integer}
+#'   \item{level}{integer}
+#'   \item{kills}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -891,8 +876,8 @@ NULL
 #' @name HaloMedals
 #' @format A dataset with 92 observations on the following 2 variables.
 #' \describe{
-#'   \item{Level}{integer}
-#'   \item{Medals}{integer}
+#'   \item{level}{integer}
+#'   \item{medals}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -905,8 +890,8 @@ NULL
 #' @name HaloWins
 #' @format A dataset with 92 observations on the following 2 variables.
 #' \describe{
-#'   \item{Level}{integer}
-#'   \item{Won}{integer}
+#'   \item{level}{integer}
+#'   \item{won}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -920,7 +905,7 @@ NULL
 #' @format A dataset with 45 observations on the following 2 variables.
 #' \describe{
 #'   \item{TootsieRolls}{integer}
-#'   \item{HandSpan}{numeric}
+#'   \item{handSpan}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -939,22 +924,6 @@ NULL
 #' @keywords datasets
 NULL
 
-#' HealthcareAge
-#' 
-#' A data set
-#' 
-#' @docType data
-#' @name HealthcareAge
-#' @format A dataset with 2 observations on the following 4 variables.
-#' \describe{
-#'   \item{X18.29}{integer}
-#'   \item{X30.49}{integer}
-#'   \item{X50.64}{integer}
-#'   \item{X65.}{integer}
-#' }
-#' @keywords datasets
-NULL
-
 #' HeartDiseaseBaldness
 #' 
 #' A data set
@@ -963,8 +932,8 @@ NULL
 #' @name HeartDiseaseBaldness
 #' @format A dataset with 1435 observations on the following 2 variables.
 #' \describe{
-#'   \item{Heart_Disease}{character}
-#'   \item{Baldness}{character}
+#'   \item{heart_disease}{character}
+#'   \item{baldness}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -977,8 +946,8 @@ NULL
 #' @name HeartDiseaseBaldness2
 #' @format A dataset with 1435 observations on the following 2 variables.
 #' \describe{
-#'   \item{Heart_Disease}{character}
-#'   \item{Baldness}{character}
+#'   \item{heart_disease}{character}
+#'   \item{baldness}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -991,8 +960,8 @@ NULL
 #' @name HeartRates
 #' @format A dataset with 130 observations on the following 2 variables.
 #' \describe{
-#'   \item{Gender}{character}
-#'   \item{HeartRate}{integer}
+#'   \item{gender}{character}
+#'   \item{heartRate}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1005,8 +974,8 @@ NULL
 #' @name HeightandFingerLength
 #' @format A dataset with 34 observations on the following 2 variables.
 #' \describe{
-#'   \item{Finger}{numeric}
-#'   \item{Height}{numeric}
+#'   \item{finger}{numeric}
+#'   \item{height}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1061,8 +1030,8 @@ NULL
 #' @name HikeDistances
 #' @format A dataset with 72 observations on the following 2 variables.
 #' \describe{
-#'   \item{Distance}{numeric}
-#'   \item{Time}{integer}
+#'   \item{distance}{numeric}
+#'   \item{time}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1075,8 +1044,8 @@ NULL
 #' @name HikeElevations
 #' @format A dataset with 72 observations on the following 2 variables.
 #' \describe{
-#'   \item{ElevationGain}{integer}
-#'   \item{Time}{integer}
+#'   \item{elevationGain}{integer}
+#'   \item{time}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1089,7 +1058,7 @@ NULL
 #' @name Hockey
 #' @format A dataset with 44 observations on the following 1 variables.
 #' \describe{
-#'   \item{Goals}{integer}
+#'   \item{goals}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1103,7 +1072,7 @@ NULL
 #' @format A dataset with 90 observations on the following 2 variables.
 #' \describe{
 #'   \item{age}{integer}
-#'   \item{Price}{integer}
+#'   \item{price}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1116,8 +1085,8 @@ NULL
 #' @name HousePrices
 #' @format A dataset with 20 observations on the following 2 variables.
 #' \describe{
-#'   \item{SqFt}{integer}
-#'   \item{Price}{integer}
+#'   \item{sqFt}{integer}
+#'   \item{price}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1158,8 +1127,8 @@ NULL
 #' @name LiarLiar
 #' @format A dataset with 86 observations on the following 2 variables.
 #' \describe{
-#'   \item{Relationship}{character}
-#'   \item{Number_Correct}{integer}
+#'   \item{relationship}{character}
+#'   \item{number_correct}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1186,7 +1155,7 @@ NULL
 #' @name MaleTemp
 #' @format A dataset with 65 observations on the following 1 variables.
 #' \describe{
-#'   \item{MaleTemp}{numeric}
+#'   \item{maleTemp}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1199,7 +1168,7 @@ NULL
 #' @name MarriageAges
 #' @format A dataset with 100 observations on the following 1 variables.
 #' \describe{
-#'   \item{Diff.H.W.}{integer}
+#'   \item{diff}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1240,8 +1209,8 @@ NULL
 #' @name MemorizationDelay
 #' @format A dataset with 20 observations on the following 2 variables.
 #' \describe{
-#'   \item{NoDelay}{integer}
-#'   \item{Delay}{integer}
+#'   \item{noDelay}{integer}
+#'   \item{delay}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1254,8 +1223,8 @@ NULL
 #' @name Mercury
 #' @format A dataset with 912 observations on the following 2 variables.
 #' \describe{
-#'   \item{Fish}{character}
-#'   \item{MercuryLevel}{numeric}
+#'   \item{fish}{character}
+#'   \item{mercuryLevel}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1268,8 +1237,8 @@ NULL
 #' @name Milwaukee
 #' @format A dataset with 69 observations on the following 2 variables.
 #' \describe{
-#'   \item{City}{character}
-#'   \item{Estimate}{integer}
+#'   \item{city}{character}
+#'   \item{estimate}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1282,7 +1251,7 @@ NULL
 #' @name MissClassGPA
 #' @format A dataset with 95 observations on the following 2 variables.
 #' \describe{
-#'   \item{MissClass}{integer}
+#'   \item{missClass}{integer}
 #'   \item{GPA}{numeric}
 #' }
 #' @keywords datasets
@@ -1296,23 +1265,8 @@ NULL
 #' @name MomandChildHeights
 #' @format A dataset with 26 observations on the following 2 variables.
 #' \describe{
-#'   \item{MomHeight}{integer}
-#'   \item{Height}{numeric}
-#' }
-#' @keywords datasets
-NULL
-
-#' NightLight1
-#' 
-#' A data set
-#' 
-#' @docType data
-#' @name NightLight1
-#' @format A dataset with 2 observations on the following 3 variables.
-#' \describe{
-#'   \item{Darkness}{integer}
-#'   \item{NightLight}{integer}
-#'   \item{RoomLight}{integer}
+#'   \item{momHeight}{integer}
+#'   \item{height}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1339,7 +1293,7 @@ NULL
 #' @name OldFaithful1
 #' @format A dataset with 222 observations on the following 1 variables.
 #' \describe{
-#'   \item{Time}{integer}
+#'   \item{time}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1352,8 +1306,8 @@ NULL
 #' @name OldFaithful2
 #' @format A dataset with 222 observations on the following 2 variables.
 #' \describe{
-#'   \item{EruptionType}{character}
-#'   \item{TimeBetween}{integer}
+#'   \item{eruptionType}{character}
+#'   \item{timeBetween}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1366,8 +1320,8 @@ NULL
 #' @name OrganDonor
 #' @format A dataset with 161 observations on the following 2 variables.
 #' \describe{
-#'   \item{Default}{character}
-#'   \item{Choice}{character}
+#'   \item{default}{character}
+#'   \item{choice}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -1409,8 +1363,8 @@ NULL
 #' @name ReactionTimes
 #' @format A dataset with 20 observations on the following 2 variables.
 #' \describe{
-#'   \item{Dominant}{numeric}
-#'   \item{Non.dominant}{numeric}
+#'   \item{dominant}{numeric}
+#'   \item{non_dominant}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1423,8 +1377,8 @@ NULL
 #' @name Recall
 #' @format A dataset with 57 observations on the following 2 variables.
 #' \describe{
-#'   \item{Condition}{character}
-#'   \item{Recall}{integer}
+#'   \item{condition}{character}
+#'   \item{recall}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1437,8 +1391,8 @@ NULL
 #' @name Referees
 #' @format A dataset with 91 observations on the following 2 variables.
 #' \describe{
-#'   \item{ReplacementRefs.}{character}
-#'   \item{Duration}{integer}
+#'   \item{refs}{character}
+#'   \item{duration}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1451,8 +1405,8 @@ NULL
 #' @name RestaurantMusic
 #' @format A dataset with 393 observations on the following 2 variables.
 #' \describe{
-#'   \item{MusicType}{character}
-#'   \item{Amount}{numeric}
+#'   \item{musicType}{character}
+#'   \item{amount}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1465,8 +1419,8 @@ NULL
 #' @name RollerCoasters
 #' @format A dataset with 129 observations on the following 2 variables.
 #' \describe{
-#'   \item{Speed}{integer}
-#'   \item{Height}{integer}
+#'   \item{speed}{integer}
+#'   \item{height}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1479,8 +1433,8 @@ NULL
 #' @name ScrabbleNames
 #' @format A dataset with 16 observations on the following 2 variables.
 #' \describe{
-#'   \item{Letters}{integer}
-#'   \item{ScrabbleScore}{integer}
+#'   \item{letters}{integer}
+#'   \item{scrabbleScore}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1493,8 +1447,8 @@ NULL
 #' @name ScrabbleRatio
 #' @format A dataset with 16 observations on the following 2 variables.
 #' \describe{
-#'   \item{ScrabbleScore}{integer}
-#'   \item{Ratio}{numeric}
+#'   \item{scrabbleScore}{integer}
+#'   \item{ratio}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1535,7 +1489,7 @@ NULL
 #' @name SleepGPA
 #' @format A dataset with 805 observations on the following 2 variables.
 #' \describe{
-#'   \item{Sleep}{numeric}
+#'   \item{sleep}{numeric}
 #'   \item{GPA}{numeric}
 #' }
 #' @keywords datasets
@@ -1563,22 +1517,7 @@ NULL
 #' @name SleepTimes
 #' @format A dataset with 22 observations on the following 1 variables.
 #' \describe{
-#'   \item{SleepHrs}{numeric}
-#' }
-#' @keywords datasets
-NULL
-
-#' SmartphoneRace
-#' 
-#' A data set
-#' 
-#' @docType data
-#' @name SmartphoneRace
-#' @format A dataset with 2 observations on the following 3 variables.
-#' \describe{
-#'   \item{White}{integer}
-#'   \item{Black}{integer}
-#'   \item{Hispanic}{integer}
+#'   \item{sleepHrs}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1591,8 +1530,8 @@ NULL
 #' @name Smoking
 #' @format A dataset with 4167 observations on the following 2 variables.
 #' \describe{
-#'   \item{Parents}{character}
-#'   \item{Child}{character}
+#'   \item{parents}{character}
+#'   \item{child}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -1618,8 +1557,8 @@ NULL
 #' @name SocialMediaandSelfEsteem
 #' @format A dataset with 81 observations on the following 2 variables.
 #' \describe{
-#'   \item{Media}{character}
-#'   \item{Score}{integer}
+#'   \item{media}{character}
+#'   \item{score}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1632,8 +1571,8 @@ NULL
 #' @name SocialNormsLocation
 #' @format A dataset with 181 observations on the following 2 variables.
 #' \describe{
-#'   \item{Location}{character}
-#'   \item{Collision}{character}
+#'   \item{location}{character}
+#'   \item{collision}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -1646,8 +1585,8 @@ NULL
 #' @name SocialNormsSex
 #' @format A dataset with 181 observations on the following 2 variables.
 #' \describe{
-#'   \item{Experimenter}{character}
-#'   \item{Collision}{character}
+#'   \item{experimenter}{character}
+#'   \item{collision}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -1660,8 +1599,8 @@ NULL
 #' @name SocialNormsSpeed
 #' @format A dataset with 181 observations on the following 2 variables.
 #' \describe{
-#'   \item{Speed}{character}
-#'   \item{Collision}{character}
+#'   \item{speed}{character}
+#'   \item{collision}{character}
 #' }
 #' @keywords datasets
 NULL
@@ -1688,7 +1627,7 @@ NULL
 #' @name StroopAgeTime
 #' @format A dataset with 50 observations on the following 2 variables.
 #' \describe{
-#'   \item{Age}{integer}
+#'   \item{age}{integer}
 #'   \item{time}{numeric}
 #' }
 #' @keywords datasets
@@ -1730,8 +1669,8 @@ NULL
 #' @name TempHeart
 #' @format A dataset with 130 observations on the following 2 variables.
 #' \describe{
-#'   \item{BodyTemp}{numeric}
-#'   \item{HeartRate}{integer}
+#'   \item{bodyTemp}{numeric}
+#'   \item{heartRate}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1758,8 +1697,8 @@ NULL
 #' @name TextbookPrices
 #' @format A dataset with 30 observations on the following 2 variables.
 #' \describe{
-#'   \item{Price}{numeric}
-#'   \item{Pages}{integer}
+#'   \item{price}{numeric}
+#'   \item{pages}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1772,7 +1711,7 @@ NULL
 #' @name TimeEstimate
 #' @format A dataset with 48 observations on the following 1 variables.
 #' \describe{
-#'   \item{Estimate}{integer}
+#'   \item{estimate}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1785,7 +1724,7 @@ NULL
 #' @name TimePopulation
 #' @format A dataset with 6215 observations on the following 1 variables.
 #' \describe{
-#'   \item{Estimate}{integer}
+#'   \item{estimate}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1798,8 +1737,8 @@ NULL
 #' @name Tuna
 #' @format A dataset with 274 observations on the following 2 variables.
 #' \describe{
-#'   \item{Tuna}{character}
-#'   \item{Mercury}{numeric}
+#'   \item{tuna}{character}
+#'   \item{mercury}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1812,7 +1751,7 @@ NULL
 #' @name TVLife
 #' @format A dataset with 22 observations on the following 2 variables.
 #' \describe{
-#'   \item{LifeExpectancy}{numeric}
+#'   \item{lifeExpectancy}{numeric}
 #'   \item{TVsperK}{integer}
 #' }
 #' @keywords datasets
@@ -1826,7 +1765,7 @@ NULL
 #' @name UsedCars
 #' @format A dataset with 102 observations on the following 1 variables.
 #' \describe{
-#'   \item{Price}{integer}
+#'   \item{price}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1840,7 +1779,7 @@ NULL
 #' @format A dataset with 45 observations on the following 2 variables.
 #' \describe{
 #'   \item{type_of_video}{character}
-#'   \item{Emotion}{numeric}
+#'   \item{emotion}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1854,7 +1793,7 @@ NULL
 #' @format A dataset with 45 observations on the following 2 variables.
 #' \describe{
 #'   \item{type_of_video}{character}
-#'   \item{Mood}{integer}
+#'   \item{mood}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1868,7 +1807,7 @@ NULL
 #' @format A dataset with 45 observations on the following 2 variables.
 #' \describe{
 #'   \item{type_of_video}{character}
-#'   \item{Stress}{integer}
+#'   \item{stress}{integer}
 #' }
 #' @keywords datasets
 NULL
@@ -1895,8 +1834,8 @@ NULL
 #' @name WaterWeight
 #' @format A dataset with 178 observations on the following 2 variables.
 #' \describe{
-#'   \item{Pre_Water_Weight}{numeric}
-#'   \item{Post_Water_Weight}{numeric}
+#'   \item{pre_water_weight}{numeric}
+#'   \item{post_water_weight}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1909,8 +1848,8 @@ NULL
 #' @name Weight
 #' @format A dataset with 180 observations on the following 2 variables.
 #' \describe{
-#'   \item{Pre_Weight}{numeric}
-#'   \item{Post_Weight}{numeric}
+#'   \item{pre_weight}{numeric}
+#'   \item{post_weight}{numeric}
 #' }
 #' @keywords datasets
 NULL
@@ -1937,24 +1876,8 @@ NULL
 #' @name Yawning
 #' @format A dataset with 50 observations on the following 2 variables.
 #' \describe{
-#'   \item{YawnSeed}{character}
-#'   \item{Response}{character}
-#' }
-#' @keywords datasets
-NULL
-
-#' YawnTime
-#' 
-#' A data set
-#' 
-#' @docType data
-#' @name YawnTime
-#' @format A dataset with 2 observations on the following 4 variables.
-#' \describe{
-#'   \item{X8.11am}{integer}
-#'   \item{X11am.2pm}{integer}
-#'   \item{X2.5pm}{integer}
-#'   \item{X5.8pm}{integer}
+#'   \item{yawnSeed}{character}
+#'   \item{response}{character}
 #' }
 #' @keywords datasets
 NULL
