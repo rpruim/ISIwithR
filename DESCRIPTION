@@ -6,7 +6,7 @@ Date: 2015-05-18
 Author: Randall Pruim
 Maintainer: Randall Pruim <rpruim@calvin.edu>
 Description: Datasets for "Introduction to Statistical Investigations" by
-    Tintle et al
+    Tintle et al.
 License: GPL-2
 Suggests:
     lattice,
