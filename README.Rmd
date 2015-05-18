@@ -19,4 +19,43 @@ knitr::opts_chunk$set(
 Tintle1
 =======
 
-Companion to Introduction to Statistical Investigations by Tintle et al
+
+
+This R Companion to 
+[Introduction to Statistical Investigations (Preliminary Edition)](http:://www.hope.edu/isa/) 
+by Nathan Tintle *et al*
+provides
+
+ * a companion text demonstrating how to use R to perform the analyses in that book
+ * an R package (`Tintle1`) 
+
+## Companion Text
+
+ The campanion text is available 
+ [as a PDF](https://github.com/rpruim/Tintle1/blob/master/Book/Tintle1.pdf) 
+ * The authors are Randall Pruim and Lana Park.  
+ 
+## R Package
+
+The `Tintle1` package can be installed from github using
+
+```{r eval=FALSE}
+devtools::install_github("rpruim/Tintle1")
+```
+
+This package contains 
+
+  * all of the data sets used in the package and 
+  * the `isa_snippet()` function which can be used to run any of 
+`r length(Tintle1::isa_snippet())` code chunks from the campanion.  
+
+For example:
+
+```{r message=FALSE}
+require(Tintle1)
+require(mosaic)
+```
+```{r}
+isa_snippet("Example1.3")
+```
+
