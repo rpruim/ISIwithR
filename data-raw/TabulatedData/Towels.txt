@@ -1,0 +1,3 @@
+	none	samerm	citizen	gender	guest
+reuse	113	151	145	127	150
+not	192	155	189	183	190

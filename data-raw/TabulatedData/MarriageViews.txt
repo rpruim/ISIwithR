@@ -1,0 +1,3 @@
+	Millennial	GenX	Boomers	Over65
+Yes	236	313	401	68
+No	300	416	745	143

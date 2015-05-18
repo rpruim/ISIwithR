@@ -3,16 +3,14 @@
 \docType{data}
 \name{OrganDonor}
 \alias{OrganDonor}
-\title{Organ Donation}
-\format{A dataset with 161 observations on the following variables.
-\itemize{
-\item{\code{default}}
-  {\code{opt-in}, \code{opt-out}, or \code{neutral}}
-\item{\code{donor}}
-  {\code{donor} or \code{not}}
-  }}
+\title{OrganDonor}
+\format{A dataset with 161 observations on the following 2 variables.
+\describe{
+  \item{Default}{character}
+  \item{Choice}{character}
+}}
 \description{
-How becoming an organ donor depends on how a person is asked.
+A data set
 }
 \keyword{datasets}
 

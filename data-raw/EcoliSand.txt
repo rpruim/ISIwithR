@@ -1,0 +1,27 @@
+sand_level	day_1
+above	18
+above	0
+below	200
+above	77
+above	4
+below	170
+above	263
+above	75
+above	5
+above	0
+below	0
+above	6.7
+above	33
+above	50
+above	10
+below	0
+above	0
+above	2
+below	33
+	
+	
+	
+	
+	
+	
+	

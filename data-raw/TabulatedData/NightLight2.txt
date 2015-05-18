@@ -1,0 +1,4 @@
+		Darkness	NightLight	RoomLight
+Near	18	78	41
+Normal	114	115	22
+Far	40	39	12

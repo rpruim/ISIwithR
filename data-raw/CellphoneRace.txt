@@ -1,0 +1,3 @@
+	White	Black	Hispanic
+Cell	3801	611	614
+NoCell	422	53	68

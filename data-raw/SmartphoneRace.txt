@@ -1,0 +1,4 @@
+	White	Black	Hispanic
+Yes	2238	372	382
+No	1543	239	232
+
