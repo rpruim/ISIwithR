@@ -1,4 +1,4 @@
-\Sexpr{set_parent('Tintle1.Rnw')}
+\Sexpr{set_parent('ISIwithR.Rnw')}
 
 \setcounter{chapter}{8}
 \Chapter{Comparing More than Two Means}

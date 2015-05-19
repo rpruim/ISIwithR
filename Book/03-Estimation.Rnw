@@ -1,4 +1,4 @@
-\Sexpr{set_parent('Tintle1.Rnw')}
+\Sexpr{set_parent('ISIwithR.Rnw')}
 
 \setcounter{chapter}{2}
 \Chapter{Estimation: How Large is the Effect?}

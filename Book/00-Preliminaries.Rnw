@@ -1,4 +1,4 @@
-\Sexpr{set_parent('Tintle1.Rnw')}
+\Sexpr{set_parent('ISIwithR.Rnw')}
 
 \setcounter{chapter}{-1}
 \Chapter{Preliminaries}
@@ -17,7 +17,7 @@ In the \tab{Packages} tab, check the boxes next to the following packages to
 load them:
 \begin{itemize}
   \item \pkg{mosaic}  (a package from Project MOSAIC)
-  \item \pkg{Tintle1}  (data sets)
+  \item \pkg{ISIwithR}  (data sets)
 \end{itemize}
 
 \RStudio\ provides several ways to create documents that include text, \R\ code, \R\ output, graphics, even mathematical notation all in one document.  The simplest of these is R Markdown.  
@@ -129,9 +129,9 @@ Now that we've explained a few basics for using \R, let's take a look at a data 
 
 Data sets in \R\ are usually stored as \term{data frames} in a rectangular arrangement with rows 
 corresponding to \term{observational units} and columns corresponding to \term{variables}. A number of data
-sets are built into \R\ and its packages. The package for our text is \pkg{Tintle1} which comes with a number of data sets. %copied from Lock5
+sets are built into \R\ and its packages. The package for our text is \pkg{ISIwithR} which comes with a number of data sets. %copied from Lock5
 <<>>=
-require(Tintle1)    # tell R to use the package for our textbook
+require(ISIwithR)    # tell R to use the package for our textbook
 data(OrganDonor)    # load the OrganDonor dataset
 @
 
