@@ -51,15 +51,15 @@ isi_snippet("Exploration6.3.8")
 #> 	isa_snippet(Exploration6.3.8)
 #> 	------ ~~~~~~~~~~~~~~~~
 #> 
-#> > sim.fri <- do(1000) * diffmean(friends ~ shuffle(sex), data = CloseFriends)
+#> > Friends.null <- do(1000) * diffmean(friends ~ shuffle(sex), data = CloseFriends)
 #> 
-#> > head(sim.fri, 3)
-#>      diffmean
-#> 1 -0.10338310
-#> 2  0.01525667
-#> 3 -0.06751526
+#> > head(Friends.null, 3)
+#>       diffmean
+#> 1 -0.001297719
+#> 2  0.078715145
+#> 3  0.009738538
 #> 
-#> > histogram(~ diffmean, data = sim.fri, width = 0.05,
+#> > histogram(~ diffmean, data = Friends.null, width = 0.05,
 #> +         group = cut(diffmean, c(-0.4, -0.228, 0.228, 0.4)), 
 #> +         fcol = c("steelblue", "navy", "steelblue"))
 ```
