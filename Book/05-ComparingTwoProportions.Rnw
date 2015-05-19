@@ -242,8 +242,7 @@ tally(shuffle(response) ~ yawnSeed, data = Yawning, margins = TRUE)
     We simulate a world in which $\pi_{seeded} - \pi_{control} = 0$:
 <<Exploration5.2.16, cache=TRUE, tidy=FALSE>>=
 sim.yawn <- 
-  do(1000) * diffprop(shuffle(response) ~ yawnSeed, level = "Yawn", quiet = TRUE, 
-                      data = Yawning)
+  do(1000) * diffprop(shuffle(response) ~ yawnSeed, level = "Yawn", data = Yawning)
 head(sim.yawn, 3)
 dotPlot(~diffprop, data = sim.yawn, groups = (diffprop >= 0.136), cex = 5)
 @
@@ -409,8 +408,7 @@ diffprop(child ~ parents, data = Smoking)
   \item
     We simulate a world in which $\pi_{smoker} - \pi_{nonsmoker} = 0$:
 <<Figure5.10b, cache=TRUE>>=
-sim.smoke <- do(5000) * diffprop(shuffle(child) ~ parents, data = Smoking,
-                                 quiet = TRUE)
+sim.smoke <- do(5000) * diffprop(shuffle(child) ~ parents, data = Smoking)
 head(sim.smoke, 3)
 dotPlot(~ diffprop, data = sim.smoke, cex = 25)
 @

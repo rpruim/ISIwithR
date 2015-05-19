@@ -37,7 +37,7 @@ MAD(prop(shuffle(stop) ~ position, data = Stop))
   \item
     We simulate a world in which $MAD = 0$ :
 <<Figure8.3, cache=TRUE>>=
-sim.stop <- do(1000) * MAD(prop(shuffle(stop) ~ position, data=Stop, quiet=TRUE))
+sim.stop <- do(1000) * MAD(prop(shuffle(stop) ~ position, data=Stop))
 head(sim.stop, 3)
 histogram(~ result, data = sim.stop, width = 0.005, groups = (result >= 0.086))
 @
@@ -76,7 +76,7 @@ MAD(prop(choice ~ default, data = OrganDonor))
   \item
     We simulate a world in which $MAD = 0$:
 <<Exploration8.1.11, cache=TRUE>>=
-sim.donor <- do(1000) * MAD(prop(shuffle(choice) ~ default, data = OrganDonor, quiet=TRUE))
+sim.donor <- do(1000) * MAD(prop(shuffle(choice) ~ default, data = OrganDonor))
 head(sim.donor, 3)
 histogram(~ result, data = sim.donor, width = 0.010, groups = (result >= 0.268))
 @
@@ -118,7 +118,7 @@ MAD(prop(improvement ~ acupuncture, data = Acupuncture))
 <<Figure8.5, cache=TRUE>>=
 sim.acu <- 
   do(1000) * 
-    MAD(prop(shuffle(improvement) ~ acupuncture, data = Acupuncture, quiet=TRUE))
+    MAD(prop(shuffle(improvement) ~ acupuncture, data = Acupuncture))
 head(sim.acu, 3)
 histogram(~ result, data = sim.acu, groups = (result >= 0.135))
 @
@@ -186,7 +186,7 @@ mosaic(towel ~ treatment, data = Towels1)
 
 <<Exploration8.2.6, cache=TRUE>>=
 MAD(prop(towel ~ treatment, data = Towels1))
-sim.towel <- do(1000) * MAD(prop(shuffle(towel) ~ treatment, data = Towels1, quiet=TRUE))
+sim.towel <- do(1000) * MAD(prop(shuffle(towel) ~ treatment, data = Towels1))
 head(sim.towel, 3)
 histogram(~ result, data = sim.towel, groups = (result >= 0.111))
 prop(~ (result >= 0.111), data = sim.towel)

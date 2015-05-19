@@ -52,7 +52,7 @@ histogram(~ result, data = sample.gpa)
 @
 
 <<Figure2.2b, cache=TRUE>>=
-sample.campus <- do(1000) * prop(~ onCampus, level = "Y", quiet=TRUE,
+sample.campus <- do(1000) * prop(~ onCampus, level = "Y",  
                                  data = sample(CollegeMidwest, 30))
 head(sample.campus)
 favstats(~ Y, data = sample.campus)
@@ -249,43 +249,43 @@ head(SleepTimes, 3)
 \subsubsection*{Shape}
 
 <<Exploration2.2.10>>=
-histogram(~ SleepHrs, data = SleepTimes, nint = 15)
+histogram(~ sleepHrs, data = SleepTimes, nint = 15)
 @
 
 \subsubsection*{Center}
 
 <<Exploration2.2.11>>=
-mean(~ SleepHrs, data = SleepTimes) 
+mean(~ sleepHrs, data = SleepTimes) 
 @
 
 <<Exploration2.2.16>>=
-median(~ SleepHrs, data = SleepTimes)
+median(~ sleepHrs, data = SleepTimes)
 @
 
 \subsubsection*{Variability}
 
 <<Exploration2.2.18>>=
-sd(~ SleepHrs, data = SleepTimes)
+sd(~ sleepHrs, data = SleepTimes)
 @
 
 \subsubsection*{Unusual observations}
 
-We could examine the entire data set to find any outliers but there is a quicker way to see if there potential outliers. The \function{bwplot()} function plots a box-and-whisker plot which identifies \emph{possible} outliers with a dot beyond the whiskers.
+We could examine the entire data set to find any outliers, but there is a quicker way to see if there potential outliers. The \function{bwplot()} function plots a box-and-whisker plot which identifies \emph{possible} outliers with a dot beyond the whiskers.
 <<Exploration2.2.20>>=
-bwplot(~ SleepHrs, data = SleepTimes)
+bwplot(~ sleepHrs, data = SleepTimes)
 @
 
 % This may not originally be a normal distribution
-Instead of using the hypothetical population provided in the applet, we can create our own hypothetical population by assigning a variable (\variable{SleepHrs}) a random normal distribution (\function{rnorm}) of count (18000), mean (8 hrs), and standard deviation (1.5 hrs). Additionally, let's round each value to the nearest hundredth (2) using \function{round()}
+Instead of using the hypothetical population provided in the applet, we can create our own hypothetical population by assigning a variable (\variable{sleepHrs}) a random normal distribution (\function{rnorm}) of count (18000), mean (8 hrs), and standard deviation (1.5 hrs). Additionally, let's round each value to the nearest hundredth (2) using \function{round()}
 <<Exploration2.2.24>>=
-Pop1 <- data.frame(SleepHrs = round(rnorm(18000, 8, 1.5), 2))
+Pop1 <- data.frame(sleepHrs = round(rnorm(18000, 8, 1.5), 2))
 head(Pop1)
-favstats(SleepHrs, data = Pop1)
+favstats(sleepHrs, data = Pop1)
 @
 
 <<Exploration2.2.25>>=
-mean(~ SleepHrs, data = SleepTimes) # test statistic
-sim.pop1 <- do(1000) * mean(~ SleepHrs, data = sample(Pop1, 48))
+mean(~ sleepHrs, data = SleepTimes) # test statistic
+sim.pop1 <- do(1000) * mean(~ sleepHrs, data = sample(Pop1, 48))
 head(sim.pop1, 3)
 dotPlot(~ result, data = sim.pop1, width = 0.05)
 favstats(~ result, data = sim.pop1)
@@ -306,7 +306,7 @@ t
 @
 
 <<Exploration2.2.33>>=
-sim.t <- do(1000) * stat(t.test(~ SleepHrs, data = sample(Pop1, 48)))
+sim.t <- do(1000) * stat(t.test(~ sleepHrs, data = sample(Pop1, 48)))
 head(sim.t, 3)
 histogram(~ t, data = sim.t, width = 1, fit = "t")
 @
@@ -316,7 +316,7 @@ prop(~ (t <= 5.981), data = sim.t)
 @
 
 <<Exploration2.2.35>>=
-t.test(~ SleepHrs, data = Pop1)
+t.test(~ sleepHrs, data = Pop1)
 @
 
 \subsubsection*{Follow-up \# 1}
@@ -328,7 +328,7 @@ histogram(~ sleep2, data = Pop)
 @
 
 <<Exploration2.2.40b>>=
-mean(~ SleepHrs, data = SleepTimes) # test statistic
+mean(~ sleepHrs, data = SleepTimes) # test statistic
 sim.pop2 <- do(1000) * mean(~ sleep2, data = sample(Pop, 48))
 head(sim.pop2, 3)
 dotPlot(~ result, data = sim.pop2, width = 0.05)
@@ -343,7 +343,7 @@ t.test(~ sleep2, data = Pop)
 \subsubsection*{Follow-up \# 2}
 
 <<Exploration2.2.46>>=
-median(~ SleepHrs, data = SleepTimes) # test statistic
+median(~ sleepHrs, data = SleepTimes) # test statistic
 sim.pop1med <- do(1000) * median(~ sleep1, data = sample(Pop, 48))
 head(sim.pop1med, 3)
 histogram(~ result, data = sim.pop1med, width = 0.1)
