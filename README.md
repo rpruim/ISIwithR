@@ -7,7 +7,7 @@ ISIwithR
 =======
 
 This R Companion to 
-[Introduction to Statistical Investigations (Preliminary Edition)](http:://www.hope.edu/isa/) 
+[Introduction to Statistical Investigations (Preliminary Edition)](http:://www.hope.edu/isi/) 
 by Nathan Tintle *et al*
 provides
 
@@ -45,16 +45,24 @@ require(mosaic)
 ```
 
 ```r
-isa_snippet("Example1.3")
+isi_snippet("Exploration6.3.8")
 #> 
 #> 
-#> 	isa_snippet(Example1.3)
-#> 	------ ~~~~~~~~~~
+#> 	isa_snippet(Exploration6.3.8)
+#> 	------ ~~~~~~~~~~~~~~~~
 #> 
-#> > z <- (71/361 - 0.15) / 0.018; z   # z-score for sample size 361
-#> [1] 2.593106
+#> > sim.fri <- do(1000) * diffmean(friends ~ shuffle(sex), data = CloseFriends)
 #> 
-#> > z <-  (8/10 - 0.15)  / 0.113; z   # z-score for sample size 10
-#> [1] 5.752212
+#> > head(sim.fri, 3)
+#>      diffmean
+#> 1  0.17528240
+#> 2  0.01525667
+#> 3 -0.08131058
+#> 
+#> > histogram(~ diffmean, data = sim.fri, width = 0.05,
+#> +         group = cut(diffmean, c(-0.4, -0.228, 0.228, 0.4)), 
+#> +         fcol = c("steelblue", "navy", "steelblue"))
 ```
+
+![](README-unnamed-chunk-4-1.png) 
 

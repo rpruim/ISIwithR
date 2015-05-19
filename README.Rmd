@@ -20,7 +20,7 @@ ISIwithR
 =======
 
 This R Companion to 
-[Introduction to Statistical Investigations (Preliminary Edition)](http:://www.hope.edu/isa/) 
+[Introduction to Statistical Investigations (Preliminary Edition)](http:://www.hope.edu/isi/) 
 by Nathan Tintle *et al*
 provides
 
@@ -46,7 +46,7 @@ This package contains
 
   * all of the data sets used in the book, and 
   * the `isa_snippet()` function which can be used to run any of 
-`r length(ISIwithR::isa_snippet())` code chunks from the campanion.  
+`r length(ISIwithR::isi_snippet())` code chunks from the campanion.  
 
 For example:
 
@@ -55,6 +55,6 @@ require(ISIwithR)
 require(mosaic)
 ```
 ```{r}
-isa_snippet("Example1.3")
+isi_snippet("Exploration6.3.8")
 ```
 

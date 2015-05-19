@@ -28,11 +28,11 @@
 #' @seealso \code{\link{demo}}, \code{\link{source}}.
 #' @export 
 #' 
-isa_snippet <- function (name, execute = TRUE, view = !execute, echo = TRUE, 
+isi_snippet <- function (name, execute = TRUE, view = !execute, echo = TRUE, 
           ask = getOption("demo.ask"), verbose = getOption("verbose"), 
           lib.loc = NULL, character.only = FALSE) 
 {
-  package <- "Tintle1"
+  package <- "ISIwithR"
   paths <- find.package(package, lib.loc, verbose = verbose)
   paths <- paths[file_test("-d", file.path(paths, "snippets"))]
   if (missing(name)) {
