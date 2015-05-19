@@ -55,14 +55,14 @@ isi_snippet("Exploration6.3.8")
 #> 
 #> > head(sim.fri, 3)
 #>      diffmean
-#> 1  0.17528240
+#> 1 -0.10338310
 #> 2  0.01525667
-#> 3 -0.08131058
+#> 3 -0.06751526
 #> 
 #> > histogram(~ diffmean, data = sim.fri, width = 0.05,
 #> +         group = cut(diffmean, c(-0.4, -0.228, 0.228, 0.4)), 
 #> +         fcol = c("steelblue", "navy", "steelblue"))
 ```
 
-![](README-unnamed-chunk-4-1.png) 
+![](README-snippet-1.png) 
 

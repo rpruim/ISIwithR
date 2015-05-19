@@ -8,7 +8,7 @@ output:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r, setup, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -38,7 +38,7 @@ provides
 
 The `ISIwithR` package can be installed from github using
 
-```{r eval=FALSE}
+```{r, devtools, eval=FALSE}
 devtools::install_github("rpruim/ISIwithR")
 ```
 
@@ -50,11 +50,11 @@ This package contains
 
 For example:
 
-```{r message=FALSE}
+```{r, require, message=FALSE}
 require(ISIwithR)
 require(mosaic)
 ```
-```{r}
+```{r, snippet}
 isi_snippet("Exploration6.3.8")
 ```
 
