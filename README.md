@@ -2,43 +2,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
-```
-## Loading required package: mosaic
-## Loading required package: car
-## Loading required package: dplyr
-## 
-## Attaching package: 'dplyr'
-## 
-## The following object is masked from 'package:stats':
-## 
-##     filter
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-## 
-## Loading required package: lattice
-## Loading required package: ggplot2
-## 
-## Attaching package: 'mosaic'
-## 
-## The following objects are masked from 'package:dplyr':
-## 
-##     count, do, tally
-## 
-## The following object is masked from 'package:car':
-## 
-##     logit
-## 
-## The following objects are masked from 'package:stats':
-## 
-##     binom.test, cor, cov, D, fivenum, IQR, median, prop.test,
-##     quantile, sd, t.test, var
-## 
-## The following objects are masked from 'package:base':
-## 
-##     max, mean, min, prod, range, sample, sum
-```
 
 ISIwithR
 =======
