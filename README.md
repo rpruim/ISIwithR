@@ -3,10 +3,8 @@
 
 
 
-Tintle1
+ISIwithR
 =======
-
-
 
 This R Companion to 
 [Introduction to Statistical Investigations (Preliminary Edition)](http:://www.hope.edu/isa/) 
@@ -14,22 +12,22 @@ by Nathan Tintle *et al*
 provides
 
  * a companion text demonstrating how to use R to perform the analyses in that book
- * an R package (`Tintle1`) 
+ * an R package (`ISIwithR`) 
 
 ## Companion Text
 
- The campanion text is available 
- [as a PDF](https://github.com/rpruim/Tintle1/blob/master/Book/Tintle1.pdf) 
+ The campanion text is available as a PDF 
+ [[to view]](Book/ISIwithR.pdf) or [[to download]](../../raw/master/Book/ISIwithR.pdf) 
  
   * The authors are Randall Pruim and Lana Park.  
  
 ## R Package
 
-The `Tintle1` package can be installed from github using
+The `ISIwithR` package can be installed from github using
 
 
 ```r
-devtools::install_github("rpruim/Tintle1")
+devtools::install_github("rpruim/ISIwithR")
 ```
 
 This package contains 
@@ -42,7 +40,7 @@ For example:
 
 
 ```r
-require(Tintle1)
+require(ISIwithR)
 require(mosaic)
 ```
 
