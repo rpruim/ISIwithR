@@ -2,6 +2,43 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
+```
+## Loading required package: mosaic
+## Loading required package: car
+## Loading required package: dplyr
+## 
+## Attaching package: 'dplyr'
+## 
+## The following object is masked from 'package:stats':
+## 
+##     filter
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+## 
+## Loading required package: lattice
+## Loading required package: ggplot2
+## 
+## Attaching package: 'mosaic'
+## 
+## The following objects are masked from 'package:dplyr':
+## 
+##     count, do, tally
+## 
+## The following object is masked from 'package:car':
+## 
+##     logit
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     binom.test, cor, cov, D, fivenum, IQR, median, prop.test,
+##     quantile, sd, t.test, var
+## 
+## The following objects are masked from 'package:base':
+## 
+##     max, mean, min, prod, range, sample, sum
+```
 
 ISIwithR
 =======
@@ -54,10 +91,10 @@ isi_snippet("Exploration6.3.8")
 #> > Friends.null <- do(1000) * diffmean(friends ~ shuffle(sex), data = CloseFriends)
 #> 
 #> > head(Friends.null, 3)
-#>       diffmean
-#> 1 -0.001297719
-#> 2  0.078715145
-#> 3  0.009738538
+#>      diffmean
+#> 1  0.15596895
+#> 2  0.04284731
+#> 3 -0.20546848
 #> 
 #> > histogram(~ diffmean, data = Friends.null, width = 0.05,
 #> +         group = cut(diffmean, c(-0.4, -0.228, 0.228, 0.4)), 
