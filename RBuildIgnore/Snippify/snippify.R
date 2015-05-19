@@ -28,7 +28,7 @@ snippify <- function(file, path, ...) {
 
 require(knitr)
 
-setwd("/Users/rpruim/projects/github/Tintle1/Book/")
-purl("/Users/rpruim/projects/github/Tintle1/Book/Tintle1.Rnw")
-snippify("/Users/rpruim/projects/github/Tintle1/Book/Tintle1.R", 
-         path="/Users/rpruim/projects/github/Tintle1/inst/snippets")
+setwd("/Users/rpruim/projects/github/ISIwithR/Book/")
+purl("/Users/rpruim/projects/github/ISIwithR/Book/ISIwithR.Rnw")
+snippify("/Users/rpruim/projects/github/ISIwithR/Book/ISIwithR.R", 
+         path="/Users/rpruim/projects/github/ISIwithR/inst/snippets")
