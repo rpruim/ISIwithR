@@ -88,15 +88,15 @@ cor(change_mood ~ exercise_intensity, data = ExerciseMood)
   \item
     We simulate a world in which $\rho = 0$  :
 <<Figure10.5, cache=TRUE>>=
-sim.mood <- do(1000) * cor(shuffle(change_mood) ~ exercise_intensity, data = ExerciseMood)
-head(sim.mood, 3)
-dotPlot(~ result, data = sim.mood, n = 50, groups = (result <= -0.187 | result >= 0.187))
+Mood.null <- do(1000) * cor(shuffle(change_mood) ~ exercise_intensity, data = ExerciseMood)
+head(Mood.null, 3)
+dotPlot(~ result, data = Mood.null, n = 50, groups = (result <= -0.187 | result >= 0.187))
 @
   \item
     Strength of evidence:
 <<Figure10.5b>>=
-favstats(~ result, data = sim.mood)
-prop(~ (result <= -0.187 | result >= 0.187), data = sim.mood)
+favstats(~ result, data = Mood.null)
+prop(~ (result <= -0.187 | result >= 0.187), data = Mood.null)
 @
 \end{enumerate}
 
@@ -141,15 +141,15 @@ cor(draft_number ~ sequential_date, data = DraftLottery)
   \item
     We simulate a world in which $\rho = 0$  :
 <<Exploration10.2.7, cache=TRUE>>=
-sim.draft <- do(1000) * cor(shuffle(draft_number) ~ sequential_date, data = DraftLottery)
-head(sim.draft, 3)
-dotPlot(~ result, data = sim.draft, n = 50, groups = (result <= -0.226 | result >= 0.226))
+Draft.null <- do(1000) * cor(shuffle(draft_number) ~ sequential_date, data = DraftLottery)
+head(Draft.null, 3)
+dotPlot(~ result, data = Draft.null, n = 50, groups = (result <= -0.226 | result >= 0.226))
 @
   \item
     Strength of evidence:
 <<Exploration10.2.7b>>=
-favstats(~ result, data = sim.draft)
-prop(~ (result <= -0.226 | result >= 0.226), data = sim.draft)
+favstats(~ result, data = Draft.null)
+prop(~ (result <= -0.226 | result >= 0.226), data = Draft.null)
 @
 \end{enumerate}
 
@@ -261,15 +261,15 @@ coef(lm(gpa ~ hours, data = GPA))
   \item
     We simulate a world in which $slope = 0$:
 <<Figure10.11, cache=TRUE>>=
-sim.gpa <- do(1000) * coef(lm(shuffle(gpa) ~ hours, data = GPA))
-head(sim.gpa, 3)
-dotPlot(~ hours, data = sim.gpa, n = 50, groups = (hours <= -0.00588))
+GPA.null <- do(1000) * coef(lm(shuffle(gpa) ~ hours, data = GPA))
+head(GPA.null, 3)
+dotPlot(~ hours, data = GPA.null, n = 50, groups = (hours <= -0.00588))
 @
   \item
     Strength of evidence:
 <<Figure10.11b>>=
-favstats(~ hours, data = sim.gpa)
-prop(~ (hours <= -0.00588), data = sim.gpa)
+favstats(~ hours, data = GPA.null)
+prop(~ (hours <= -0.00588), data = GPA.null)
 @
 \end{enumerate}
 
@@ -297,15 +297,15 @@ coef(lm(perceived_weight ~ hand_width, data = Handwidth))
   \item
     We simulate a world in which $slope = 0$  :
 <<Exploration10.4.5, cache=TRUE>>=
-sim.hand <- do(1000) * coef(lm(shuffle(perceived_weight) ~ hand_width, data = Handwidth))
-head(sim.hand, 3)
-dotPlot(~ hand_width, data = sim.hand, n = 50, groups = (hand_width <= -3.756))
+Hand.null <- do(1000) * coef(lm(shuffle(perceived_weight) ~ hand_width, data = Handwidth))
+head(Hand.null, 3)
+dotPlot(~ hand_width, data = Hand.null, n = 50, groups = (hand_width <= -3.756))
 @
   \item
     Strength of evidence:
 <<Exploration10.4.6>>=
-favstats(~ hand_width, data = sim.hand)
-prop(~ (hand_width <= -6.756), data = sim.hand)
+favstats(~ hand_width, data = Hand.null)
+prop(~ (hand_width <= -6.756), data = Hand.null)
 @
 \end{enumerate}
 
@@ -333,21 +333,21 @@ coef(lm(heartRate ~ bodyTemp, data = TempHeart))
   \item
     We simulate a world in which $slope = 0$:
 <<Figure10.14b, cache=TRUE>>=
-sim.rate <- do(1000) * coef(lm(shuffle(heartRate) ~ bodyTemp, data = TempHeart))
-head(sim.rate, 3)
-dotPlot(~ bodyTemp, data = sim.rate, n = 50, groups = (bodyTemp <= -2.443 | bodyTemp >= 2.443))
+Rate.null <- do(1000) * coef(lm(shuffle(heartRate) ~ bodyTemp, data = TempHeart))
+head(Rate.null, 3)
+dotPlot(~ bodyTemp, data = Rate.null, n = 50, groups = (bodyTemp <= -2.443 | bodyTemp >= 2.443))
 @
   \item
     Strength of evidence:
 <<Figure10.14c>>=
-favstats(~ bodyTemp, data = sim.rate)
-prop(~ (bodyTemp <= -2.443 | bodyTemp >= 2.443), data = sim.rate)
+favstats(~ bodyTemp, data = Rate.null)
+prop(~ (bodyTemp <= -2.443 | bodyTemp >= 2.443), data = Rate.null)
 @
 \end{enumerate}
 
 <<Figure10.15, cache=TRUE>>=
-sim.ratet <- do(1000) * coef(summary(lm(shuffle(heartRate) ~ bodyTemp, data = TempHeart)))
-head(sim.ratet, 10)
+Rate.null <- do(1000) * coef(summary(lm(shuffle(heartRate) ~ bodyTemp, data = TempHeart)))
+head(Rate.null, 10)
 @
 % t-stat simulation
 
@@ -395,15 +395,15 @@ coef(lm(density ~ friends, data = Facebook))
   \item
     We simulate a world in which $slope = 0$:
 <<Exploration10.5.4, cache=TRUE>>=
-sim.face <- do(1000) * coef(lm(shuffle(density) ~ friends, data = Facebook))
-head(sim.face, 3)
-dotPlot(~ friends, data = sim.face, n = 50, groups = (friends <= -0.201 | friends >= 0.201))
+Facebook.null <- do(1000) * coef(lm(shuffle(density) ~ friends, data = Facebook))
+head(Facebook.null, 3)
+dotPlot(~ friends, data = Facebook.null, n = 50, groups = (friends <= -0.201 | friends >= 0.201))
 @
   \item
     Strength of evidence:
 <<Exploration10.5.4b>>=
-favstats(~ friends, data = sim.face)
-prop(~ (friends <= -0.201 | friends >= 0.201), data = sim.face)
+favstats(~ friends, data = Facebook.null)
+prop(~ (friends <= -0.201 | friends >= 0.201), data = Facebook.null)
 @
 \end{enumerate}
 

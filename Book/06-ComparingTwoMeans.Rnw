@@ -101,16 +101,16 @@ diffmean(shuffle(time) ~ frame, data = BikeTimes)
   \item
     We simulate a world in which $\mu_{carbon} - \mu_{steel} = 0$:
 <<Figure6.7, cache=TRUE, tidy=FALSE>>=
-sim.bike <- do(1000) * diffmean(shuffle(time) ~ frame, data = BikeTimes)
-head(sim.bike, 3)
-histogram(~ diffmean, data = sim.bike, 
+Bike.null <- do(1000) * diffmean(shuffle(time) ~ frame, data = BikeTimes)
+head(Bike.null, 3)
+histogram(~ diffmean, data = Bike.null, 
         groups = (diffmean <= -0.53 | diffmean >= 0.53))
 @
   \item
     Strength of evidence:
 <<Figure6.8>>=
-favstats(~ diffmean, data = sim.bike)
-prop(~ (diffmean <= -0.53 | diffmean >= 0.53), data = sim.bike)
+favstats(~ diffmean, data = Bike.null)
+prop(~ (diffmean <= -0.53 | diffmean >= 0.53), data = Bike.null)
 @
 \end{enumerate}
 
@@ -119,7 +119,7 @@ prop(~ (diffmean <= -0.53 | diffmean >= 0.53), data = sim.bike)
 Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
 <<Example6.2>>=
 diff <- -diffmean(time ~ frame, data = BikeTimes)  # note the negative sign
-sd <- sd(~ diffmean, data = sim.bike)
+sd <- sd(~ diffmean, data = Bike.null)
 diff - 2 * sd   # lower limit of 95% CI
 diff + 2 * sd   # upper limit of 95% CI
 @
@@ -138,9 +138,9 @@ diff(mean(time ~ sleep, data = Sleep))
 
 <<Exploration6.2.9>>=
 diff(mean(shuffle(time) ~ sleep, data = Sleep))
-sample <- do(30) * diff(mean(shuffle(time) ~ sleep, data = Sleep))
-head(sample, 3)
-dotPlot(~ unrestricted, data = sample, width = 1, cex = .25)
+Sleep.null <- do(30) * diffmean(shuffle(time) ~ sleep, data = Sleep)
+head(Sleep.null, 3)
+dotPlot(~ diffmean, data = Sleep.null, width = 1, cex = .25)
 @
 
 \begin{enumerate}
@@ -153,23 +153,22 @@ dotPlot(~ unrestricted, data = sample, width = 1, cex = .25)
   \item
     We simulate a world in which $\mu_{unrestricted} - \mu_{deprived} = 0$:
 <<Exploration6.2.10, cache=TRUE, tidy=FALSE>>=
-sim.sleep <- do(1000) * diff(mean(shuffle(time) ~ sleep, data = Sleep))
-head(sim.sleep, 3)
-histogram(~ unrestricted, data = sim.sleep, 
-        groups = (unrestricted >= 15.92))
+Sleep.null2 <- do(1000) * diffmean(shuffle(time) ~ sleep, data = Sleep)
+head(Sleep.null2, 3)
+histogram(~ diffmean, data = sim.sleep, groups = (diffmean >= 15.92))
 @
   \item
     Strength of evidence:
 <<Exploration6.2.10b>>=
-favstats(~ unrestricted, data = sim.sleep)
-prop(~ (unrestricted >= 15.92), data = sim.sleep)
+favstats(~ diffmean, data = Sleep.null2)
+prop(~ (diffmean >= 15.92), data = Sleep.null2)
 @
 \end{enumerate}
 
 Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
 <<Exploration6.2.13>>=
-diff <- diff(mean(time ~ sleep, data = Sleep))
-sd <- sd(~ unrestricted, data = sim.sleep)
+diff <- diffmean(time ~ sleep, data = Sleep)
+sd <- sd(~ diffmean, data = Sleep.null2)
 diff - 2 * sd   # lower limit of 95% CI
 diff + 2 * sd   # upper limit of 95% CI
 @
@@ -191,24 +190,24 @@ diff(median(time ~ sleep, data = Sleep))
   \item
     We simulate a world in which median$_{unrestricted}$ - median$_{deprived}$ = 0:
 <<Exploration6.2.16b,cache=TRUE, tidy=FALSE>>=
-sim.med <- do(1000) * diff(median(shuffle(time) ~ sleep, data = Sleep))
-head(sim.med, 3)
-histogram(~ unrestricted, data = sim.med, 
+Med.null <- do(1000) * diff(median(shuffle(time) ~ sleep, data = Sleep))
+head(Med.null, 3)
+histogram(~ unrestricted, data = Med.null, 
         groups = (unrestricted >= 12.05),
         width = 3)
 @
   \item
     Strength of evidence:
 <<Exploration6.2.16c>>=
-favstats(~ unrestricted, data = sim.med)
-prop(~ (unrestricted >= 12.05), data = sim.med)
+favstats(~ unrestricted, data = Med.null)
+prop(~ (unrestricted >= 12.05), data = Med.null)
 @
 \end{enumerate}
 
 \section{Comparing Two Means: Theory-Based Approach}
 
 \subsection*{Example 6.3: Breastfeeding and Intelligence}
-
+2
 <<Table6.4>>=
 head(BreastFeedIntell)
 favstats(GCI ~ feeding, data = BreastFeedIntell)
@@ -230,24 +229,24 @@ histogram(~ GCI | feeding, data = BreastFeedIntell, width = 5)
   \item
     We simulate a world in which $\mu_{breastfed} - \mu_{not} = 0$:
 <<Figure6.11, cache=TRUE, tidy=FALSE>>=
-sim.GCI <- do(1000) * diffmean(shuffle(GCI) ~ feeding, data = BreastFeedIntell)
-head(sim.GCI, 3)
-histogram(~ diffmean, data = sim.GCI, width = 0.5,
+GCI.null <- do(1000) * diffmean(shuffle(GCI) ~ feeding, data = BreastFeedIntell)
+head(GCI.null, 3)
+histogram(~ diffmean, data = GCI.null, width = 0.5,
         group = cut(diffmean, c(-7, -4.40, 4.40, 7)), 
         fcol = c("steelblue", "navy", "steelblue"))
 @
   \item
     Strength of evidence:
 <<Figure6.12>>=
-favstats(~ diffmean, data = sim.GCI)
-prop(~ (diffmean <= -4.40 | diffmean >= 4.40), data = sim.GCI)
+favstats(~ diffmean, data = GCI.null)
+prop(~ (diffmean <= -4.40 | diffmean >= 4.40), data = GCI.null)
 @
 \end{enumerate}
 
 Determining a 95\% confidence interval using the 2SD Method and standard deviation of the null distribution:
 <<Example6.3>>=
 diff <- -diffmean(GCI ~ feeding, data = BreastFeedIntell)   # note the negative sign
-sd <- sd(~ diffmean, data = sim.GCI); sd
+sd <- sd(~ diffmean, data = GCI.null); sd
 diff - 2 * sd   # lower limit of 95% CI
 diff + 2 * sd   # upper limit of 95% CI
 @
@@ -285,17 +284,17 @@ diffmean(friends ~ sex, data = CloseFriends)
   \item
     We simulate a world in which $\mu_{men} - \mu_{women} = 0$:
 <<Exploration6.3.8, cache=TRUE, tidy=FALSE>>=
-sim.fri <- do(1000) * diffmean(friends ~ shuffle(sex), data = CloseFriends)
-head(sim.fri, 3)
-histogram(~ diffmean, data = sim.fri, width = 0.05,
+Friends.null <- do(1000) * diffmean(friends ~ shuffle(sex), data = CloseFriends)
+head(Friends.null, 3)
+histogram(~ diffmean, data = Friends.null, width = 0.05,
         group = cut(diffmean, c(-0.4, -0.228, 0.228, 0.4)), 
         fcol = c("steelblue", "navy", "steelblue"))
 @
   \item
     Strength of evidence:
 <<Exploration6.3.10>>=
-favstats(~ diffmean, data = sim.fri)
-prop(~ (diffmean <= -0.228 | diffmean >= 0.228), data = sim.fri)
+favstats(~ diffmean, data = Friends.null)
+prop(~ (diffmean <= -0.228 | diffmean >= 0.228), data = Friends.null)
 @
 \end{enumerate}
 

@@ -37,15 +37,15 @@ MAD(prop(shuffle(stop) ~ position, data = Stop))
   \item
     We simulate a world in which $MAD = 0$ :
 <<Figure8.3, cache=TRUE>>=
-sim.stop <- do(1000) * MAD(prop(shuffle(stop) ~ position, data=Stop))
-head(sim.stop, 3)
-histogram(~ result, data = sim.stop, width = 0.005, groups = (result >= 0.086))
+Stop.null <- do(1000) * MAD(prop(shuffle(stop) ~ position, data=Stop))
+head(Stop.null, 3)
+histogram(~ result, data = Stop.null, width = 0.005, groups = (result >= 0.086))
 @
   \item
     Strength of evidence:
 <<Figure8.3b>>=
-favstats(~ result, data = sim.stop)
-prop(~ (result >= 0.086), data = sim.stop)
+favstats(~ result, data = Stop.null)
+prop(~ (result >= 0.086), data = Stop.null)
 @
 \end{enumerate}
 
@@ -76,15 +76,15 @@ MAD(prop(choice ~ default, data = OrganDonor))
   \item
     We simulate a world in which $MAD = 0$:
 <<Exploration8.1.11, cache=TRUE>>=
-sim.donor <- do(1000) * MAD(prop(shuffle(choice) ~ default, data = OrganDonor))
-head(sim.donor, 3)
-histogram(~ result, data = sim.donor, width = 0.010, groups = (result >= 0.268))
+Donor.null <- do(1000) * MAD(prop(shuffle(choice) ~ default, data = OrganDonor))
+head(Donor.null, 3)
+histogram(~ result, data = Donor.null, width = 0.010, groups = (result >= 0.268))
 @
   \item
     Strength of evidence:
 <<Exploration8.1.12>>=
-favstats(~ result, data = sim.donor)
-prop(~ (result >= 0.086), data = sim.stop)
+favstats(~ result, data = Donor.null)
+prop(~ (result >= 0.086), data = Stop.null)
 @
 \end{enumerate}
 
@@ -116,17 +116,17 @@ MAD(prop(improvement ~ acupuncture, data = Acupuncture))
   \item
     We simulate a world in which $MAD = 0$:
 <<Figure8.5, cache=TRUE>>=
-sim.acu <- 
+Acu.null <- 
   do(1000) * 
     MAD(prop(shuffle(improvement) ~ acupuncture, data = Acupuncture))
-head(sim.acu, 3)
-histogram(~ result, data = sim.acu, groups = (result >= 0.135))
+head(Acu.null, 3)
+histogram(~ result, data = Acu.null, groups = (result >= 0.135))
 @
   \item
     Strength of evidence:
 <<Figure8.5b>>=
-favstats(~ result, data = sim.acu)
-prop(~ (result >= 0.135), data = sim.acu)
+favstats(~ result, data = Acu.null)
+prop(~ (result >= 0.135), data = Acu.null)
 @
 \end{enumerate}
 
@@ -142,9 +142,9 @@ chisq.test(acu.table)
 @
 
 <<Figure8.7b, fig.keep='last'>>=
-sim.acuX2 <- do(1000) * chisq.test(tally(~ shuffle(improvement) + acupuncture, data = Acupuncture))$statistic
-head(sim.acuX2, 3)
-histogram(~ X.squared, data = sim.acuX2, width = 1, center = 0.5, groups = X.squared >= 38.05)
+AcuX2.null <- do(1000) * chisq.test(tally(~ shuffle(improvement) + acupuncture, data = Acupuncture))$statistic
+head(AcuX2.null, 3)
+histogram(~ X.squared, data = AcuX2.null, width = 1, center = 0.5, groups = X.squared >= 38.05)
 plotDist("chisq", df = 2, add=TRUE)
 @
 
@@ -186,10 +186,10 @@ mosaic(towel ~ treatment, data = Towels1)
 
 <<Exploration8.2.6, cache=TRUE>>=
 MAD(prop(towel ~ treatment, data = Towels1))
-sim.towel <- do(1000) * MAD(prop(shuffle(towel) ~ treatment, data = Towels1))
-head(sim.towel, 3)
-histogram(~ result, data = sim.towel, groups = (result >= 0.111))
-prop(~ (result >= 0.111), data = sim.towel)
+Towel.null <- do(1000) * MAD(prop(shuffle(towel) ~ treatment, data = Towels1))
+head(Towel.null, 3)
+histogram(~ result, data = Towel.null, groups = (result >= 0.111))
+prop(~ (result >= 0.111), data = Towel.null)
 @
 
 <<Exploration8.2.7>>=
@@ -198,9 +198,9 @@ prop(~ towel, data = Towels1)
 
 <<Exploration8.2.13, fig.keep='last'>>=
 chisq.test(Towels)
-sim.towelX2 <- do(1000) * chisq.test(tally(~ shuffle(towel) + treatment, data = Towels1))$statistic
-head(sim.towelX2, 3)
-histogram(~ X.squared, data = sim.towelX2, width = 1, center = 0.5, groups = X.squared >= 10.153)
+TowelX2.null <- do(1000) * chisq.test(tally(~ shuffle(towel) + treatment, data = Towels1))$statistic
+head(TowelX2.null, 3)
+histogram(~ X.squared, data = TowelX2.null, width = 1, center = 0.5, groups = X.squared >= 10.153)
 plotDist("chisq", df = 4, add=TRUE)
 @
 
@@ -256,9 +256,9 @@ chisq.test(tally(~ sight + light, data = NightLight))
 @
 
 <<Exploration8.2b.11, cache=TRUE, fig.keep='last'>>=
-sim.nightX2 <- do(1000) * chisq.test(tally(~ shuffle(light) + sight, data = NightLight))$statistic
-head(sim.nightX2, 3)
-histogram(~ X.squared, data = sim.nightX2, width = 1, center = 0.5, groups = X.squared >= 56.514)
+NightX2.null <- do(1000) * chisq.test(tally(~ shuffle(light) + sight, data = NightLight))$statistic
+head(NightX2.null, 3)
+histogram(~ X.squared, data = NightX2.null, width = 1, center = 0.5, groups = X.squared >= 56.514)
 plotDist("chisq", df = 4, add=TRUE)
 @
 

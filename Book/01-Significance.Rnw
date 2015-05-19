@@ -20,9 +20,9 @@ rflip(n = 16, prob = 0.5)    # another sequence of 16 coin flips
 \subsubsection*{Using and evaluating the coin flip chance model}
 
 <<Figure1.4, cache=TRUE>>=
-sim <- do(1000) * rflip(16, 0.5)    # 1000 samples, each of size 16 and proportion 0.5
-head(sim, 3)
-dotPlot(~ heads, data = sim, width = 1, cex = 3)
+Coin.sim <- do(1000) * rflip(16, 0.5)    # 1000 samples, each of size 16 and proportion 0.5
+head(Coin.sim, 3)
+dotPlot(~ heads, data = Coin.sim, width = 1, cex = 3)
 @
 
 \subsubsection*{Another Doris and Buzz study}
@@ -30,9 +30,9 @@ dotPlot(~ heads, data = sim, width = 1, cex = 3)
 %Figure 1.5 bargraph (pp.11)
 
 <<Figure1.6, cache=TRUE>>=
-sim2 <- do(1000) * rflip(28, 0.5)
-head(sim2, 3)
-dotPlot(~ heads, data = sim2, width = 1, cex = 3, groups = (heads == 16))
+Coin.sim2 <- do(1000) * rflip(28, 0.5)
+head(Coin.sim2, 3)
+dotPlot(~ heads, data = Coin.sim2, width = 1, cex = 3, groups = (heads == 16))
 @
 Notice the way we defined \argument{groups} as \option{(groups = (heads == 16))} in order to differentiate the observations where \variable{heads} equals 16.  The 
 \verb&==& operator means ``are equal to".
@@ -46,23 +46,23 @@ and the colors would be reversed.)
 \subsubsection*{The Chance Model}
 
 <<Exploration1.1.13, cache=TRUE>>=
-sim.harley <- do(1) * rflip(10, 0.5)
-sim.harley
-sim.class <- do(30) * rflip(10, 0.5)
-head(sim.class, 3)
-dotPlot(~ heads, data = sim.class, width = 1, cex = 0.5)
+Harley.sim <- do(1) * rflip(10, 0.5)
+Harley.sim
+Class.sim <- do(30) * rflip(10, 0.5)
+head(Class.sim, 3)
+dotPlot(~ heads, data = Class.sim, width = 1, cex = 0.5)
 @
 
 <<Exploration1.1.14, cache=TRUE>>=
-sim.harley2 <- do(1000) * rflip(10, 0.5)
-head(sim.harley2, 3)
-dotPlot(~ heads, data = sim.harley2, width = 1, cex = 3, groups = (heads == 9))
+Harley.sim2 <- do(1000) * rflip(10, 0.5)
+head(Harley.sim2, 3)
+dotPlot(~ heads, data = Harley.sim2, width = 1, cex = 3, groups = (heads == 9))
 @
 
 \subsubsection*{Another Study}
 
 <<Exploration1.1.23>>=
-dotPlot(~ heads, data = sim.harley2, width = 1, cex = 3, groups = (heads == 6))
+dotPlot(~ heads, data = Harley.sim2, width = 1, cex = 3, groups = (heads == 6))
 @
 
 
@@ -80,25 +80,25 @@ dotPlot(~ heads, data = sim.harley2, width = 1, cex = 3, groups = (heads == 6))
 	\item
 		We simulate a world in which $\pi = 1/3$:
 <<Figure1.7, cache=TRUE>>=
-sim.sci <- do(1000) * rflip(12, 1/3)
-head(sim.sci, 3)
-dotPlot(~ prop, data = sim.sci, width = 1/12, cex = 3)
+RPS.null <- do(1000) * rflip(12, 1/3)
+head(RPS.null, 3)
+dotPlot(~ prop, data = RPS.null, width = 1/12, cex = 3)
 @
   \item
     Strength of evidence:
 
-    For the \term{p-value}, you can use the \function{prop()} function and input \option{(prop <= 1/6)} to find the proportion of samples that is less than or equal to the observed proportion in the data set \dataframe{sim.sci}.
+    For the \term{p-value}, you can use the \function{prop()} function and input \option{(prop <= 1/6)} to find the proportion of samples that is less than or equal to the observed proportion in the data set \dataframe{RPS.null}.
 <<Figure1.8>>=
-dotPlot(~ prop, data = sim.sci, cex = 3, width = 1/12, groups = (prop <= 1/6))
-prop(~ (prop <= 1/6), data = sim.sci)
+dotPlot(~ prop, data = RPS.null, cex = 3, width = 1/12, groups = (prop <= 1/6))
+prop(~ (prop <= 1/6), data = RPS.null)
 @
 \end{enumerate}
 
 \subsubsection{Conclusions}
 
 <<Figure1.9>>=
-dotPlot(~ prop, data = sim.sci, cex = 3, width = 1/12, groups = (prop <= 1/12))
-prop(~ (prop <= 1/12), data = sim.sci)
+dotPlot(~ prop, data = RPS.null, cex = 3, width = 1/12, groups = (prop <= 1/12))
+prop(~ (prop <= 1/12), data = RPS.null)
 @
 
 \subsection*{Exploration 1.2: Tasting Water}
@@ -113,16 +113,16 @@ prop(~ (prop <= 1/12), data = sim.sci)
   \item
 		We simulate a world in which $\pi = 1/4$:
 <<Exploration1.2.18, cache=TRUE>>=
-sample.tap <- do(1) * rflip(27, 1/4)
-sample.tap
-sim.tap <- do(1000) * rflip(27, 1/4)
-head(sim.tap, 3)
-dotPlot(~ prop, data = sim.tap, width = 1/27, cex = 3, groups = (prop <= 3/27))
+Tap.sample <- do(1) * rflip(27, 1/4)
+Tap.sample
+Tap.null <- do(1000) * rflip(27, 1/4)
+head(Tap.null, 3)
+dotPlot(~ prop, data = Tap.null, width = 1/27, cex = 3, groups = (prop <= 3/27))
 @
   \item
     Strength of evidence:
 <<Exploration1.2.20>>=
-prop(~ (prop <= 3/27), data = sim.tap)
+prop(~ (prop <= 3/27), data = Tap.null)
 @
 \end{enumerate}
 
@@ -138,14 +138,14 @@ prop(~ (prop <= 3/27), data = sim.tap)
   \item
   	We simulate a world in which $\pi = 3/4$:
 <<Exploration1.2.26, cache=TRUE>>=
-sim.bottled <- do(1000) * rflip(27, 3/4)
-head(sim.bottled, 3)
-dotPlot(~ prop, data = sim.bottled, width = 1/27, cex = 3, groups = (prop >= 24/27))
+Bottled.null <- do(1000) * rflip(27, 3/4)
+head(Bottled.null, 3)
+dotPlot(~ prop, data = Bottled.null, width = 1/27, cex = 3, groups = (prop >= 24/27))
 @
   \item
     Strength of evidence:
 <<Exploration1.2.26b>>=
-prop(~ (prop >= 24/27), data = sim.bottled)
+prop(~ (prop >= 24/27), data = Bottled.null)
 @
 \end{enumerate}
 
@@ -164,17 +164,17 @@ prop(~ (prop >= 24/27), data = sim.bottled)
   \item
     We simulate a world in which $\pi = 0.15$:
 <<Figure1.10, cache=TRUE>>=
-sim.heart <- do(1000) * rflip(10, 0.15)
-head(sim.heart, 3)
-mean(~ prop, data = sim.heart)
-sd(~ prop, data = sim.heart)
-favstats(~ prop, data = sim.heart)
-dotPlot(~ prop, data = sim.heart, width = 0.1, cex = 3, groups = (prop >= 8/10))
+Heart.null <- do(1000) * rflip(10, 0.15)
+head(Heart.null, 3)
+mean(~ prop, data = Heart.null)
+sd(~ prop, data = Heart.null)
+favstats(~ prop, data = Heart.null)
+dotPlot(~ prop, data = Heart.null, width = 0.1, cex = 3, groups = (prop >= 8/10))
 @
   \item
     Strength of evidence:
 <<Figure1.10b>>=
-prop(~ (prop >= 8/10), data = sim.heart)
+prop(~ (prop >= 8/10), data = Heart.null)
 @
 \end{enumerate}
 
@@ -190,15 +190,15 @@ prop(~ (prop >= 8/10), data = sim.heart)
   \item
     We simulate a world in which $\pi = 0.15$:
 <<Figure1.11, cache=TRUE>>=
-sim.1986 <- do(1000) * rflip(361, 0.15)
-head(sim.1986, 3)
-favstats(~ prop, data = sim.1986)
-dotPlot(~ prop, data = sim.1986, width = 1/361, groups = (prop >= 71/361))
+Mort1986.null <- do(1000) * rflip(361, 0.15)
+head(Mort1986.null, 3)
+favstats(~ prop, data = Mort1986.null)
+dotPlot(~ prop, data = Mort1986.null, width = 1/361, groups = (prop >= 71/361))
 @
   \item
     Strength of evidence:
 <<Figure1.11b>>=
-prop(~ (prop >= 71/361), data = sim.1986)
+prop(~ (prop >= 71/361), data = Mort1986.null)
 @
 \end{enumerate}
 
@@ -235,20 +235,20 @@ We'll ignore the p-values and plots for now and just realize that \function{xpno
   \item
   	We simulate a world in which $\pi = 0.5$:
 <<Exploration1.3.7, cache=TRUE>>=
-sim.tim <- do(1000) * rflip(30, 0.5)
-head(sim.tim, 3)
-dotPlot(~ prop, data = sim.tim, width = 1/30, cex =3, groups = (prop >= 18/30))
+Tim.null <- do(1000) * rflip(30, 0.5)
+head(Tim.null, 3)
+dotPlot(~ prop, data = Tim.null, width = 1/30, cex =3, groups = (prop >= 18/30))
 @
   \item
     Strength of evidence:
 <<Exploration1.3.7b>>=
-prop(~ (prop >=18/30), data = sim.tim)
+prop(~ (prop >=18/30), data = Tim.null)
 @
 \end{enumerate}
 
 <<Exploration1.3.8>>=
-mean(~ prop, data = sim.tim)
-sd <- sd(~ prop, data = sim.tim); sd # assign the standard deviation to sd
+mean(~ prop, data = Tim.null)
+sd <- sd(~ prop, data = Tim.null); sd # assign the standard deviation to sd
 z <- (0.6 - 0.5) / sd; z # z-score using the assigned sd
 @
 
@@ -272,20 +272,20 @@ xpnorm(0.6, mean = 0.5, sd = sd, plot = FALSE)
   \item
     We simulate a world in which $\pi = 0.5$:
 <<Figure1.14, cache=TRUE>>=
-sim.senate <- do(1000) * rflip(32, 0.5)
-head(sim.senate, 3)
-favstats(~ prop, data = sim.senate)
-dotPlot(~ prop, data = sim.senate, groups = (prop >= 23/32), width = 1/32, cex = 3)
+Senate.null <- do(1000) * rflip(32, 0.5)
+head(Senate.null, 3)
+favstats(~ prop, data = Senate.null)
+dotPlot(~ prop, data = Senate.null, groups = (prop >= 23/32), width = 1/32, cex = 3)
 @
   \item
     Strength of evidence:
 <<Figure1.14b>>=
-prop(~ (prop >= 23/32), data = sim.senate)
+prop(~ (prop >= 23/32), data = Senate.null)
 @
     Strength of evidence with the standardized statistic:
 <<Figure1.14c>>=
-mean(~ prop, data = sim.senate)
-sd <- sd(~ prop, data = sim.senate); sd
+mean(~ prop, data = Senate.null)
+sd <- sd(~ prop, data = Senate.null); sd
 xpnorm(23/32, 0.5, sd, plot = FALSE)
 @
 \end{enumerate}
@@ -325,14 +325,14 @@ prop(~ (prop >= 23/32), data = senate.256)
   \item
     We use the simulated world in which $\pi = 0.5$:
 <<Figure1.16, tidy=FALSE>>=
-dotPlot(~ prop, data = sim.senate, groups = (prop >= 23/32 | prop <= 9/32), 
+dotPlot(~ prop, data = Senate.null, groups = (prop >= 23/32 | prop <= 9/32), 
         width = 1/32, cex = 3)
 @
 Notice that because we are doing a two-sided test, we differentiate the samples with proportions greater than or equal to  23/32 and proportions less than or equal to 9/32 (the proportion that is as extreme as 23/32) by using the bar $|$.
   \item
     Strength of evidence:
 <<Figure1.16b>>=
-prop(~(prop <= 9/32 | prop >= 23/32), data = sim.senate)
+prop(~(prop <= 9/32 | prop >= 23/32), data = Senate.null)
 @
 \end{enumerate}
 
@@ -348,20 +348,20 @@ prop(~(prop <= 9/32 | prop >= 23/32), data = sim.senate)
 	\item
 		We simulate a world in which $\pi = 0.5$:
 <<Figure1.17, cache=TRUE>>=
-sim.house <- do(1000) * rflip(279, 0.5)
-head(sim.house, 3)
-favstats(~ prop, data = sim.house)
-dotPlot(~ prop, data = sim.house, groups = (prop >= 189/279 | prop <=90/279), width = 0.007)
+House.null <- do(1000) * rflip(279, 0.5)
+head(House.null, 3)
+favstats(~ prop, data = House.null)
+dotPlot(~ prop, data = House.null, groups = (prop >= 189/279 | prop <=90/279), width = 0.007)
 @
   \item
     Strength of evidence:
 <<Figure1.17b>>=
-prop(~ (prop >= 189/279 | prop <=90/279), data = sim.house)
+prop(~ (prop >= 189/279 | prop <=90/279), data = House.null)
 @
     Strength of evidence with the standardized statistic:
 <<Figure1.17c>>=
-mean(~ prop, data = sim.house)
-sd <- sd(~ prop, data = sim.house); sd
+mean(~ prop, data = House.null)
+sd <- sd(~ prop, data = House.null); sd
 xpnorm(189/279, 0.5, sd, plot = FALSE)
 @
 \end{enumerate}
@@ -379,15 +379,15 @@ xpnorm(189/279, 0.5, sd, plot = FALSE)
 	\item
 		We simulate a world in which $\pi = 0.5$:
 <<Exploration1.4.3,cache=TRUE>>=
-sim.red <- do(1000) * rflip(457, 0.5)
-head(sim.red, 3)
-favstats(~ prop, data = sim.red)
-dotPlot(~ prop, data = sim.red, groups = (prop >= 0.543), width = 2/457)
+Red.null <- do(1000) * rflip(457, 0.5)
+head(Red.null, 3)
+favstats(~ prop, data = Red.null)
+dotPlot(~ prop, data = Red.null, groups = (prop >= 0.543), width = 2/457)
 @
   \item
     Strength of evidence:
 <<Exploration1.4.3b>>=
-prop(~ (prop >=0.543), data = sim.red)
+prop(~ (prop >=0.543), data = Red.null)
 @
 \end{enumerate}
 
@@ -401,12 +401,12 @@ prop(~ (prop >=0.543), data = sim.red)
 	\item
 		We use the simulated world in which $\pi = 0.5$ from the one-sided test:
 <<Exploration1.4.5>>=
-dotPlot(~ prop, data = sim.red, groups = (prop <=0.457 | prop >= 0.543), width = 2/457)
+dotPlot(~ prop, data = Red.null, groups = (prop <=0.457 | prop >= 0.543), width = 2/457)
 @
   \item
     Strength of evidence:
 <<Exploration1.4.5b>>=
-prop(~ (prop <=0.457 | prop >= 0.543), data = sim.red)
+prop(~ (prop <=0.457 | prop >= 0.543), data = Red.null)
 @
 \end{enumerate}
 
@@ -422,12 +422,12 @@ prop(~ (prop <=0.457 | prop >= 0.543), data = sim.red)
 	\item
 		We use the simulated world in which $\pi = 0.5$:
 <<Exploration1.4.6>>=
-dotPlot(~ prop, data = sim.red, groups = (prop >= 0.57), width = 2/457)
+dotPlot(~ prop, data = Red.null, groups = (prop >= 0.57), width = 2/457)
 @
   \item
     Strength of evidence:    
 <<Exploration1.4.6b>>=
-prop(~ (prop >=0.57), data = sim.red)
+prop(~ (prop >=0.57), data = Red.null)
 @
 \end{enumerate}
 
@@ -443,15 +443,15 @@ prop(~ (prop >=0.57), data = sim.red)
 	\item
 		We simulate a world in which $\pi = 0.5$:
 <<Exploration1.4.7, cache=TRUE>>=
-sim.box <- do(1000) * rflip(272, 0.5)
-head(sim.box, 3)
-favstats(~ prop, data = sim.box)
-dotPlot(~ prop, data = sim.box, groups = (prop >= 0.551), width = 1/272)
+Box.null <- do(1000) * rflip(272, 0.5)
+head(Box.null, 3)
+favstats(~ prop, data = Box.null)
+dotPlot(~ prop, data = Box.null, groups = (prop >= 0.551), width = 1/272)
 @
   \item
     Strength of evidence
 <<Exploration1.4.7b>>=
-prop(~ (prop >=0.551), data = sim.box)
+prop(~ (prop >=0.551), data = Box.null)
 @
 \end{enumerate}
 
@@ -472,10 +472,10 @@ prop(~ (prop >=0.551), data = sim.box)
   \item
 		We simulate a world in which $\pi = 0.5$:
 <<Figure1.19, cache=TRUE>>=
-sim.candy <- do(1000) * rflip(283, 0.5)
-head(sim.candy, 3)
-favstats(~ prop, data = sim.candy)
-dotPlot(~ prop, data = sim.candy, width = 1/283)
+Candy.null <- do(1000) * rflip(283, 0.5)
+head(Candy.null, 3)
+favstats(~ prop, data = Candy.null)
+dotPlot(~ prop, data = Candy.null, width = 1/283)
 @
 \end{enumerate}
 
@@ -496,11 +496,11 @@ xpnorm(148/283, 0.5, sd, plot = FALSE)
 
 To overlay a normal approximation, let's graph a histogram using \function{histogram()} instead of a dotplot:
 <<Figure1.20, opts.label="fig3", message=FALSE>>=
-histogram(~ prop, data = sim.candy)
-histogram(~ prop, data = sim.candy, fit = "normal")
-histogram(~ prop, data = sim.candy, fit = "normal", group = cut(prop, c(0, 135/283, 148/283, 1)), fcol=c("steelblue", "navy", "steelblue"))
+histogram(~ prop, data = Candy.null)
+histogram(~ prop, data = Candy.null, fit = "normal")
+histogram(~ prop, data = Candy.null, fit = "normal", group = cut(prop, c(0, 135/283, 148/283, 1)), fcol=c("steelblue", "navy", "steelblue"))
 
-prop(~ (prop <= 135/283 | prop >= 148/283), data = sim.candy)
+prop(~ (prop <= 135/283 | prop >= 148/283), data = Candy.null)
 @
 %help with histogram grouping
 
@@ -557,8 +557,8 @@ sd <- sqrt(mean * (1 - mean) / n); sd
 @
 
 <<Figure1.21>>=
-dotPlot(~ prop, data = sim.sci, group = (prop <= 1/6), width = 1/12, cex = 3)
-prop(~ (prop <= 1/6), data = sim.sci)
+dotPlot(~ prop, data = RPS.null, group = (prop <= 1/6), width = 1/12, cex = 3)
+prop(~ (prop <= 1/6), data = RPS.null)
 @
 
 <<Figure1.21b, opts.label="fig4">>=
@@ -578,19 +578,19 @@ xpnorm(1/6, 1/3, sd)
   \item
   	We simulate a world in which $\pi = 0.5$:
 <<Exploration1.5.5,cache=TRUE>>=
-sim.heads <- do(1000) * rflip(83, 0.5)
-head(sim.heads, 3)
-favstats(~ prop, data = sim.heads)
-histogram(~ prop, data = sim.heads, groups = (prop >= 54/83), fit = "normal")
+Heads.null <- do(1000) * rflip(83, 0.5)
+head(Heads.null, 3)
+favstats(~ prop, data = Heads.null)
+histogram(~ prop, data = Heads.null, groups = (prop >= 54/83), fit = "normal")
 @
   \item
     Strength of evidence
 <<Exploration1.5.5b>>=
-prop(~ (prop >= 54/83), data = sim.heads)
+prop(~ (prop >= 54/83), data = Heads.null)
 @
     Normal approximation using simulated sd:
 <<Exploration1.5.5c, opts.label="fig4">>=
-sd <- sd(~ prop, data = sim.heads)
+sd <- sd(~ prop, data = Heads.null)
 xpnorm(54/83, 0.5, sd, lower.tail=FALSE)
 @
 \end{enumerate}
@@ -643,14 +643,14 @@ prop.test(58.1, 83, correct = FALSE) # 58.1 = 0.70 * 83
   \item
     We simulate a world in which $\pi = 0.5$:
 <<Exploration1.5.13, cache=TRUE>>=
-sim.small <- do(1000) * rflip(8, 0.5)
-head(sim.small, 3)
-dotPlot(~ prop, data = sim.small, groups = (prop <= 0.125 | prop >= 0.875), width = 1/8, cex = 3)
+Small.null <- do(1000) * rflip(8, 0.5)
+head(Small.null, 3)
+dotPlot(~ prop, data = Small.null, groups = (prop <= 0.125 | prop >= 0.875), width = 1/8, cex = 3)
 @
   \item
     Strength of evidence:
 <<Exploration1.5.13b>>=
-prop(~ (prop <= 0.125 | prop >= 0.875), data = sim.small)
+prop(~ (prop <= 0.125 | prop >= 0.875), data = Small.null)
 @
     Approximate test for proportions without continuity correction:
 <<Exploration1.5.13c, warning=FALSE>>=

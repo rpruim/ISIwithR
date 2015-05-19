@@ -45,24 +45,24 @@ mean(~ (narrow - wide), data = Swap.Base)
 
 We simulate a world in which $\mu_d = 0$:
 <<Figure7.6, cache=TRUE, tidy=FALSE>>=
-Sim.Base <- do(1000) * mean(~ (narrow - wide), data = swap(FirstBase, c("narrow", "wide")))
-head(Sim.Base, 3)
-histogram(~ result, data = Sim.Base, width = 0.005, center = 0.0025)
+FirstBase.null <- do(1000) * mean(~ (narrow - wide), data = swap(FirstBase, c("narrow", "wide")))
+head(FirstBase.null, 3)
+histogram(~ result, data = FirstBase.null, width = 0.005, center = 0.0025)
 @
 
 <<Figure7.7>>=
-histogram(~ result, data = Sim.Base, width = 0.005, center = 0.0025, groups = (result >= 0.075))
-sd <- sd(~ result, data = Sim.Base);sd
+histogram(~ result, data = FirstBase.null, width = 0.005, center = 0.0025, groups = (result >= 0.075))
+sd <- sd(~ result, data = FirstBase.null);sd
 0.075 - 2 * sd
 0.075 + 2 * sd
 @
 
 <<Figure7.8, cache=TRUE>>=
-sim.firstbase <- do(1000) * diffmean( time ~ shuffle(angle), data=FirstBase2 )
-head(sim.firstbase, 3)
-favstats(~ diffmean, data = sim.firstbase)
-dotPlot( ~diffmean, data=sim.firstbase, nint = 50, groups = (diffmean <= -0.075 | diffmean >= 0.05) )
-prop(~ (diffmean <= -0.075 | diffmean >= 0.075), data = sim.firstbase)
+FirstBase.null2 <- do(1000) * diffmean( time ~ shuffle(angle), data=FirstBase2 )
+head(FirstBase.null2, 3)
+favstats(~ diffmean, data = FirstBase.null2)
+dotPlot( ~diffmean, data=FirstBase.null2, nint = 50, groups = (diffmean <= -0.075 | diffmean >= 0.05) )
+prop(~ (diffmean <= -0.075 | diffmean >= 0.075), data = FirstBase.null2)
 @
 
 
@@ -94,28 +94,28 @@ sd(~ (JJ - bicycle), data = swap.bike)
   \item
     We simulate a world in which $\mu_d = 0$:
 <<Exploration7.2.10, cache=TRUE, tidy=FALSE>>=
-sim.bike <- do(1000) * mean(~ (JJ - bicycle), 
+Bike.null <- do(1000) * mean(~ (JJ - bicycle), 
                             data = swap(JJvsBicycle, c("JJ", "bicycle")))
-head(sim.bike, 3)
-dotPlot(~ result, data = sim.bike, nint = 50, groups = (result <=-6.773 | result >=6.773))
+head(Bike.null, 3)
+dotPlot(~ result, data = Bike.null, nint = 50, groups = (result <=-6.773 | result >=6.773))
 @
   \item
     Strength of evidence:
 <<Exploration7.2.12>>=
-favstats(~ result, data = sim.bike)
-prop(~ (result <=-6.773 | result >=6.773), data = sim.bike)
+favstats(~ result, data = Bike.null)
+prop(~ (result <=-6.773 | result >=6.773), data = Bike.null)
 @
 \end{enumerate}
 
 Standarized statistic:
 <<Exploration7.2.14>>=
-sd <- sd(~ result, data = sim.bike)
+sd <- sd(~ result, data = Bike.null)
 xpnorm(-6.773, 0, sd, plot = FALSE)
 @
 
 95\% confidence interval using 2SD Method:
 <<Exploration7.2.15>>=
-sd <- sd(~ result, data = sim.bike)
+sd <- sd(~ result, data = Bike.null)
 -6.773 - 2 * sd
 -6.773 + 2 * sd
 @
@@ -128,11 +128,11 @@ sample(JJvsBicycle2, 5)
 @
 
 <<Exploration7.2.17b>>=
-sim.bike2<- do(1000) * diffmean( heartrate ~ shuffle(exercise), data=JJvsBicycle2 )
-head(sim.bike2, 3)
-favstats(~ diffmean, data = sim.bike2)
-dotPlot( ~diffmean, data=sim.bike2, nint = 50, groups = (diffmean <= -6.773 | diffmean >= 6.773) )
-prop(~ (diffmean <= -6.773 | diffmean >= 6.773), data = sim.bike2)
+Bike2.null<- do(1000) * diffmean( heartrate ~ shuffle(exercise), data=JJvsBicycle2 )
+head(Bike2.null, 3)
+favstats(~ diffmean, data = Bike2.null)
+dotPlot( ~diffmean, data=Bike2.null, nint = 50, groups = (diffmean <= -6.773 | diffmean >= 6.773) )
+prop(~ (diffmean <= -6.773 | diffmean >= 6.773), data = Bike2.null)
 @
 
 
@@ -164,15 +164,15 @@ dotPlot(~(small - large), data = BowlsMMs, width = 1, cex = 0.05)
   \item
     We simulate a world in which $\mu_d = 0$:
 <<Figure7.10, cache=TRUE, tidy=FALSE>>=
-sim.mm <- do(1000) * mean(~ (small - large), data = swap(BowlsMMs, c("small", "large")))
-head(sim.mm, 3)
-dotPlot(~ result, data = sim.mm, nint = 50, groups = (result <= -10.88))
+MM.null <- do(1000) * mean(~ (small - large), data = swap(BowlsMMs, c("small", "large")))
+head(MM.null, 3)
+dotPlot(~ result, data = MM.null, nint = 50, groups = (result <= -10.88))
 @
   \item
     Strength of evidence:
 <<Figure7.11>>=
-favstats(~ result, data = sim.mm)
-prop(~ (result <= -10.88), data = sim.mm)
+favstats(~ result, data = MM.null)
+prop(~ (result <= -10.88), data = MM.null)
 @
 \end{enumerate}
 
@@ -204,15 +204,15 @@ favstats( ~(dutch - FP), data=Auction)
   \item
     We simulate a world in which $\mu_d = 0$:
 <<Exploration7.3.5b, cache=TRUE, tidy=FALSE>>=
-sim.auction <- do(1000) * mean(~ (dutch - FP), data = swap(Auction, c("dutch", "FP")))
-head(sim.auction, 3)
-dotPlot(~ result, data = sim.auction, groups = (result <= -0.384 | result >= 0.384), nint = 50)
+Auction.null <- do(1000) * mean(~ (dutch - FP), data = swap(Auction, c("dutch", "FP")))
+head(Auction.null, 3)
+dotPlot(~ result, data = Auction.null, groups = (result <= -0.384 | result >= 0.384), nint = 50)
 @
   \item
     Strength of evidence:
 <<Exploration7.3.5c>>=
-favstats(~ result, data = sim.auction)
-prop(~ (result <= -0.384 | result >= 0.384), data = sim.auction)
+favstats(~ result, data = Auction.null)
+prop(~ (result <= -0.384 | result >= 0.384), data = Auction.null)
 @
   \item
     t-test for paired samples (theory-based approach):

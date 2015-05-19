@@ -18,15 +18,15 @@
 	\item
 		We simulate a world in which $\pi = 0.20$:
 <<Figure3.1,cache=TRUE>>=
-sim.cancer <- do(1000) * rflip(33, 0.20)
-head(sim.cancer, 3)
-dotPlot(~ prop, data = sim.cancer, groups = (prop >= 0.909), width = 0.001)
+Cancer.null <- do(1000) * rflip(33, 0.20)
+head(Cancer.null, 3)
+dotPlot(~ prop, data = Cancer.null, groups = (prop >= 0.909), width = 0.001)
 @
   \item
     Strength of evidence:
 <<Figure3.1b>>=
-favstats(~ prop, data = sim.cancer)
-prop(~ (prop >= 0.909), data = sim.cancer)
+favstats(~ prop, data = Cancer.null)
+prop(~ (prop >= 0.909), data = Cancer.null)
 @
 \end{enumerate}
 
@@ -40,15 +40,15 @@ prop(~ (prop >= 0.909), data = sim.cancer)
   \item
 		We simulate a world in which $\pi = 0.70$:
 <<Figure3.2, cache=TRUE>>=
-sim.cancer2 <- do(1000) * rflip(33, 0.70)
-head(sim.cancer2, 3)
-dotPlot(~ prop, data = sim.cancer2, groups = (prop <= 0.4545 | prop >= 0.909), width = 0.001)
+Cancer.null2 <- do(1000) * rflip(33, 0.70)
+head(Cancer.null2, 3)
+dotPlot(~ prop, data = Cancer.null2, groups = (prop <= 0.4545 | prop >= 0.909), width = 0.001)
 @
   \item
     Strength of evidence:
 <<Figure3.2b>>=
-favstats(~ prop, data = sim.cancer2)
-prop(~ (prop <= 0.4545 | prop >= 0.909), data = sim.cancer2)
+favstats(~ prop, data = Cancer.null2)
+prop(~ (prop <= 0.4545 | prop >= 0.909), data = Cancer.null2)
 @
 \end{enumerate}
 
@@ -62,15 +62,15 @@ prop(~ (prop <= 0.4545 | prop >= 0.909), data = sim.cancer2)
   \item
   	We simulate a world in which $\pi = 0.80$:
 <<Figure3.3, cache=TRUE>>=
-sim.cancer3 <- do(1000) * rflip(33, 0.80)
-head(sim.cancer3, 3)
-dotPlot(~ prop, data = sim.cancer3, groups = (prop <= 0.691 | prop >= 0.909), width = 0.001)
+Cancer.null3 <- do(1000) * rflip(33, 0.80)
+head(Cancer.null3, 3)
+dotPlot(~ prop, data = Cancer.null3, groups = (prop <= 0.691 | prop >= 0.909), width = 0.001)
 @
   \item
     Strength of evidence:
 <<Figure3.3b>>=
-favstats(~ prop, data = sim.cancer3)
-prop(~ (prop <= 0.6667 | prop >= 0.909), data = sim.cancer3)
+favstats(~ prop, data = Cancer.null3)
+prop(~ (prop <= 0.6667 | prop >= 0.909), data = Cancer.null3)
 @
 \end{enumerate}
 
@@ -105,15 +105,15 @@ pval(binom.test(30, 33, p = 0.99))
   \item
     We simulate a world in which $\pi = 0.5$:
 <<Exploration3.1.7, cache=TRUE>>=
-sim.kiss <- do(1000) * rflip(124, 0.5)
-head(sim.kiss, 3)
-dotPlot(~ prop, data = sim.kiss, groups = (prop >= 0.645), width = 0.001)
+Kiss.null <- do(1000) * rflip(124, 0.5)
+head(Kiss.null, 3)
+dotPlot(~ prop, data = Kiss.null, groups = (prop >= 0.645), width = 0.001)
 @
   \item
     Strength of evidence:
 <<Exploration3.1.7b>>=
-favstats(~ prop, data = sim.kiss)
-prop(~ (prop >= 0.645), data = sim.kiss)
+favstats(~ prop, data = Kiss.null)
+prop(~ (prop >= 0.645), data = Kiss.null)
 @
 
     Approximate test for proportions:
@@ -137,15 +137,15 @@ binom.test(80, 124, alt = "greater")
   \item
     We simulate a world in which $\pi = 0.6$:
 <<Exploration3.1.8, cache=TRUE>>=
-sim.kiss2 <- do(1000) * rflip(124, 0.6)
-head(sim.kiss2, 3)
-dotPlot(~ prop, data = sim.kiss2, groups = (prop <= 0.555 | prop >= 0.645), width = 0.001)
+Kiss.null2 <- do(1000) * rflip(124, 0.6)
+head(Kiss.null2, 3)
+dotPlot(~ prop, data = Kiss.null2, groups = (prop <= 0.555 | prop >= 0.645), width = 0.001)
 @
   \item
     Strength of evidence:
 <<Exploration3.1.8b>>=
-favstats(~ prop, data = sim.kiss2)
-prop(~ (prop <= 0.555 | prop >= 0.645), data = sim.kiss2)
+favstats(~ prop, data = Kiss.null2)
+prop(~ (prop <= 0.555 | prop >= 0.645), data = Kiss.null2)
 @
 
     Approximate test for proportions:
@@ -241,15 +241,15 @@ p.hat + MoE                            # upper limit of 95% CI
   \item
     We simulate a world in which $\pi = 0.775$:
 <<Exploration3.2.6, cache=TRUE>>=
-sim.amer <- do(1000) * rflip(1019, 0.775)
-head(sim.amer, 3)
-dotPlot(~ prop, data = sim.amer, groups = (prop <= 0.750 | prop >= 0.80), width = 0.001)
+Amer.null <- do(1000) * rflip(1019, 0.775)
+head(Amer.null, 3)
+dotPlot(~ prop, data = Amer.null, groups = (prop <= 0.750 | prop >= 0.80), width = 0.001)
 @
   \item
     Strength of evidence:
 <<Exploration3.2.6b>>=
-favstats(~ prop, data = sim.amer)
-prop(~ (prop <= 0.750 | prop >= 0.80), data = sim.amer)
+favstats(~ prop, data = Amer.null)
+prop(~ (prop <= 0.750 | prop >= 0.80), data = Amer.null)
 @
 
     Approximate test for proportions:
@@ -273,15 +273,15 @@ binom.test(815, 1019, p = 0.775)
   \item
     We simulate a world in which $\pi = 0.5$:
 <<Exploration3.2.8,cache=TRUE>>=
-sim.amer2 <- do(1000) * rflip(1019, 0.5)
-head(sim.amer2, 3)
-dotPlot(~ prop, data = sim.amer2, groups = (prop <= 0.20 | prop >= 0.80), width = 0.001)
+Amer.null2 <- do(1000) * rflip(1019, 0.5)
+head(Amer.null2, 3)
+dotPlot(~ prop, data = Amer.null2, groups = (prop <= 0.20 | prop >= 0.80), width = 0.001)
 @
   \item
     Strength of evidence:
 <<Exploration3.2.8b>>=
-favstats(~ prop, data = sim.amer2)
-prop(~ (prop <= 0.20 | prop >= 0.80), data = sim.amer2)
+favstats(~ prop, data = Amer.null2)
+prop(~ (prop <= 0.20 | prop >= 0.80), data = Amer.null2)
 @
 
     Approximate test for proportions:
@@ -297,7 +297,7 @@ binom.test(815, 1019)
 
 Finding the standard deviation using simulated deviation:
 <<Exploration3.2.9>>=
-sd <- sd(~ prop, data = sim.amer); sd
+sd <- sd(~ prop, data = Amer.null); sd
 z <- (0.80 - 0.775) / sd; z
 xpnorm(0.8, 0.775, sd, lower.tail = FALSE, plot = FALSE)
 @
@@ -333,7 +333,7 @@ p.hat + MoE           # upper limit of 95% CI
 
 Another way to create a 95\% confidence interval is to use the middle 95\% of the simulated null distribution. This is not exactly the same as the interval found by the 2SD Method, but it is very close.
 <<Exploration3.2.13b>>=
-cdata(0.95, prop, data = sim.amer)
+cdata(0.95, prop, data = Amer.null)
 @
 % include cdata? is it counting values?
 
@@ -556,15 +556,15 @@ prop(~ cover, data = sim.CI4)
   \item
 		We simulate a world in which $\pi = 0.3645$:
 <<Figure3.14,cache=TRUE>>=
-sim.obama <- do(1000) * rflip(1000, 0.3645)
-head(sim.obama, 3)
-dotPlot(~ prop, data = sim.obama, groups = (prop >= 0.41), width = 0.001)
+Obama.null <- do(1000) * rflip(1000, 0.3645)
+head(Obama.null, 3)
+dotPlot(~ prop, data = Obama.null, groups = (prop >= 0.41), width = 0.001)
 @
   \item
     Strength of evidence:
 <<Figure3.14b>>=
-favstats(~ prop, data = sim.obama)
-prop(~ (prop >= 0.41), data = sim.obama)
+favstats(~ prop, data = Obama.null)
+prop(~ (prop >= 0.41), data = Obama.null)
 @
 \end{enumerate}
 
@@ -599,10 +599,10 @@ confint(binom.test(709, 2124, conf.level = 0.99))
   \item
     We simulate a world in which $\pi = 0.25$:
 <<Figure3.15,cache=TRUE>>=
-sim.esp2 <- do(10000) * rflip(50, 0.25)
-head(sim.esp2, 3)
-dotPlot(~ prop, data = sim.esp2, groups = (prop >=0.38), width = 0.01, cex = 10)
-prop(~ (prop >= 0.38), data = sim.esp2)
+ESP.null2 <- do(10000) * rflip(50, 0.25)
+head(ESP.null2, 3)
+dotPlot(~ prop, data = ESP.null2, groups = (prop >=0.38), width = 0.01, cex = 10)
+prop(~ (prop >= 0.38), data = ESP.null2)
 @
 \end{enumerate}
     
@@ -616,10 +616,10 @@ prop(~ (prop >= 0.38), data = sim.esp2)
   \item
     We simulate a world in which $\pi = 1/3$:
 <<Figure3.16, cache=TRUE>>=
-sim.esp3 <- do(10000) * rflip(50, 1/3)
-head(sim.esp3, 3)
-dotPlot(~ prop, data = sim.esp3, groups = (prop >=0.38), width = 0.01, cex = 10)
-prop(~ (prop >= 0.38), data = sim.esp3)
+ESP.null3 <- do(10000) * rflip(50, 1/3)
+head(ESP.null3, 3)
+dotPlot(~ prop, data = ESP.null3, groups = (prop >=0.38), width = 0.01, cex = 10)
+prop(~ (prop >= 0.38), data = ESP.null3)
 @
 \end{enumerate}
 
@@ -633,10 +633,10 @@ prop(~ (prop >= 0.38), data = sim.esp3)
   \item
     We simulate a world in which $\pi = 1/2$:
 <<Figure3.17,cache=TRUE>>=
-sim.esp4 <- do(10000) * rflip(50, 1/2)
-head(sim.esp4, 3)
-dotPlot(~ prop, data = sim.esp4, groups = (prop >=0.38), width = 0.01, cex = 10)
-prop(~ (prop >= 0.38), data = sim.esp4)
+ESP.null4 <- do(10000) * rflip(50, 1/2)
+head(ESP.null4, 3)
+dotPlot(~ prop, data = ESP.null4, groups = (prop >=0.38), width = 0.01, cex = 10)
+prop(~ (prop >= 0.38), data = ESP.null4)
 @
 \end{enumerate}
 
@@ -658,14 +658,14 @@ binom.test(15228, 47000, p = 1/3, alt = "less")
   \item
     We simulate a world in which $\pi = 1/3$:
 <<Exploration3.5B.9, cache=TRUE>>=
-sim.pets <- do(1000) * rflip(100, 1/3)
-head(sim.pets, 3)
+Pets.null <- do(1000) * rflip(100, 1/3)
+head(Pets.null, 3)
 @
 % power
 
 We could use trial-and-error to determine values of the sample proportion that would produce a p-value of less than 0.05. \R\ can quickly calculate try possible values that would result in the significance level of 0.05 but we can also have \R\ calculate them for us.
 <<Exploration3.5B.9b>>=
-cdata(0.95, prop, data = sim.pets)
+cdata(0.95, prop, data = Pets.null)
 @
 \end{enumerate}
 
@@ -679,13 +679,13 @@ cdata(0.95, prop, data = sim.pets)
   \item
     We simulate a world in which $\pi = 0.30$:
 <<Exploration3.5B.11,cache=TRUE>>=
-sim.pets2 <- do(1000) * rflip(100, 0.30)
-head(sim.pets2, 3)
-prop(~ (prop <=0.243), data = sim.pets2)
+Pets.null2 <- do(1000) * rflip(100, 0.30)
+head(Pets.null2, 3)
+prop(~ (prop <=0.243), data = Pets.null2)
 @
 % power
 <<Exploration3.5B.11b>>=
-cdata(0.90, prop, data = sim.pets2)
+cdata(0.90, prop, data = Pets.null2)
 @
 \end{enumerate}
 

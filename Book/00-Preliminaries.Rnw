@@ -327,17 +327,17 @@ rflip(n = 15, prob = 1/3)
 This is equivalent to the playing 15 games (flips), each game having a 1/3 chance of picking the car (heads).
 
 
-Further, we can repeat each simulation many times by multiplying it by \function{do()}. When using \function{do}, you should assign the simulation a name by using an arrow (\verb!<-!) so that you are creating a new data set with all of the repetitions. In this case, we are naming the simulation \dataframe{GameSims.}
+Further, we can repeat each simulation many times by multiplying it by \function{do()}. When using \function{do}, you should assign the simulation a name by using an arrow (\verb!<-!) so that you are creating a new data set with all of the repetitions. In this case, we are naming the simulation \dataframe{Game.sims.}
 <<cache=TRUE>>=
 # 1000 samples, each of size 200 and proportion 1/3
-GameSims <- do(1000) * rflip(n = 10, prob = 1/3)    
-head(GameSims)
+Game.sims <- do(1000) * rflip(n = 10, prob = 1/3)    
+head(Game.sims)
 @
 
 
 Now we can create a dotplot of the proportion of wins but note that because of there are so many observations (1000), we will not be able to see the individual dots.
 <<>>=
-dotPlot(~ prop, data = GameSims, width = 0.1)
+dotPlot(~ prop, data = Game.sims, width = 0.1)
 @
 
 %Figure P.6
@@ -356,15 +356,15 @@ to change is the name of the \R\ function --
 all of them follow the same general template.
 
 <<tidy=FALSE>>=
-    dotPlot(~ prop, data = GameSims, width = 0.1)
-  histogram(~ prop, data = GameSims, width = 0.1)
-freqpolygon(~ prop, data = GameSims, width = 0.1, ylim=c(0,4))
-densityplot(~ prop, data = GameSims)
-densityplot(~ prop, data = GameSims, adjust=2)    # "smoother"
-densityplot(~ prop, data = GameSims, adjust=0.5)  # less "smooth"
-   favstats(~ prop, data = GameSims)
-       mean(~ prop, data = GameSims)
-         sd(~ prop, data = GameSims)
+    dotPlot(~ prop, data = Game.sims, width = 0.1)
+  histogram(~ prop, data = Game.sims, width = 0.1)
+freqpolygon(~ prop, data = Game.sims, width = 0.1, ylim=c(0,4))
+densityplot(~ prop, data = Game.sims)
+densityplot(~ prop, data = Game.sims, adjust=2)    # "smoother"
+densityplot(~ prop, data = Game.sims, adjust=0.5)  # less "smooth"
+   favstats(~ prop, data = Game.sims)
+       mean(~ prop, data = Game.sims)
+         sd(~ prop, data = Game.sims)
 @
 
 For this data set, a histogram is probably best.  This is in part due to

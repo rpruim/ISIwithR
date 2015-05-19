@@ -30,15 +30,15 @@ MAD(mean(comprehension ~ condition, data = Comprehension))
   \item
     We simulate a world in which $MAD = 0$ :
 <<Figure9.3b, cache=TRUE>>=
-sim.comp <- do(1000) * MAD(mean(shuffle(comprehension) ~ condition, data = Comprehension))
-head(sim.comp, 3)
-dotPlot(~ result, data = sim.comp, width = 0.005, groups = (result >= 1.16))
+Comp.null <- do(1000) * MAD(mean(shuffle(comprehension) ~ condition, data = Comprehension))
+head(Comp.null, 3)
+dotPlot(~ result, data = Comp.null, width = 0.005, groups = (result >= 1.16))
 @
   \item
     Strength of evidence:
 <<Figure9.3c>>=
-favstats(~ result, data = sim.comp)
-prop(~ (result >= 1.16), data = sim.comp)
+favstats(~ result, data = Comp.null)
+prop(~ (result >= 1.16), data = Comp.null)
 @
 \end{enumerate}
 
@@ -63,19 +63,19 @@ MAD(mean(shuffle(brain_change) ~ treatment, data = Brain))
 % should be incorrect
 
 <<Exploration9.1.19, cache=TRUE>>=
-sim.brain <- do(1000) * MAD(mean(shuffle(brain_change) ~ treatment, data = Brain))
-head(sim.brain, 3)
-dotPlot(~ result, data = sim.brain, n = 50, groups = (result >= 0.672))
+Brain.null <- do(1000) * MAD(mean(shuffle(brain_change) ~ treatment, data = Brain))
+head(Brain.null, 3)
+dotPlot(~ result, data = Brain.null, n = 50, groups = (result >= 0.672))
 @
 
 <<Exploration9.1.20>>=
-prop(~ (result >= 0.672), data = sim.brain)
+prop(~ (result >= 0.672), data = Brain.null)
 @
 
 <<Exploration9.1.20b, cache=TRUE>>=
-sim.10000 <- do(10000) * MAD(mean(shuffle(brain_change) ~ treatment, data = Brain))
-head(sim.10000, 3)
-prop(~ (result >= 0.672), data = sim.10000)
+Brain.null10k <- do(10000) * MAD(mean(shuffle(brain_change) ~ treatment, data = Brain))
+head(Brain.null10k, 3)
+prop(~ (result >= 0.672), data = Brain.null10k)
 @
 
 \section{Theory-based Approach to Comparing More than Two Groups with a Quantitative Response}
@@ -98,27 +98,27 @@ MAD(mean(recall ~ condition, data = Recall))
   \item
     We simulate a world in which $MAD = 0$ :
 <<Figure9.5, cache=TRUE>>=
-sim.recall <- do(1000) * MAD(mean(shuffle(recall) ~ condition, data = Recall))
-head(sim.recall, 3)
-dotPlot(~ result, data = sim.recall, width = 0.005, groups = (result >= 1.93))
+Recall.null <- do(1000) * MAD(mean(shuffle(recall) ~ condition, data = Recall))
+head(Recall.null, 3)
+dotPlot(~ result, data = Recall.null, width = 0.005, groups = (result >= 1.93))
 @
   \item
     Strength of evidence:
 <<Figure9.5b>>=
-favstats(~ result, data = sim.recall)
-prop(~ (result >= 1.93), data = sim.recall)
+favstats(~ result, data = Recall.null)
+prop(~ (result >= 1.93), data = Recall.null)
 @
 \end{enumerate}
 
 <<Figure9.8, cache=TRUE>>=
-sim.recallF <- do(1000) * anova(lm(shuffle(recall) ~ condition, data = Recall))
-head(sim.recallF, 3)
-histogram(~ F, data = sim.recallF, n = 25)
-prop(~ (F >= 12.67), data = sim.recallF)
+Recall.nullF <- do(1000) * anova(lm(shuffle(recall) ~ condition, data = Recall))
+head(Recall.nullF, 3)
+histogram(~ F, data = Recall.nullF, n = 25)
+prop(~ (F >= 12.67), data = Recall.nullF)
 @
 
 <<Figure9.9, fig.keep='last'>>=
-histogram(~ F, data = sim.recallF, n = 25)
+histogram(~ F, data = Recall.nullF, n = 25)
 plotDist("f", df1 = 2, df2 = 52, add = TRUE)
 @
 
@@ -136,9 +136,9 @@ confint(lm(recall ~ condition, data = Recall))
 % not finding one of the confint
 
 <<Figure9.12>>=
-sim.compF <- do(1000) * anova(lm(shuffle(comprehension) ~ condition, data = Comprehension))
-head(sim.compF, 3)
-histogram(~ F, data = sim.compF, n = 25)
+CompF.null <- do(1000) * anova(lm(shuffle(comprehension) ~ condition, data = Comprehension))
+head(CompF.null, 3)
+histogram(~ F, data = CompF.null, n = 25)
 @
 
 \subsection*{Exploration 9.2: Comparing Popular Diets}
@@ -154,21 +154,21 @@ dotPlot(~ BMI | diet, data = Diets1, width = 1)
 
 <<Exploration9.2.6>>=
 MAD(mean(BMI ~ diet, data = Diets1))
-sim.diet <- do(1000) * MAD(mean(shuffle(BMI) ~ diet, data = Diets1))
-head(sim.diet, 3)
-dotPlot(~ result, data = sim.diet, n = 50, groups = (result >= 0.747))
-prop(~ (result >= 0.747), data = sim.diet)
+Diets1.null <- do(1000) * MAD(mean(shuffle(BMI) ~ diet, data = Diets1))
+head(Diets1.null, 3)
+dotPlot(~ result, data = Diets1.null, n = 50, groups = (result >= 0.747))
+prop(~ (result >= 0.747), data = Diets1.null)
 @
 
 <<Exploration9.2.8>>=
 anova(lm(BMI ~ diet, data = Diets1))
-sim.dietF <- do(1000) * anova(lm(shuffle(BMI) ~ diet, data = Diets1))
-head(sim.dietF, 3)
-prop(~ (F >= 5.392), data = sim.dietF)
+Diets1.nullF <- do(1000) * anova(lm(shuffle(BMI) ~ diet, data = Diets1))
+head(Diets1.nullF, 3)
+prop(~ (F >= 5.392), data = Diets1.nullF)
 @
 
 <<Exploration9.2.9, keep='last'>>=
-histogram(~ F, data = sim.dietF, n = 25)
+histogram(~ F, data = Diets1.nullF, n = 25)
 plotDist("f", df1 = 2, df2 = 229, add = TRUE)
 @
 

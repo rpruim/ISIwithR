@@ -45,18 +45,18 @@ Notice the \argument{level} in order to find the proportion of students who said
 
 Similar to the simulation of random processes in chapter one, we can repeat taking different simple random samples. Conveniently, \R\ will let you set \argument{data=} to a simple random sample so we can repeat finding the mean or the proportion of a different simple random sample many times.
 <<Figure2.2, cache=TRUE>>=
-sample.gpa <- do(1000) * mean(~ cumGPA, data = sample(CollegeMidwest, 30))
-head(sample.gpa)
-favstats(~ result, data = sample.gpa)
-histogram(~ result, data = sample.gpa)
+GPA.samples <- do(1000) * mean(~ cumGPA, data = sample(CollegeMidwest, 30))
+head(GPA.samples)
+favstats(~ result, data = GPA.samples)
+histogram(~ result, data = GPA.samples)
 @
 
 <<Figure2.2b, cache=TRUE>>=
-sample.campus <- do(1000) * prop(~ onCampus, level = "Y",  
+Campus.samples <- do(1000) * prop(~ onCampus, level = "Y",  
                                  data = sample(CollegeMidwest, 30))
-head(sample.campus)
-favstats(~ Y, data = sample.campus)
-histogram(~ Y, data = sample.campus)
+head(Campus.samples)
+favstats(~ Y, data = Campus.samples)
+histogram(~ Y, data = Campus.samples)
 @
 
 \subsubsection*{Exploration 2.1A: Sampling Words}
@@ -81,15 +81,15 @@ Words %>% mutate(length = nchar(word))
 	\item
 		We simulate a world in which $\pi = 0.5$:
 <<Figure2.3, cache=TRUE>>=
-sim.ban <- do(1000) * rflip(1093, 0.5)
-head(sim.ban, 3)
-favstats(~ prop, data = sim.ban)
-dotPlot(~ prop, data = sim.ban, groups = (prop <= 0.46), width = 0.001)
+Ban.null <- do(1000) * rflip(1093, 0.5)
+head(Ban.null, 3)
+favstats(~ prop, data = Ban.null)
+dotPlot(~ prop, data = Ban.null, groups = (prop <= 0.46), width = 0.001)
 @
   \item
     Strength of evidence:
 <<Figure2.3b>>=
-prop(~ (prop <= 0.46), data = sim.ban)
+prop(~ (prop <= 0.46), data = Ban.null)
 @
     Normal approximation using predicted standard deviation:
 <<Figure2.4, opts.label="fig4">>=
@@ -118,15 +118,15 @@ binom.test(503, 1093, alt = "less")
 	\item
 		We simulate a world in which $\pi = 0.5$:
 <<Exploration2.1B.10, cache=TRUE>>=
-sim.smoke <- do(1000) * rflip(1421, 0.5)
-head(sim.smoke, 3)
-favstats(~prop, data = sim.smoke)
-dotPlot(~ prop, data = sim.smoke, groups = (prop >= 0.55), width = 0.0014)
+Smoke.null <- do(1000) * rflip(1421, 0.5)
+head(Smoke.null, 3)
+favstats(~prop, data = Smoke.null)
+dotPlot(~ prop, data = Smoke.null, groups = (prop >= 0.55), width = 0.0014)
 @
   \item
     Strength of evidence:
 <<Exploration2.1B.10b>>=
-prop(~ (prop >= 0.55), data = sim.smoke)
+prop(~ (prop >= 0.55), data = Smoke.null)
 @
     Normal approximation using predicted standard deviation:
 <<Exploration2.1B.14, opts.label="fig4">>=
@@ -188,19 +188,19 @@ dotPlot(~ estimate, data = sample1, width = 1, cex = 0.3)
   \item
     We simulate random samples from a finite population:
 <<Figure2.8, cache=TRUE>>=
-sim.time <- do(1000) * mean(~ estimate, data = sample(TimePopulation, 48))
-head(sim.time, 3)
-histogram(~ result, data = sim.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10)
+Time.null <- do(1000) * mean(~ estimate, data = sample(TimePopulation, 48))
+head(Time.null, 3)
+histogram(~ result, data = Time.null, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10)
 @
   \item
     Strength of evidence:
 <<Figure2.8b>>=
-prop(~ (result <= 6.29 | result >= 13.71), data = sim.time)
+prop(~ (result <= 6.29 | result >= 13.71), data = Time.null)
 @
     Strength of evidence with the standardized statistic:
 <<Figure2.8c>>=
-mean(~ result, data = sim.time)
-sd <- sd(~ result, data = sim.time); sd
+mean(~ result, data = Time.null)
+sd <- sd(~ result, data = Time.null); sd
 xpnorm(13.71, 10, sd, lower.tail=FALSE, plot=FALSE)
 @
 \end{enumerate}
@@ -216,7 +216,7 @@ t <- (xbar - mu) / (s / sqrt(n)); t
 @
 
 <<Figure2.9, warning=FALSE>>=
-histogram(~ result, data = sim.time, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10, fit = "t")
+histogram(~ result, data = Time.null, groups = (result <= 6.29 | result >= 13.71), nint = 20, center = 10, fit = "t")
 @
 
 <<Figure2.10>>=
@@ -234,10 +234,10 @@ histogram(~ result, data = sim.time, groups = (result <= 6.29 | result >= 13.71)
 \subsubsection*{Alternative Analysis: What about the median?}
 
 <<Figure2.11, cache=TRUE>>=
-sim.median <- do(1000) * median(~ estimate, data = sample(TimePopulation, 48))
-head(sim.median, 3)
-histogram(~ result, data = sim.median, groups = (result < 8 | result > 12), width = 0.5, type = "count")
-prop(~ (result < 8 | result > 12), data = sim.median)
+Median.samples <- do(1000) * median(~ estimate, data = sample(TimePopulation, 48))
+head(Median.samples, 3)
+histogram(~ result, data = Median.samples, groups = (result < 8 | result > 12), width = 0.5, type = "count")
+prop(~ (result < 8 | result > 12), data = Median.samples)
 @
 
 \subsection*{Exploration 2.2: Sleepless Nights?}
@@ -285,18 +285,18 @@ favstats(sleepHrs, data = Pop1)
 
 <<Exploration2.2.25>>=
 mean(~ sleepHrs, data = SleepTimes) # test statistic
-sim.pop1 <- do(1000) * mean(~ sleepHrs, data = sample(Pop1, 48))
-head(sim.pop1, 3)
-dotPlot(~ result, data = sim.pop1, width = 0.05)
-favstats(~ result, data = sim.pop1)
+Pop1.samples <- do(1000) * mean(~ sleepHrs, data = sample(Pop1, 48))
+head(Pop1.samples, 3)
+dotPlot(~ result, data = Pop1.samples, width = 0.05)
+favstats(~ result, data = Pop1.samples)
 @
 
 <<Exploration2.2.26>>=
-prop(~ (result <= 6.705), data = sim.pop1)
+prop(~ (result <= 6.705), data = Pop1.samples)
 @
 
 <<Exploration2.2.27>>=
-sd <- sd(~ result, data = sim.pop1)
+sd <- sd(~ result, data = Pop1.samples)
 xpnorm(6.705, 8, sd, plot = FALSE)
 @
 
@@ -306,13 +306,13 @@ t
 @
 
 <<Exploration2.2.33>>=
-sim.t <- do(1000) * stat(t.test(~ sleepHrs, data = sample(Pop1, 48)))
-head(sim.t, 3)
-histogram(~ t, data = sim.t, width = 1, fit = "t")
+T.samples <- do(1000) * stat(t.test(~ sleepHrs, data = sample(Pop1, 48)))
+head(T.samples, 3)
+histogram(~ t, data = T.samples, width = 1, fit = "t")
 @
 
 <<Exploration2.2.34>>=
-prop(~ (t <= 5.981), data = sim.t)
+prop(~ (t <= 5.981), data = T.samples)
 @
 
 <<Exploration2.2.35>>=
@@ -329,11 +329,11 @@ histogram(~ sleep2, data = Pop)
 
 <<Exploration2.2.40b>>=
 mean(~ sleepHrs, data = SleepTimes) # test statistic
-sim.pop2 <- do(1000) * mean(~ sleep2, data = sample(Pop, 48))
-head(sim.pop2, 3)
-dotPlot(~ result, data = sim.pop2, width = 0.05)
-favstats(~ result, data = sim.pop2)
-prop(~ (result <= 6.705), data = sim.pop2)
+Pop2.samples <- do(1000) * mean(~ sleep2, data = sample(Pop, 48))
+head(Pop2.samples, 3)
+dotPlot(~ result, data = Pop2.samples, width = 0.05)
+favstats(~ result, data = Pop2.samples)
+prop(~ (result <= 6.705), data = Pop2.samples)
 @
 
 <<Exploration2.2.41>>=
@@ -344,10 +344,10 @@ t.test(~ sleep2, data = Pop)
 
 <<Exploration2.2.46>>=
 median(~ sleepHrs, data = SleepTimes) # test statistic
-sim.pop1med <- do(1000) * median(~ sleep1, data = sample(Pop, 48))
-head(sim.pop1med, 3)
-histogram(~ result, data = sim.pop1med, width = 0.1)
-prop(~ (result <= 6.5), data = sim.pop1med)
+Pop1med.samples <- do(1000) * median(~ sleep1, data = sample(Pop, 48))
+head(Pop1med.samples, 3)
+histogram(~ result, data = Pop1med.samples, width = 0.1)
+prop(~ (result <= 6.5), data = Pop1med.samples)
 @
 
 \section{Errors and Significance}
@@ -368,13 +368,13 @@ prop(~ (result <= 6.5), data = sim.pop1med)
   \item
     We simulate a world in which $\pi = 0.25$:
 <<Exploration2.3.4,cache=TRUE>>=
-sim.esp <- do(1000) * rflip(2124, 0.25)
-head(sim.esp, 3)
+ESP.null <- do(1000) * rflip(2124, 0.25)
+head(ESP.null, 3)
 @
   \item
     Strength of evidence:
 <<Exploration2.3.4b>>=
-prop(~ (prop >= 0.333), data = sim.esp)
+prop(~ (prop >= 0.333), data = ESP.null)
 @
     Approximate test for proportions:
 <<Exploration2.3.5>>=
