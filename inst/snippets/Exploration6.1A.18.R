@@ -1,2 +1,2 @@
-IQR(Cost ~ Sex, data = Haircuts)
+IQR(cost ~ sex, data = Haircuts)
 

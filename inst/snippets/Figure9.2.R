@@ -1,2 +1,2 @@
-bwplot(Condition ~ Comprehension, data = Comprehension, horizontal = TRUE)
+bwplot(condition ~ comprehension, data = Comprehension, horizontal = TRUE)
 

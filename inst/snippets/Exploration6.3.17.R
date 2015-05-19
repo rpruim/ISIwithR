@@ -1,2 +1,2 @@
-pval(t.test(Friends ~ Sex, data = CloseFriends))
+pval(t.test(friends ~ sex, data = CloseFriends))
 

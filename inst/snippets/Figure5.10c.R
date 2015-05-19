@@ -1,3 +1,3 @@
-favstats(~ boy.smokers, data = sim.smoke)
-prop(~ (boy.smokers <= -0.097 | boy.smokers >= 0.097), data = sim.smoke)
+favstats(~ diffprop, data = sim.smoke)
+prop(~ (diffprop <= -0.097 | diffprop >= 0.097), data = sim.smoke)
 

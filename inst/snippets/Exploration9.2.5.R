@@ -1,3 +1,3 @@
-favstats( BMI ~ Diet, data = Diets)
-dotPlot(~ BMI | Diet, data = Diets, width = 1)
+favstats( BMI ~ diet, data = Diets1)
+dotPlot(~ BMI | diet, data = Diets1, width = 1)
 

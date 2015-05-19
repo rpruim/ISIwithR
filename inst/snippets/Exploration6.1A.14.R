@@ -1,2 +1,2 @@
-median(Cost ~ Sex, data = Haircuts)
+median(cost ~ sex, data = Haircuts)
 

@@ -1,2 +1,2 @@
-confint(prop.test(Response ~ Year, data = Blood))
+confint(prop.test(response ~ year, data = Blood))
 

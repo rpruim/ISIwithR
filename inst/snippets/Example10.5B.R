@@ -1,3 +1,3 @@
-cor(Smoked ~ Alcohol_Drinks, data = AlcoholSmoke)
-cor(Smoked ~ Alcohol_Drinks, data = subset(AlcoholSmoke, Smoked < 125))
+cor(smoked ~ alcohol_drinks, data = AlcoholSmoke)
+cor(smoked ~ alcohol_drinks, data = subset(AlcoholSmoke, smoked < 125))
 

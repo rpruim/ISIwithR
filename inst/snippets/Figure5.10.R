@@ -1,3 +1,3 @@
-tally(Child ~ Parents, data = Smoking)
-diff(prop(Child ~ Parents, data = Smoking))
+tally(child ~ parents, data = Smoking, format="prop", margins=TRUE)
+diffprop(child ~ parents, data = Smoking)
 

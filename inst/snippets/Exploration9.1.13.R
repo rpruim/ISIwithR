@@ -1,2 +1,2 @@
-MAD(mean(BrainChange ~ Treatment, data = Brain))
+MAD(mean(brain_change ~ treatment, data = Brain))
 

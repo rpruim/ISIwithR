@@ -1,6 +1,6 @@
 n <- nrow(UsedCars); n
-mean <- mean(~ Price, data = UsedCars); mean
-sd <- sd(~ Price, data = UsedCars); sd
+mean <- mean(~ price, data = UsedCars); mean
+sd <- sd(~ price, data = UsedCars); sd
 SE <- sd / sqrt(n)
 MoE <- 2 * SE; MoE    # margin of error for 95% CI
 mean - MoE            # lower limit of 95% CI

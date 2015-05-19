@@ -1,2 +1,2 @@
-prop.test(Response ~ Swimming, data = Dolphin2, alt = "greater")
+prop.test(response ~ swimming, data = Dolphin2, alt = "greater")
 

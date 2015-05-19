@@ -1,7 +1,7 @@
 # given difference in sample proportions
-diff <- diff(prop(Response ~ Swimming, data = Dolphin))
+diff <- diffprop(response ~ swimming, data = Dolphin)
 # simulated standard deviation
-sd <- sd(~ Improve.Dolphin, data = sim.dol)
+sd <- sd(~ diffprop, data = sim.dol)
 # margin of error for 95% CI
 MoE <- 2 * sd; MoE  
 # lower limit of 95% CI

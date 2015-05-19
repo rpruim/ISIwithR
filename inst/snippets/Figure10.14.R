@@ -1,2 +1,2 @@
-coef(lm(HeartRate ~ BodyTemp, data = TempHeart))
+coef(lm(heartRate ~ bodyTemp, data = TempHeart))
 

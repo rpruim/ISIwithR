@@ -1,2 +1,2 @@
-mosaic(Response ~ Sex, data = Blood2, dir = "v")
+mosaic(response ~ Sex, data = Blood2, dir = "v")
 

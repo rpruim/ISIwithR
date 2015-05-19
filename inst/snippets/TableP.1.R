@@ -1,3 +1,3 @@
-favstats(~ TimeBetween, data = OldFaithful2)
-favstats(TimeBetween ~ EruptionType, data = OldFaithful2)
+favstats(~ timeBetween, data = OldFaithful2)
+favstats(timeBetween ~ eruptionType, data = OldFaithful2)
 

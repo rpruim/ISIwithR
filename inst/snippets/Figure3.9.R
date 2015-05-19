@@ -1,4 +1,4 @@
 head(UsedCars)
-favstats(~ Price, data = UsedCars)
-histogram(~ Price, data = UsedCars, type="count", width = 2000)
+favstats(~ price, data = UsedCars)
+histogram(~ price, data = UsedCars, type="count", width = 2000)
 

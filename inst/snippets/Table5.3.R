@@ -1,4 +1,4 @@
 head(Dolphin)
-tally(~ Response + Swimming, data = Dolphin, margin = TRUE)
-tally(Response ~ Swimming, data = Dolphin)
+tally(response ~ swimming, data = Dolphin, margin = TRUE)
+tally(response ~ swimming, data = Dolphin, format="prop")
 

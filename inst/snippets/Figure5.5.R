@@ -1,6 +1,6 @@
-tally(~ shuffle(Response) + Swimming, data = Dolphin, margins = TRUE)
-tally(~ shuffle(Response) + Swimming, data = Dolphin, margins = TRUE)
-tally(~ shuffle(Response) + Swimming, data = Dolphin, margins = TRUE)
-diff(prop(Response ~ Swimming, data = Dolphin))
-diff(prop(shuffle(Response) ~ Swimming, data = Dolphin))
+tally(shuffle(response) ~ swimming, data = Dolphin, margins = TRUE)
+tally(shuffle(response) ~ swimming, data = Dolphin, margins = TRUE)
+tally(shuffle(response) ~ swimming, data = Dolphin, margins = TRUE)
+diffprop(response ~ swimming, data = Dolphin)
+diffprop(shuffle(response) ~ swimming, data = Dolphin)
 

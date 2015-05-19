@@ -1,4 +1,4 @@
 sample(Acupuncture, 5)
-tally(~ Improvement + Acupunture, data = Acupuncture, margins = TRUE)
-tally(Improvement ~ Acupunture, data = Acupuncture)
+tally(~ improvement + acupuncture, data = Acupuncture, margins = TRUE)
+tally(improvement ~ acupuncture, data = Acupuncture)
 

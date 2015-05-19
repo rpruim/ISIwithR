@@ -1,2 +1,2 @@
-prop.test(Child ~ Parents, data = Smoking)
+prop.test(child ~ parents, data = Smoking)
 

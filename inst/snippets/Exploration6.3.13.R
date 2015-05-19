@@ -1,3 +1,3 @@
-t.test(Friends ~ Sex, data = CloseFriends)
-stat(t.test(Friends ~ Sex, data = CloseFriends))
+t.test(friends ~ sex, data = CloseFriends)
+stat(t.test(friends ~ sex, data = CloseFriends))
 

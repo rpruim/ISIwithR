@@ -1,3 +1,3 @@
-tally(Response ~ Year, data = Blood)
-diff(prop(Response ~ Year, level = "donated", data = Blood))
+tally(response ~ year, data = Blood, format="prop")
+diffprop(response ~ year, level = "donated", data = Blood)
 

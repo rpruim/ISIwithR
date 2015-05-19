@@ -1,2 +1,2 @@
-confint(t.test(~ Price, data = UsedCars))
+confint(t.test(~ price, data = UsedCars))
 

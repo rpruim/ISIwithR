@@ -1,2 +1,2 @@
-mosaicplot(Swimming ~ Response, data = Dolphin2)
+mosaicplot(swimming ~ response, data = Dolphin2)
 

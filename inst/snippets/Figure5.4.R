@@ -1,2 +1,2 @@
-mosaic(shuffle(Response) ~ Swimming, data = Dolphin, dir = "v")
+mosaic(shuffle(response) ~ swimming, data = Dolphin, dir = "v")
 

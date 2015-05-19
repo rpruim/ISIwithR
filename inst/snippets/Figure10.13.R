@@ -1,3 +1,3 @@
 head(TempHeart)
-xyplot(HeartRate ~ BodyTemp, data = TempHeart, type = c("p", "r"))
+xyplot(heartRate ~ bodyTemp, data = TempHeart, type = c("p", "r"))
 

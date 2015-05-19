@@ -1,4 +1,4 @@
-sim.smoke <- do(5000) * diff(prop(shuffle(Child) ~ Parents, data = Smoking))
+sim.smoke <- do(5000) * diffprop(shuffle(child) ~ parents, data = Smoking)
 head(sim.smoke, 3)
-dotPlot(~ boy.smokers, data = sim.smoke, cex = 25)
+dotPlot(~ diffprop, data = sim.smoke, cex = 25)
 

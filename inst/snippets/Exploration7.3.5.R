@@ -1,3 +1,3 @@
 summary(Auction)
-favstats(Auction$dutch - Auction$FP)
+favstats( ~(dutch - FP), data=Auction)
 

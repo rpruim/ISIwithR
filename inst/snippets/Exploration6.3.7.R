@@ -1,3 +1,3 @@
-favstats(Friends ~ Sex, data = CloseFriends)
-diff(mean(Friends ~ Sex, data = CloseFriends))
+favstats(friends ~ sex, data = CloseFriends)
+diffmean(friends ~ sex, data = CloseFriends)
 

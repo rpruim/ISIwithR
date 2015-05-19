@@ -1,2 +1,2 @@
-prop.test(Response ~ Year, data = Blood)
+prop.test(response ~ year, data = Blood)
 

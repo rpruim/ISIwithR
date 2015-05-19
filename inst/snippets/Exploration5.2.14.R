@@ -1,2 +1,2 @@
-tally(~ shuffle(Response) + YawnSeed, data = Yawning, margins = TRUE)
+tally(shuffle(response) ~ yawnSeed, data = Yawning, margins = TRUE)
 

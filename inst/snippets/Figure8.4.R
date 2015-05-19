@@ -1,3 +1,3 @@
-mosaic(Improvement ~ Acupunture, data = Acupuncture, direction = "v")
-MAD(prop(Improvement ~ Acupunture, data = Acupuncture))
+mosaic(improvement ~ acupuncture, data = Acupuncture, direction = "v")
+MAD(prop(improvement ~ acupuncture, data = Acupuncture))
 

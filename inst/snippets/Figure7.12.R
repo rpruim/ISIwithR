@@ -1,2 +1,2 @@
-t.test(BowlsMMs$Small, BowlsMMs$Large, paired = TRUE, alt = "less")
+t.test(small, large, data=BowlsMMs, paired = TRUE, alt = "less")
 

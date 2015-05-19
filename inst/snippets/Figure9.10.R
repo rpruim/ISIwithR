@@ -1,2 +1,2 @@
-anova(lm(Recall ~ Condition, data = Recall))
+anova(lm(recall ~ condition, data = Recall))
 

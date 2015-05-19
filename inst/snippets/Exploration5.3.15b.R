@@ -1,4 +1,4 @@
-tally(~ Response + Sex, data = Blood2, margin = TRUE)
-tally(Response ~ Sex, data = Blood2)
-diff(prop(Response ~ Sex, data = Blood2))
+tally(response ~ Sex, data = Blood2, margin = TRUE)
+tally(response ~ Sex, data = Blood2, format="prop")
+diffprop(response ~ Sex, data = Blood2)
 

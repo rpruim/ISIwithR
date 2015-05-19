@@ -1,2 +1,2 @@
-favstats(Time ~ Frame, data = BikeTimes)
+favstats(time ~ frame, data = BikeTimes)
 

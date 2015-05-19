@@ -1,3 +1,3 @@
-tally(~ Response + Swimming, data = Dolphin2, margin = TRUE)
-diff(prop(Response ~ Swimming, data =Dolphin2))
+tally( response ~ swimming, data = Dolphin2, margin = TRUE, format="prop")
+diffprop(response ~ swimming, data =Dolphin2)
 

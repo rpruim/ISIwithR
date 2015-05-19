@@ -1,2 +1,2 @@
-mosaic(Response ~ YawnSeed, data = Yawning, dir = "v")
+mosaic(response ~ yawnSeed, data = Yawning, dir = "v")
 

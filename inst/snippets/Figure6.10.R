@@ -1,3 +1,3 @@
-bwplot(Feeding ~ GCI, horizontal = TRUE, data = BreastFeedIntell)
-histogram(~ GCI | Feeding, data = BreastFeedIntell, width = 5)
+bwplot(feeding ~ GCI, horizontal = TRUE, data = BreastFeedIntell)
+histogram(~ GCI | feeding, data = BreastFeedIntell, width = 5)
 

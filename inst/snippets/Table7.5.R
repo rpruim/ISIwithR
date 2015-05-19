@@ -1,4 +1,4 @@
-favstats(~ Small, data = BowlsMMs)
-favstats(~ Large, data = BowlsMMs)
-favstats(BowlsMMs$Small-BowlsMMs$Large)
+favstats(~ small, data = BowlsMMs)
+favstats(~ large, data = BowlsMMs)
+favstats( ~(small - large), data = BowlsMMs)
 

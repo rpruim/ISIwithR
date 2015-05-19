@@ -1,3 +1,3 @@
-histogram(~ CumGpa, data = CollegeMidwest, n =  24)
-bargraph(~ OnCampus, data = CollegeMidwest)
+histogram(~ cumGPA, data = CollegeMidwest, n =  24)
+bargraph(~ onCampus, data = CollegeMidwest)
 

@@ -1,3 +1,3 @@
-confint(t.test(Friends ~ Sex, data = CloseFriends))
+confint(t.test(friends ~ sex, data = CloseFriends))
 
 

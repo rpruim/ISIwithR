@@ -1,2 +1,2 @@
-t.test(~ SleepHrs, data = Pop1)
+t.test(~ sleepHrs, data = Pop1)
 

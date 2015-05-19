@@ -1,2 +1,2 @@
-confint(prop.test(Response ~ Swimming, data = Dolphin))
+confint(prop.test(response ~ swimming, data = Dolphin))
 

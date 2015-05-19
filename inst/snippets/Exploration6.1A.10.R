@@ -1,2 +1,2 @@
-diff(mean(Cost ~ Sex, data = Haircuts))
+diffmean(cost ~ sex, data = Haircuts)
 

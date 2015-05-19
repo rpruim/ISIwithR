@@ -1,4 +1,4 @@
 head(BreastFeedIntell)
-favstats(GCI ~ Feeding, data = BreastFeedIntell)
-diff(mean(GCI ~ Feeding, data = BreastFeedIntell))
+favstats(GCI ~ feeding, data = BreastFeedIntell)
+diffmean(GCI ~ feeding, data = BreastFeedIntell)
 

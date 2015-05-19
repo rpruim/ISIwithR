@@ -1,2 +1,2 @@
-mosaicplot(Year ~ Response, data = Blood)
+mosaicplot(year ~ response, data = Blood)
 

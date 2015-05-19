@@ -1,2 +1,2 @@
-favstats(~ Cost | Sex, data = Haircuts)
+favstats(~ cost | sex, data = Haircuts)
 

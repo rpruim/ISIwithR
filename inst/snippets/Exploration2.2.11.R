@@ -1,2 +1,2 @@
-mean(~ SleepHrs, data = SleepTimes) 
+mean(~ sleepHrs, data = SleepTimes) 
 

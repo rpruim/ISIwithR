@@ -1,2 +1,2 @@
-confint(prop.test(Response ~ YawnSeed, data = Yawning2))
+confint(prop.test(response ~ yawnSeed, data = Yawning2))
 

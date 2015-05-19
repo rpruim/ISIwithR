@@ -1,2 +1,2 @@
-confint(lm(Recall ~ Condition, data = Recall))
+confint(lm(recall ~ condition, data = Recall))
 

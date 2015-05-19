@@ -1,4 +1,4 @@
-bargraph(~ Perception, groups = Wording, data = GoodandBad, stack = TRUE, auto.key = TRUE)
-mosaicplot(~ Perception + Wording, data = GoodandBad, shade=TRUE)
-mosaic(~ Perception + Wording, data = GoodandBad, shade=TRUE)
+bargraph(~ perception, groups = wording, data = GoodandBad, stack = TRUE, auto.key = TRUE)
+mosaicplot(~ perception + wording, data = GoodandBad, shade=TRUE)
+mosaic(~ perception + wording, data = GoodandBad, shade=TRUE)
 

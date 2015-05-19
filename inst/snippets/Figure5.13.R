@@ -1,2 +1,2 @@
-confint(prop.test(Child ~ Parents, data = Smoking))
+confint(prop.test(child ~ parents, data = Smoking))
 

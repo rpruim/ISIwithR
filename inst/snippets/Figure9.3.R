@@ -1,2 +1,2 @@
-MAD(mean(Comprehension ~ Condition, data = Comprehension))
+MAD(mean(comprehension ~ condition, data = Comprehension))
 

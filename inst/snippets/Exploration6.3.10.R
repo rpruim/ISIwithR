@@ -1,3 +1,3 @@
-favstats(~ Women, data = sim.fri)
-prop(~ (Women <= -0.228 | Women >= 0.228), data = sim.fri)
+favstats(~ diffmean, data = sim.fri)
+prop(~ (diffmean <= -0.228 | diffmean >= 0.228), data = sim.fri)
 

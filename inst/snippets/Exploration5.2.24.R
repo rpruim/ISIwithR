@@ -1,2 +1,2 @@
-sd <- sd(~Yawn.Seeded, data = sim.yawn2); sd
+sd <- sd(~diffprop, data = sim.yawn2); sd
 

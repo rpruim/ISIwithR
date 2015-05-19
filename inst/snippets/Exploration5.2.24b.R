@@ -1,5 +1,5 @@
 # given difference in sample proportions
-diff <- diff(prop(Response ~ YawnSeed, level = "Yawn", data = Yawning2))
+diff <- diffprop(response ~ yawnSeed, level = "Yawn", data = Yawning2)
 # previously found simulated standard deviation
 sd
 # margin of error for 95% CI

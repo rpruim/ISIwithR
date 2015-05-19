@@ -1,4 +1,4 @@
-mean(~ SleepHrs, data = SleepTimes) # test statistic
+mean(~ sleepHrs, data = SleepTimes) # test statistic
 sim.pop2 <- do(1000) * mean(~ sleep2, data = sample(Pop, 48))
 head(sim.pop2, 3)
 dotPlot(~ result, data = sim.pop2, width = 0.05)

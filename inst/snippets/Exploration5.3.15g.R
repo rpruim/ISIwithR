@@ -1,3 +1,3 @@
-prop.test(Response ~ Sex, data = Blood2)
+prop.test(response ~ Sex, data = Blood2)
 
 

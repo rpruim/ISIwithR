@@ -1,2 +1,2 @@
-bwplot(Frame ~ Time, data = BikeTimes, horizontal = TRUE)
+bwplot(frame ~ time, data = BikeTimes, horizontal = TRUE)
 

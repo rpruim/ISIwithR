@@ -1,2 +1,2 @@
-favstats(Comprehension ~ Condition, data = Comprehension)
+favstats(comprehension ~ condition, data = Comprehension)
 

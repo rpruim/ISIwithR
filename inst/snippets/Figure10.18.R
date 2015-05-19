@@ -1,2 +1,2 @@
-xyplot(Smoked ~ Alcohol_Drinks, data = AlcoholSmoke, type = c("p", "r"))
+xyplot(smoked ~ alcohol_drinks, data = AlcoholSmoke, type = c("p", "r"))
 

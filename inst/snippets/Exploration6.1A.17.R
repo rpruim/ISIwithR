@@ -1,2 +1,2 @@
-bwplot(Sex ~ Cost, data = Haircuts, horizontal = TRUE)
+bwplot(sex ~ cost, data = Haircuts, horizontal = TRUE)
 

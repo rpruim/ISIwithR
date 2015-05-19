@@ -1,2 +1,2 @@
-confint(lm(HeartRate ~ BodyTemp, data = TempHeart))
+confint(lm(heartRate ~ bodyTemp, data = TempHeart))
 

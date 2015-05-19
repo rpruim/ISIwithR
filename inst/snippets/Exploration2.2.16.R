@@ -1,2 +1,2 @@
-median(~ SleepHrs, data = SleepTimes)
+median(~ sleepHrs, data = SleepTimes)
 

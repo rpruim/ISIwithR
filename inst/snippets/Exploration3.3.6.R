@@ -1,6 +1,6 @@
 n <- nrow(SleepTimes); n
-mean <- mean(~ SleepHrs, data = SleepTimes); mean
-sd <- sd(~ SleepHrs, data = SleepTimes); sd 
+mean <- mean(~ sleepHrs, data = SleepTimes); mean
+sd <- sd(~ sleepHrs, data = SleepTimes); sd 
 SE <- sd / sqrt(n)
 MoE <- 2 * SE; MoE    # margin of error for 95% CI
 mean - MoE            # lower limit of 95% CI

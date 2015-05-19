@@ -1,2 +1,2 @@
-histogram(~ SleepHrs, data = SleepTimes, nint = 15)
+histogram(~ sleepHrs, data = SleepTimes, nint = 15)
 

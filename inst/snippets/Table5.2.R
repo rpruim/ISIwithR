@@ -1,5 +1,5 @@
-tally(~ Perception + Wording, data = GoodandBad, margins = TRUE)
-tally(Perception ~ Wording, data = GoodandBad)
-prop(Perception ~ Wording, data = GoodandBad)
-prop(Perception ~ Wording, level = "positive", data = GoodandBad)
+tally(perception ~ wording, data = GoodandBad, margins = TRUE)
+tally(perception ~ wording, data = GoodandBad, format="prop")
+prop(perception ~ wording, data = GoodandBad)
+prop(perception ~ wording, level = "positive", data = GoodandBad)
 

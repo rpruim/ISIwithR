@@ -1,3 +1,3 @@
-tally(Response ~ YawnSeed, data = Yawning)
-diff(prop(Response ~ YawnSeed, level = "Yawn", data = Yawning))
+tally(response ~ yawnSeed, data = Yawning, format="prop")
+diffprop(response ~ yawnSeed, level = "Yawn", data = Yawning)
 

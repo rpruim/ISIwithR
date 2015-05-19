@@ -1,3 +1,3 @@
-fivenum(~ Cost, data = Haircuts)
-fivenum(~ Cost | Sex, data = Haircuts)
+fivenum(~ cost, data = Haircuts)
+fivenum(~ cost | sex, data = Haircuts)
 

@@ -1,3 +1,3 @@
 head(CloseFriends)
-tally(~ Friends + Sex, data = CloseFriends, margin = TRUE)
+tally(~ friends + sex, data = CloseFriends, margin = TRUE)
 

@@ -1,2 +1,2 @@
-confint(t.test(~ SleepHrs, data = SleepTimes))
+confint(t.test(~ sleepHrs, data = SleepTimes))
 

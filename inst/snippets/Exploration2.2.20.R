@@ -1,2 +1,2 @@
-bwplot(~ SleepHrs, data = SleepTimes)
+bwplot(~ sleepHrs, data = SleepTimes)
 

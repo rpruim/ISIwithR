@@ -1,3 +1,3 @@
 head(SleepTimes)
-favstats(~SleepHrs, data = SleepTimes)
+favstats(~sleepHrs, data = SleepTimes)
 

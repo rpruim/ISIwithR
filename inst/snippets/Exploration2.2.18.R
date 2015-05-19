@@ -1,2 +1,2 @@
-sd(~ SleepHrs, data = SleepTimes)
+sd(~ sleepHrs, data = SleepTimes)
 

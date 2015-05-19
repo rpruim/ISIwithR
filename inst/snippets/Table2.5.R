@@ -1,2 +1,2 @@
-TimeEstimate %>% mutate(Rank=rank(Estimate, ties.method = "random")) %>% arrange(Rank)
+TimeEstimate %>% mutate(Rank=rank(estimate, ties.method = "random")) %>% arrange(Rank)
 

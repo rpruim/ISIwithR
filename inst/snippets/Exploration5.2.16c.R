@@ -1,2 +1,2 @@
-prop.test(Response ~ YawnSeed, data = Yawning, alt = "greater")
+prop.test(response ~ yawnSeed, data = Yawning, alt = "greater")
 

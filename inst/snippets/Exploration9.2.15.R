@@ -1,3 +1,3 @@
-confint(lm(BMI ~ Diet, data = Diets))
+confint(lm(BMI ~ diet, data = Diets1))
 
 

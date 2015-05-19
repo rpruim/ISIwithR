@@ -1,3 +1,3 @@
 head(Yawning, 3)
-tally(~ Response + YawnSeed, data = Yawning, margin = TRUE)
+tally(response ~ yawnSeed, data = Yawning, margin = TRUE)
 
