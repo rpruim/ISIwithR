@@ -1,5 +1,5 @@
-sim.1986 <- do(1000) * rflip(361, 0.15)
-head(sim.1986, 3)
-favstats(~ prop, data = sim.1986)
-dotPlot(~ prop, data = sim.1986, width = 1/361, groups = (prop >= 71/361))
+Mort1986.null <- do(1000) * rflip(361, 0.15)
+head(Mort1986.null, 3)
+favstats(~ prop, data = Mort1986.null)
+dotPlot(~ prop, data = Mort1986.null, width = 1/361, groups = (prop >= 71/361))
 

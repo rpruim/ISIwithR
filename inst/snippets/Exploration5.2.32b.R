@@ -1,3 +1,3 @@
-favstats(~ diffprop, data = sim.yawn3)
-prop(~ (diffprop >= 0.0441), data = sim.yawn3)
+favstats(~ diffprop, data = Yawn3.null)
+prop(~ (diffprop >= 0.0441), data = Yawn3.null)
 

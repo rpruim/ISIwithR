@@ -1,3 +1,3 @@
-favstats(~ result, data = sim.donor)
-prop(~ (result >= 0.086), data = sim.stop)
+favstats(~ result, data = Donor.null)
+prop(~ (result >= 0.086), data = Stop.null)
 

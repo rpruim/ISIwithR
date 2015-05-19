@@ -1,2 +1,2 @@
-cdata(0.90, prop, data = sim.pets2)
+cdata(0.90, prop, data = Pets.null2)
 

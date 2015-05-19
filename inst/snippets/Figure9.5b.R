@@ -1,3 +1,3 @@
-favstats(~ result, data = sim.recall)
-prop(~ (result >= 1.93), data = sim.recall)
+favstats(~ result, data = Recall.null)
+prop(~ (result >= 1.93), data = Recall.null)
 

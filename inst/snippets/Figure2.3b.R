@@ -1,2 +1,2 @@
-prop(~ (prop <= 0.46), data = sim.ban)
+prop(~ (prop <= 0.46), data = Ban.null)
 

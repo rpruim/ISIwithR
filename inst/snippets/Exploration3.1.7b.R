@@ -1,3 +1,3 @@
-favstats(~ prop, data = sim.kiss)
-prop(~ (prop >= 0.645), data = sim.kiss)
+favstats(~ prop, data = Kiss.null)
+prop(~ (prop >= 0.645), data = Kiss.null)
 

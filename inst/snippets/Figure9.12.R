@@ -1,4 +1,4 @@
-sim.compF <- do(1000) * anova(lm(shuffle(comprehension) ~ condition, data = Comprehension))
-head(sim.compF, 3)
-histogram(~ F, data = sim.compF, n = 25)
+CompF.null <- do(1000) * anova(lm(shuffle(comprehension) ~ condition, data = Comprehension))
+head(CompF.null, 3)
+histogram(~ F, data = CompF.null, n = 25)
 

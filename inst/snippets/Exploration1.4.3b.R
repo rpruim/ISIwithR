@@ -1,2 +1,2 @@
-prop(~ (prop >=0.543), data = sim.red)
+prop(~ (prop >=0.543), data = Red.null)
 

@@ -1,3 +1,3 @@
-favstats(~ prop, data = sim.cancer)
-prop(~ (prop >= 0.909), data = sim.cancer)
+favstats(~ prop, data = Cancer.null)
+prop(~ (prop >= 0.909), data = Cancer.null)
 

@@ -1,3 +1,3 @@
-favstats(~ unrestricted, data = sim.sleep)
-prop(~ (unrestricted >= 15.92), data = sim.sleep)
+favstats(~ diffmean, data = Sleep.null2)
+prop(~ (diffmean >= 15.92), data = Sleep.null2)
 

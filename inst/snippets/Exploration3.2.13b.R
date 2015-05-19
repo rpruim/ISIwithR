@@ -1,2 +1,2 @@
-cdata(0.95, prop, data = sim.amer)
+cdata(0.95, prop, data = Amer.null)
 

@@ -1,3 +1,3 @@
-favstats(~ diffprop, data = sim.dol)
-prop(~ (diffprop >= 0.4667), data = sim.dol)
+favstats(~ diffprop, data = Dolphin.null)
+prop(~ (diffprop >= 0.4667), data = Dolphin.null)
 

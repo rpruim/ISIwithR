@@ -1,6 +1,6 @@
-sample.campus <- do(1000) * prop(~ onCampus, level = "Y",  
+Campus.samples <- do(1000) * prop(~ onCampus, level = "Y",  
                                  data = sample(CollegeMidwest, 30))
-head(sample.campus)
-favstats(~ Y, data = sample.campus)
-histogram(~ Y, data = sample.campus)
+head(Campus.samples)
+favstats(~ Y, data = Campus.samples)
+histogram(~ Y, data = Campus.samples)
 

@@ -1,3 +1,3 @@
-favstats(~ bodyTemp, data = sim.rate)
-prop(~ (bodyTemp <= -2.443 | bodyTemp >= 2.443), data = sim.rate)
+favstats(~ bodyTemp, data = Rate.null)
+prop(~ (bodyTemp <= -2.443 | bodyTemp >= 2.443), data = Rate.null)
 

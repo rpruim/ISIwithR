@@ -1,3 +1,3 @@
-favstats(~ unrestricted, data = sim.med)
-prop(~ (unrestricted >= 12.05), data = sim.med)
+favstats(~ unrestricted, data = Med.null)
+prop(~ (unrestricted >= 12.05), data = Med.null)
 

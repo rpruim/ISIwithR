@@ -1,3 +1,3 @@
-sim.ratet <- do(1000) * coef(summary(lm(shuffle(heartRate) ~ bodyTemp, data = TempHeart)))
-head(sim.ratet, 10)
+Rate.null <- do(1000) * coef(summary(lm(shuffle(heartRate) ~ bodyTemp, data = TempHeart)))
+head(Rate.null, 10)
 

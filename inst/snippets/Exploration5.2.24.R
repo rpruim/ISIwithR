@@ -1,2 +1,2 @@
-sd <- sd(~diffprop, data = sim.yawn2); sd
+sd <- sd(~diffprop, data = Yawn2.null); sd
 

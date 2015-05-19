@@ -1,2 +1,2 @@
-prop(~ (prop >= 23/32), data = sim.senate)
+prop(~ (prop >= 23/32), data = Senate.null)
 

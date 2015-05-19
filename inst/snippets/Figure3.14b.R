@@ -1,3 +1,3 @@
-favstats(~ prop, data = sim.obama)
-prop(~ (prop >= 0.41), data = sim.obama)
+favstats(~ prop, data = Obama.null)
+prop(~ (prop >= 0.41), data = Obama.null)
 

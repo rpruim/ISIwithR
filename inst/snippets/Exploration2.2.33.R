@@ -1,4 +1,4 @@
-sim.t <- do(1000) * stat(t.test(~ sleepHrs, data = sample(Pop1, 48)))
-head(sim.t, 3)
-histogram(~ t, data = sim.t, width = 1, fit = "t")
+T.samples <- do(1000) * stat(t.test(~ sleepHrs, data = sample(Pop1, 48)))
+head(T.samples, 3)
+histogram(~ t, data = T.samples, width = 1, fit = "t")
 

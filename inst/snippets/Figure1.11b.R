@@ -1,2 +1,2 @@
-prop(~ (prop >= 71/361), data = sim.1986)
+prop(~ (prop >= 71/361), data = Mort1986.null)
 

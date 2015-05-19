@@ -1,4 +1,4 @@
-sim.recall <- do(1000) * MAD(mean(shuffle(recall) ~ condition, data = Recall))
-head(sim.recall, 3)
-dotPlot(~ result, data = sim.recall, width = 0.005, groups = (result >= 1.93))
+Recall.null <- do(1000) * MAD(mean(shuffle(recall) ~ condition, data = Recall))
+head(Recall.null, 3)
+dotPlot(~ result, data = Recall.null, width = 0.005, groups = (result >= 1.93))
 

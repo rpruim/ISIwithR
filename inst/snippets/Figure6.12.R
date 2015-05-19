@@ -1,3 +1,3 @@
-favstats(~ diffmean, data = sim.GCI)
-prop(~ (diffmean <= -4.40 | diffmean >= 4.40), data = sim.GCI)
+favstats(~ diffmean, data = GCI.null)
+prop(~ (diffmean <= -4.40 | diffmean >= 4.40), data = GCI.null)
 

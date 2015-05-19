@@ -1,3 +1,3 @@
-favstats(~ diffprop, data = sim.dol2)
-prop(~ (diffprop>= 0.20), data = sim.dol2)
+favstats(~ diffprop, data = Dolphin2.null)
+prop(~ (diffprop>= 0.20), data = Dolphin2.null)
 

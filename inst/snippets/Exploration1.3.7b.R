@@ -1,2 +1,2 @@
-prop(~ (prop >=18/30), data = sim.tim)
+prop(~ (prop >=18/30), data = Tim.null)
 

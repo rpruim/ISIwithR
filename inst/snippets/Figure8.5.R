@@ -1,6 +1,6 @@
-sim.acu <- 
+Acu.null <- 
   do(1000) * 
     MAD(prop(shuffle(improvement) ~ acupuncture, data = Acupuncture))
-head(sim.acu, 3)
-histogram(~ result, data = sim.acu, groups = (result >= 0.135))
+head(Acu.null, 3)
+histogram(~ result, data = Acu.null, groups = (result >= 0.135))
 
